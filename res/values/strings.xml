@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LiquidWar</string>
+    <string name="action_settings">Settings</string>
+    <string name="ballDescription">A blue ball</string>
+    <string name="startTest">Start Graphics</string>
+    <string name="startopenGLTest">Start OpenGL Graphics</string>
+</resources>
