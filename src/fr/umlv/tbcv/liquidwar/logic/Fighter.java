@@ -28,8 +28,8 @@ public class Fighter {
 	}
 	
 	public void move () {
-		int i , j ;
-		
+		nextPosition.setX(42) ;
+		nextPosition.setY(56) ;
 		
 		return ;
 	}
