@@ -2,18 +2,18 @@ package fr.umlv.tbcv.liquidwar.logic;
 
 public class Player {
 	
-	private Position position ;
+	private Coordinates position ;
 
-	public Position getPosition() {
+	public Coordinates getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position position) {
+	public void setPosition(Coordinates position) {
 		this.position = position;
 	}
 	
 	public Player () {
-		position = new Position() ;
+		position = new Coordinates() ;
 	}
 	
 	

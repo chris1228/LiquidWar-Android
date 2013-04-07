@@ -1,14 +1,15 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
-public class Position {
-	private int x,y ;
+public class Coordinates {
+	private int x,y,z ;
 	
-	public Position () {
+	public Coordinates () {
 		x = 0 ;
+		y = 0 ;
 		y = 0 ;
 	}
 	
-	public Position (int x, int y) {
+	public Coordinates (int x, int y) {
 		this.x = x ;
 		this.y = y ;
 	}
@@ -29,13 +30,21 @@ public class Position {
 		this.y = y;
 	}
 	
+	public int getZ() {
+		return z;
+	}
+
+	public void setZ(int z) {
+		this.z = z;
+	}
+	
 	/**
 	 * Calculate the square distance between 2 positions
 	 * @param a	The first position
 	 * @param b The second position
 	 * @return	The square distance between the 2 positions
 	 */
-	public static int getSquareDistance (Position a, Position b) {
+	public static int getSquareDistance (Coordinates a, Coordinates b) {
 		if ( a == null || b == null ) {
 			return -1 ;
 		}

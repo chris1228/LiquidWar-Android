@@ -2,6 +2,7 @@ package fr.umlv.tbcv.liquidwar.logic;
 
 public class LiquidMap {
 	private int w,h,d ;
+	private int map[] ;
 	
 	private int nbPlaces, nbZones, nbSlots, nbUsableSlots, nbRoomForArmies, maxZoneSize ;
 	

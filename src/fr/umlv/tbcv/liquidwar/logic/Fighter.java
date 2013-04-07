@@ -1,30 +1,30 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
 public class Fighter {
-	private Position position ;
+	private Coordinates position ;
 	short health ;
 	short act_counter ;
 	char team ;
 	char last_dir ;
 	
-	private Position nextPosition ;
+	private Coordinates nextPosition ;
 	
 	
-	public Position getPosition() {
+	public Coordinates getPosition() {
 		return position;
 	}
-	public void setPosition(Position position) {
+	public void setPosition(Coordinates position) {
 		this.position = position;
 	}
 	
 	public Fighter () {
-		position = new Position() ;
+		position = new Coordinates() ;
 		health = 100 ;
 		act_counter = 0 ;
 		team = 'a' ;
 		last_dir = 'n' ;
 		
-		nextPosition = new Position() ;
+		nextPosition = new Coordinates() ;
 	}
 	
 	public void move () {
