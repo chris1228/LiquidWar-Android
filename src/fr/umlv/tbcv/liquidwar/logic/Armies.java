@@ -9,7 +9,7 @@ public class Armies {
 	
 	public Armies () {
 		for ( int i = 0 ; i < fighterNumber ; i++ ) {
-			fighters[i] = new Fighter();
+			fighters[i] = new Fighter(i);
 		}
 
 		// 2 slots ( one for X, the other for Y ) for each fighter
@@ -36,5 +36,9 @@ public class Armies {
 	
 	public int[] getFightersPosition () { 
 		return fightersPosition ;
+	}
+	
+	public Fighter[] getFighters () {
+		return fighters ;
 	}
 }

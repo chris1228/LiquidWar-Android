@@ -2,9 +2,18 @@ package fr.umlv.tbcv.liquidwar.logic;
 
 public class Fighter {
 	private Coordinates position ;
+	int index ;
 	short health ;
 	short act_counter ;
 	char team ;
+	
+	public int getIndex() {
+		return index;
+	}
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
 	char last_dir ;
 	
 	private Coordinates nextPosition ;
@@ -29,12 +38,13 @@ public class Fighter {
 	
 	
 	
-	public Fighter () {
+	public Fighter (int index) {
 		position = new Coordinates() ;
 		health = 100 ;
 		act_counter = 0 ;
 		team = 'a' ;
 		last_dir = 'n' ;
+		this.index = index ;
 		
 		nextPosition = new Coordinates() ;
 	}
