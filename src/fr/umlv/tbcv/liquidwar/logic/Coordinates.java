@@ -53,4 +53,11 @@ public class Coordinates {
 				( (b.getY() - a.getY()) * (b.getY() - a.getY()) ) ;
 
 	}
+	
+	/**
+	 * Translate an (x,y) coordinate in a sizeX*sizeY board
+	 */
+	public static int calculateIndex (int sizeX, int sizeY, int x, int y) {
+		return  sizeX*y + x ;
+	}
 }
