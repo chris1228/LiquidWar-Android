@@ -9,13 +9,25 @@ public class Fighter {
 	
 	private Coordinates nextPosition ;
 	
-	
 	public Coordinates getPosition() {
 		return position;
 	}
 	public void setPosition(Coordinates position) {
 		this.position = position;
 	}
+	
+	
+	public short getHealth() {
+		return health;
+	}
+	public void setHealth(short health) {
+		this.health = health;
+	}
+	public void removeHealth(int damage) {
+		health -= damage ;
+	}
+	
+	
 	
 	public Fighter () {
 		position = new Coordinates() ;
@@ -34,8 +46,8 @@ public class Fighter {
 		return ;
 	}
 	
-	public void attack () {
-		
+	public void attack (Fighter ennemy) {
+		ennemy.removeHealth(5) ;
 		return ;
 	}
 
