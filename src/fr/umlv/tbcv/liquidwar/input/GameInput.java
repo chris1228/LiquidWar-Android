@@ -1,5 +1,7 @@
 package fr.umlv.tbcv.liquidwar.input;
 
+import fr.umlv.tbcv.liquidwar.logic.Coordinates;
+
 public class GameInput {
 	private static volatile int xPlayer ;
 	private static volatile int yPlayer ;
@@ -21,4 +23,9 @@ public class GameInput {
 	public static void setyPlayer(int yPlayer) {
 		GameInput.yPlayer = yPlayer;
 	}
+	
+	public static Coordinates getPosition () {
+		return new Coordinates( xPlayer, yPlayer ) ;
+	}
+
 }

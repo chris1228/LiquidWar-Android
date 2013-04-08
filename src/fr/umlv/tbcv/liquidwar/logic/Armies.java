@@ -2,23 +2,41 @@ package fr.umlv.tbcv.liquidwar.logic;
 
 public class Armies {
 	
-	public static final int fighterNumber = 500 ;
+	public static final int fighterNumber = 100 ;
 	private Fighter[] fighters ;
 	private int[] fightersPosition ;
+	LiquidMap lwmap ;
 	
 	
-	public Armies () {
+	public Armies ( LiquidMap lwmap ) {
+		
+		this.lwmap = lwmap ;
+		
+		fighters = new Fighter[ fighterNumber ] ;
+		
+		Coordinates tempPosition = new Coordinates() ;
+		int j  = 0 ;
+		int fakeWidth = 20 ;
 		for ( int i = 0 ; i < fighterNumber ; i++ ) {
 			fighters[i] = new Fighter(i);
+			// TEMP position initialization
+			tempPosition.setX( i % (fakeWidth + 1) ) ;
+			tempPosition.setY( j ) ;
+			fighters[i].setPosition( tempPosition ) ;
+			
+			if ( i % fakeWidth == 0 ) {
+				j++ ;
+			}
+			// TEMP end of position initialization 
 		}
 
 		// 2 slots ( one for X, the other for Y ) for each fighter
 		fightersPosition = new int[fighterNumber * 2] ;
 	}
 
-	public void move() {
+	public void move( LiquidMap lwmap ) {
 		for ( Fighter f : fighters ) {
-			f.move() ;
+			f.move( lwmap ) ;
 		}
 	}
 	

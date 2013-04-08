@@ -1,5 +1,7 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
+import android.util.Log;
+
 public class Coordinates {
 	private int x,y,z ;
 	
@@ -49,6 +51,9 @@ public class Coordinates {
 			return -1 ;
 		}
 		
+		Log.e("test", "attention :" + ( (b.getX() - a.getX()) * (b.getX() - a.getX()) ) +
+				( (b.getY() - a.getY()) * (b.getY() - a.getY()) ) ) ;
+		
 		return ( (b.getX() - a.getX()) * (b.getX() - a.getX()) ) +
 				( (b.getY() - a.getY()) * (b.getY() - a.getY()) ) ;
 
@@ -58,6 +63,15 @@ public class Coordinates {
 	 * Translate an (x,y) coordinate in a sizeX*sizeY board
 	 */
 	public static int calculateIndex (int sizeX, int sizeY, int x, int y) {
-		return  sizeX*y + x ;
+		return  sizeX*y + x  ;
+	}
+	
+	public void copyCoordinates( Coordinates source ) {
+		x = source.getX() ;
+		y = source.getY() ;
+	}
+	
+	public String toString () {
+		return "("+x+","+y+")" ;
 	}
 }

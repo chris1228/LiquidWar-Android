@@ -11,21 +11,16 @@ import android.view.MotionEvent;
 
 public class GameActivityOpenGL extends Activity {
 	
-
-	
-	
 	private GLSurfaceView myGLView ;
-//	private LiquidWorld gameWorld = new LiquidWorld() ;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		
-
 		// Create a GLSurfaceView instance and set it
 		// as the ContentView for this Activity.
 		myGLView = new MyGLSurfaceView(this);
+		
 		
 		setContentView(myGLView);
 	}
@@ -48,7 +43,6 @@ public class GameActivityOpenGL extends Activity {
 			myRenderer = new LiquidWarRenderer() ;
 	        setRenderer(myRenderer);	
 	        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-//	        gameWorld.run() ;
 		}
 		
 		@Override

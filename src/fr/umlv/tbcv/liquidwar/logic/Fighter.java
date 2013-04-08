@@ -1,5 +1,7 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
+import fr.umlv.tbcv.liquidwar.input.GameInput;
+
 public class Fighter {
 	private Coordinates position ;
 	int index ;
@@ -37,7 +39,6 @@ public class Fighter {
 	}
 	
 	
-	
 	public Fighter (int index) {
 		position = new Coordinates() ;
 		health = 100 ;
@@ -49,16 +50,29 @@ public class Fighter {
 		nextPosition = new Coordinates() ;
 	}
 	
-	public void move () {
-		nextPosition.setX(42) ;
-		nextPosition.setY(56) ;
+	public void move (LiquidMap lwmap) {
+		Coordinates cursor = GameInput.getPosition() ;
+		Coordinates finalPosition = new Coordinates( position.getX() , position.getY() ) ;
+		Coordinates tempPosition = new Coordinates( position.getX() , position.getY() ) ;
 		
-		return ;
+		for (int i = tempPosition.getX() - 1 ; i <= tempPosition.getX() + 1 ; i ++ ) {
+			tempPosition.setX(i) ;
+			for ( int j = tempPosition.getY() - 1 ; j <= tempPosition.getY() + 1  ; j++ ) {
+				tempPosition.setY( j ) ;
+//				if ( lwmap.checkPosition(tempPosition) == 0 &&
+//					 Coordinates.getSquareDistance( tempPosition, cursor ) <
+//					 Coordinates.getSquareDistance( finalPosition, cursor) ) {
+//					finalPosition.copyCoordinates( tempPosition );
+//				} 
+			}
+		}
+		
+//		lwmap.putSoldier(finalPosition, this) ;
+//		setPosition( finalPosition ) ;
 	}
 	
 	public void attack (Fighter ennemy) {
 		ennemy.removeHealth(5) ;
-		return ;
 	}
 
 }

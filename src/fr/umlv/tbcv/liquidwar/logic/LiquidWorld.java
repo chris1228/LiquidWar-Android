@@ -5,12 +5,10 @@ import fr.umlv.tbcv.liquidwar.input.GameInput;
 public class LiquidWorld  {
 	private static final int gameWidth = 50 ;
 	private static final int gameHeight = 50 ;
-	
-	
-	private static boolean[] fighterMap ;
+	private static final int gameDepth = 1 ;
+	private LiquidMap lwmap ;
 	
 	boolean gameOn = true ;
-	
 	private Player player ;
 	private Armies armies ;
 
@@ -27,13 +25,10 @@ public class LiquidWorld  {
 	
 	
 	public LiquidWorld() {
+		lwmap = new LiquidMap( gameWidth , gameHeight , gameDepth ) ;
 		player = new Player() ;
-		armies = new Armies() ;
+		armies = new Armies(lwmap) ;
 		
-		fighterMap = new boolean [ gameWidth * gameHeight ] ;
-		for ( int i = 0 ; i < gameWidth * gameHeight ; i++ ) {
-			fighterMap[ i ] = false ;
-		}
 		new GameInput() ;
 	}
 	
@@ -47,7 +42,7 @@ public class LiquidWorld  {
 		player.getPosition().setY( GameInput.getyPlayer() ) ;
 		
 		// Every fighter decides its next position and moves
-		armies.move() ;
+		armies.move( lwmap ) ;
 	}
 	
 	
