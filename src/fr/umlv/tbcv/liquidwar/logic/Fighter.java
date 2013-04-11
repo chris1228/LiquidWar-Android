@@ -1,5 +1,8 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
+import android.util.Log;
+import fr.umlv.tbcv.liquidwar.input.GameInput;
+
 //import fr.umlv.tbcv.liquidwar.input.GameInput;
 
 public class Fighter {
@@ -27,7 +30,6 @@ public class Fighter {
 		this.position = position;
 	}
 	
-	
 	public short getHealth() {
 		return health;
 	}
@@ -51,24 +53,29 @@ public class Fighter {
 	}
 	
 	public void move (LiquidMap lwmap) {
-//		Coordinates cursor = GameInput.getPosition() ;
-//		Coordinates finalPosition = new Coordinates( position.getX() , position.getY() ) ;
-//		Coordinates tempPosition = new Coordinates( position.getX() , position.getY() ) ;
-//		
-//		for (int i = tempPosition.getX() - 1 ; i <= tempPosition.getX() + 1 ; i ++ ) {
-//			tempPosition.setX(i) ;
-//			for ( int j = tempPosition.getY() - 1 ; j <= tempPosition.getY() + 1  ; j++ ) {
-//				tempPosition.setY( j ) ;
-//				if ( lwmap.checkPosition(tempPosition) == 0 &&
-//					 Coordinates.getSquareDistance( tempPosition, cursor ) <
-//					 Coordinates.getSquareDistance( finalPosition, cursor) ) {
-//					finalPosition.copyCoordinates( tempPosition );
-//				} 
-//			}
-//		}
-//		
-//		lwmap.putSoldier(finalPosition, this) ;
-//		setPosition( finalPosition ) ;
+		Coordinates cursor = GameInput.getPosition() ;
+		Coordinates finalPosition = new Coordinates( position.getX() , position.getY() ) ;
+		Coordinates tempPosition = new Coordinates( position.getX() , position.getY() ) ;
+		
+		Log.e("Cursor", cursor.toString() ) ;
+		
+		
+		for (int i = position.getX() - 1 ; i <= position.getX() + 1 ; i ++ ) {
+			tempPosition.setX(i) ;
+			for ( int j = position.getY() - 1 ; j <= position.getY() + 1  ; j++ ) {
+				tempPosition.setY( j ) ;
+				if ( lwmap.checkPosition(tempPosition) == 0 &&
+					 Coordinates.getSquareDistance( tempPosition, cursor ) <
+					 Coordinates.getSquareDistance( finalPosition, cursor) ) {
+					finalPosition.copyCoordinates( tempPosition );
+				} 
+			}
+		}
+		
+		lwmap.putSoldier(finalPosition, this) ;
+		position.setX( finalPosition.getX() ) ;
+		position.setY( finalPosition.getY() ) ;
+		
 	}
 	
 	public void attack (Fighter ennemy) {
