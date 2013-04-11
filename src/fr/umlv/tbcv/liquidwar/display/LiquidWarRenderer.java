@@ -50,6 +50,7 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         // Initialize game logic
         gameWorld = new LiquidWorld() ;
      		
+        // Initilize objects to be drawn
         mTriangle = new Triangle();
         mSquare   = new Square();
         myPoint	  = new Point() ;

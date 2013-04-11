@@ -29,6 +29,7 @@ public class ArmiesGL {
             "void main() {" +
             // the matrix must be included as a modifier of gl_Position
             "  gl_Position = vPosition * uMVPMatrix;" +
+            "  gl_PointSize = 10.0 ; " +
             "}";
 
 	private final String fragmentShaderCode =

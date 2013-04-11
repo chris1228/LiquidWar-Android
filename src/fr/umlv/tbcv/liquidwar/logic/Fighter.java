@@ -1,6 +1,6 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
-import fr.umlv.tbcv.liquidwar.input.GameInput;
+//import fr.umlv.tbcv.liquidwar.input.GameInput;
 
 public class Fighter {
 	private Coordinates position ;
@@ -18,7 +18,7 @@ public class Fighter {
 
 	char last_dir ;
 	
-	private Coordinates nextPosition ;
+//	private Coordinates nextPosition ;
 	
 	public Coordinates getPosition() {
 		return position;
@@ -47,26 +47,26 @@ public class Fighter {
 		last_dir = 'n' ;
 		this.index = index ;
 		
-		nextPosition = new Coordinates() ;
+//		nextPosition = new Coordinates() ;
 	}
 	
 	public void move (LiquidMap lwmap) {
-		Coordinates cursor = GameInput.getPosition() ;
-		Coordinates finalPosition = new Coordinates( position.getX() , position.getY() ) ;
-		Coordinates tempPosition = new Coordinates( position.getX() , position.getY() ) ;
-		
-		for (int i = tempPosition.getX() - 1 ; i <= tempPosition.getX() + 1 ; i ++ ) {
-			tempPosition.setX(i) ;
-			for ( int j = tempPosition.getY() - 1 ; j <= tempPosition.getY() + 1  ; j++ ) {
-				tempPosition.setY( j ) ;
+//		Coordinates cursor = GameInput.getPosition() ;
+//		Coordinates finalPosition = new Coordinates( position.getX() , position.getY() ) ;
+//		Coordinates tempPosition = new Coordinates( position.getX() , position.getY() ) ;
+//		
+//		for (int i = tempPosition.getX() - 1 ; i <= tempPosition.getX() + 1 ; i ++ ) {
+//			tempPosition.setX(i) ;
+//			for ( int j = tempPosition.getY() - 1 ; j <= tempPosition.getY() + 1  ; j++ ) {
+//				tempPosition.setY( j ) ;
 //				if ( lwmap.checkPosition(tempPosition) == 0 &&
 //					 Coordinates.getSquareDistance( tempPosition, cursor ) <
 //					 Coordinates.getSquareDistance( finalPosition, cursor) ) {
 //					finalPosition.copyCoordinates( tempPosition );
 //				} 
-			}
-		}
-		
+//			}
+//		}
+//		
 //		lwmap.putSoldier(finalPosition, this) ;
 //		setPosition( finalPosition ) ;
 	}
