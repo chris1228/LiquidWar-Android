@@ -88,7 +88,7 @@ public class ArmiesGL {
 		vertexBuffer.put( armies.getFightersPosition() ) ;
 		vertexBuffer.position(0) ;
 		
-		Log.e("Array", Arrays.toString( armies.getFightersPosition() ) ) ;
+//		Log.e("Array", Arrays.toString( armies.getFightersPosition() ) ) ;
 		
 		// Add program to OpenGL environment
         GLES20.glUseProgram(mProgram);

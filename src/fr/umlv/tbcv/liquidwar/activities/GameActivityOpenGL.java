@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class GameActivityOpenGL extends Activity {
@@ -54,8 +55,12 @@ public class GameActivityOpenGL extends Activity {
 	        float x = e.getX();
 	        float y = e.getY();
 	        
+	        Log.e("OriginalCursor", "("+ x + "," + y + ")") ;
+	        
 	        GameInput.setxPlayer( (int) (x* LiquidWorld.getGamewidth() / this.getWidth())  ) ;
-	        GameInput.setyPlayer( (int) (y* LiquidWorld.getGameheight()/ this.getHeight()) ) ;
+	        GameInput.setyPlayer( (int) (y* LiquidWorld.getGameheight() / this.getHeight()) ) ;
+	        
+	        
 
 
 	        //TODO remove this part (rotating the triangle)

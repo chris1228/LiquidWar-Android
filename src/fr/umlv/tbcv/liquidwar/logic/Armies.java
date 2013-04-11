@@ -30,7 +30,7 @@ public class Armies {
 			fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
 			fighters[i].getPosition().setY(  j ) ;
 
-			Log.e("FighterPos", "Fighter init at" + fighters[i].getPosition() ) ;
+//			Log.e("FighterPos", "Fighter init at" + fighters[i].getPosition() ) ;
 			
 			if ( i >= fakeWidth && i % fakeWidth == 0 ) {
 				j++ ;
@@ -39,8 +39,8 @@ public class Armies {
 	}
 
 	public void move( LiquidMap lwmap ) {
-		for ( Fighter f : fighters ) {
-			f.move( lwmap ) ;
+		for ( int i = 0 ; i < fighterNumber; i++ ) {
+			fighters[i].move( lwmap ) ;
 		}
 	}
 	
@@ -55,8 +55,8 @@ public class Armies {
 		{
 			fightersPosition[i++] = fighters[f].getPosition().getX() ;
 			fightersPosition[i++] = fighters[f].getPosition().getY() ;
-			Log.e("FighterPos", fighters[f].getPosition().toString() );
-			Log.e("Array", "ARRAY["+ fightersPosition[i-2] + "," + fightersPosition[i-1] + "]") ;
+//			Log.e("FighterPos", fighters[f].getPosition().toString() );
+//			Log.e("Array", "ARRAY["+ fightersPosition[i-2] + "," + fightersPosition[i-1] + "]") ;
 		}
 
 	}
