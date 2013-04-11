@@ -3,8 +3,10 @@ package fr.umlv.tbcv.liquidwar.display;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
+import java.util.Arrays;
 
 import android.opengl.GLES20;
+import android.util.Log;
 
 import fr.umlv.tbcv.liquidwar.logic.Armies;
 
@@ -17,8 +19,14 @@ public class ArmiesGL {
 	
 	private Armies armies ;
 	
+	static int pointCoords[] = {
+		 1, 3,   // top
+		 1, -10,   // bottom left
+		 -7, 12 // bottom right
+   };
+	
 	//Color of the point
-	float color[] = { 0.44215f, 0.226953125f, 0.82265625f, 1.0f };
+	float color[] = { 0.74215f, 0.83125f, 0.22265625f, 1.0f };
 	
     private final String vertexShaderCode =
             // This matrix member variable provides a hook to manipulate
@@ -29,7 +37,7 @@ public class ArmiesGL {
             "void main() {" +
             // the matrix must be included as a modifier of gl_Position
             "  gl_Position = vPosition * uMVPMatrix;" +
-            "  gl_PointSize = 10.0 ; " +
+            "  gl_PointSize = 5.0 ; " +
             "}";
 
 	private final String fragmentShaderCode =
@@ -46,6 +54,7 @@ public class ArmiesGL {
 	private int mColorHandle;
 	
 	private final int vertexCount = Armies.fighterNumber * 2 / COORDS_PER_VERTEX;
+//	private final int vertexCount = pointCoords.length / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 	
 	public ArmiesGL(Armies a) {
@@ -54,10 +63,12 @@ public class ArmiesGL {
 		
 		// Allocating number of element in the array * 4 bytes ( Size of a float ) 
 		ByteBuffer bb = ByteBuffer.allocateDirect( Armies.fighterNumber * 2 * 4 ) ;
+//		ByteBuffer bb = ByteBuffer.allocateDirect( pointCoords.length * 4 ) ;
 		bb.order(ByteOrder.nativeOrder() ) ;
 		
 		vertexBuffer = bb.asIntBuffer() ;
 		vertexBuffer.put( armies.getFightersPosition() ) ;
+//		vertexBuffer.put( pointCoords ) ;
 		vertexBuffer.position(0) ;
 		
 		 int vertexShader = LiquidWarRenderer.loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
@@ -74,6 +85,10 @@ public class ArmiesGL {
 		
 		// Update the int array with the actual fighters positions
 		armies.retrieveFightersPosition() ;
+		vertexBuffer.put( armies.getFightersPosition() ) ;
+		vertexBuffer.position(0) ;
+		
+		Log.e("Array", Arrays.toString( armies.getFightersPosition() ) ) ;
 		
 		// Add program to OpenGL environment
         GLES20.glUseProgram(mProgram);

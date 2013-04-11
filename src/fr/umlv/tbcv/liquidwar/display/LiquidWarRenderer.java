@@ -11,7 +11,6 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import fr.umlv.tbcv.liquidwar.logic.LiquidWorld;
-import fr.umlv.tbcv.liquidwar.logic.Point;
 import fr.umlv.tbcv.liquidwar.logic.PointInteger;
 
 import android.opengl.GLES20;
@@ -26,8 +25,8 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
     private static final String TAG = "LiquidWarRenderer";
     private Triangle mTriangle;
     private Square   mSquare;
-    private Point myPoint ;
     private PointInteger myPointInt ;
+    private ArmiesGL armies ;
 
     private final float[] mProjMatrix = new float[16];
     private final float[] mVMatrix = new float[16];
@@ -53,8 +52,8 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         // Initilize objects to be drawn
         mTriangle = new Triangle();
         mSquare   = new Square();
-        myPoint	  = new Point() ;
         myPointInt = new PointInteger() ;
+        armies = new ArmiesGL( gameWorld.getArmies() ) ;
         
     }
 
@@ -79,10 +78,11 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         // Draw square
         mSquare.draw(mMVPMatrix);
         
-        // Draw Point
-        myPoint.draw(mMVPMatrix) ;
-        
+        // Draw integer points
         myPointInt.draw(mMVPMatrix) ;
+        
+     // Draw soldiers
+        armies.draw(mMVPMatrix); 
 
         // Create a rotation for the triangle
 //        long time = SystemClock.uptimeMillis() % 4000L;
@@ -92,9 +92,10 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         // Combine the rotation matrix with the projection and camera view
         Matrix.multiplyMM(mMVPMatrix, 0, mRotationMatrix, 0, mMVPMatrix, 0);
         
-
         // Draw triangle
         mTriangle.draw(mMVPMatrix);
+        
+        
     }
 
     @Override

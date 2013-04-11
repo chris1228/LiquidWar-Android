@@ -3,25 +3,14 @@ package fr.umlv.tbcv.liquidwar.logic;
 import fr.umlv.tbcv.liquidwar.input.GameInput;
 
 public class LiquidWorld  {
-	private static final int gameWidth = 15 ;
-	private static final int gameHeight = 15 ;
+	private static final int gameWidth = 50 ;
+	private static final int gameHeight = 50 ;
 	private static final int gameDepth = 1 ;
 	private LiquidMap lwmap ;
 	
 	boolean gameOn = true ;
 	private Player player ;
 	private Armies armies ;
-
-
-	/*                   GETTERS / SETTERS                 */
-	public static int getGamewidth() {
-		return gameWidth;
-	}
-	public static int getGameheight() {
-		return gameHeight;
-	}
-	
-	/*														*/
 	
 	
 	public LiquidWorld() {
@@ -46,8 +35,29 @@ public class LiquidWorld  {
 	}
 	
 	
+	/*                   GETTERS / SETTERS                 */
+	public static int getGamewidth() {
+		return gameWidth;
+	}
+	public static int getGameheight() {
+		return gameHeight;
+	}
+	
+	public Player getPlayer() {
+		return player;
+	}
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+	
+	public Armies getArmies() {
+		return armies;
+	}
+	public void setArmies(Armies armies) {
+		this.armies = armies;
+	}
 	
 	
+	/*														*/
 	
-
 }

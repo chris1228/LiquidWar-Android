@@ -1,7 +1,5 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
-import android.util.Log;
-
 public class Coordinates {
 	private int x,y,z ;
 	
@@ -50,9 +48,6 @@ public class Coordinates {
 		if ( a == null || b == null ) {
 			return -1 ;
 		}
-		
-		Log.e("test", "attention :" + ( (b.getX() - a.getX()) * (b.getX() - a.getX()) ) +
-				( (b.getY() - a.getY()) * (b.getY() - a.getY()) ) ) ;
 		
 		return ( (b.getX() - a.getX()) * (b.getX() - a.getX()) ) +
 				( (b.getY() - a.getY()) * (b.getY() - a.getY()) ) ;
