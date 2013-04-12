@@ -22,7 +22,17 @@ public class ArmiesGL {
 	static int pointCoords[] = {
 		 1, 3,   // top
 		 1, -10,   // bottom left
-		 -7, 12 // bottom right
+		 -7, 12, // bottom right
+		 -45, -45,
+		 -45, 45,
+		 45, -45,
+		 45, 45,
+		 15, 20,
+		 15,40,
+		 30,40,
+		 33, 40,
+		 33,48,
+		 33,50
    };
 	
 	//Color of the point
@@ -53,8 +63,8 @@ public class ArmiesGL {
 
 	private int mColorHandle;
 	
-	private final int vertexCount = Armies.fighterNumber * 2 / COORDS_PER_VERTEX;
-//	private final int vertexCount = pointCoords.length / COORDS_PER_VERTEX;
+//	private final int vertexCount = Armies.fighterNumber * 2 / COORDS_PER_VERTEX;
+	private final int vertexCount = pointCoords.length / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 	
 	public ArmiesGL(Armies a) {
@@ -62,13 +72,13 @@ public class ArmiesGL {
 		armies = a ;
 		
 		// Allocating number of element in the array * 4 bytes ( Size of a float ) 
-		ByteBuffer bb = ByteBuffer.allocateDirect( Armies.fighterNumber * 2 * 4 ) ;
-//		ByteBuffer bb = ByteBuffer.allocateDirect( pointCoords.length * 4 ) ;
+//		ByteBuffer bb = ByteBuffer.allocateDirect( Armies.fighterNumber * 2 * 4 ) ;
+		ByteBuffer bb = ByteBuffer.allocateDirect( pointCoords.length * 4 ) ;
 		bb.order(ByteOrder.nativeOrder() ) ;
 		
 		vertexBuffer = bb.asIntBuffer() ;
-		vertexBuffer.put( armies.getFightersPosition() ) ;
-//		vertexBuffer.put( pointCoords ) ;
+//		vertexBuffer.put( armies.getFightersPosition() ) ;
+		vertexBuffer.put( pointCoords ) ;
 		vertexBuffer.position(0) ;
 		
 		 int vertexShader = LiquidWarRenderer.loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
@@ -85,8 +95,8 @@ public class ArmiesGL {
 		
 		// Update the int array with the actual fighters positions
 		armies.retrieveFightersPosition() ;
-		vertexBuffer.put( armies.getFightersPosition() ) ;
-		vertexBuffer.position(0) ;
+//		vertexBuffer.put( armies.getFightersPosition() ) ;
+//		vertexBuffer.position(0) ;
 		
 //		Log.e("Array", Arrays.toString( armies.getFightersPosition() ) ) ;
 		

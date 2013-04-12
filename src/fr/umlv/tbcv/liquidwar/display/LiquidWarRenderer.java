@@ -43,13 +43,17 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         // Set the background frame color
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         
+        float aspectRatio = (float) LiquidWorld.getGamewidth() / (float) LiquidWorld.getGameheight() ;
+        
+        
         Matrix.setIdentityM(mProjMatrix, 0) ;
-        Matrix.orthoM(mOrthoMatrix, 0, (float)-(LiquidWorld.getGamewidth()), (float)(LiquidWorld.getGamewidth()), (float)-(LiquidWorld.getGameheight()), (float)(LiquidWorld.getGameheight()), -10f, 10f) ;
-
+        Matrix.orthoM(mOrthoMatrix, 0, (float)-(LiquidWorld.getGamewidth()), (float)(LiquidWorld.getGamewidth()), (float)-(LiquidWorld.getGameheight()), (float)(LiquidWorld.getGameheight()), -40f, 40f) ;
+//        Matrix.orthoM(mOrthoMatrix, 0, -aspectRatio, aspectRatio, -1, 1, -1, 1 ) ;
+        
         // Initialize game logic
         gameWorld = new LiquidWorld() ;
      		
-        // Initilize objects to be drawn
+        // Initialize objects to be drawn
         mTriangle = new Triangle();
         mSquare   = new Square();
         myPointInt = new PointInteger() ;

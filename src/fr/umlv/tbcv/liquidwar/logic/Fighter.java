@@ -57,7 +57,7 @@ public class Fighter {
 		Coordinates finalPosition = new Coordinates( position.getX() , position.getY() ) ;
 		Coordinates tempPosition = new Coordinates( position.getX() , position.getY() ) ;
 		
-		Log.e("Cursor", cursor.toString() ) ;
+//		Log.e("Cursor", cursor.toString() ) ;
 		
 		
 		for (int i = position.getX() - 1 ; i <= position.getX() + 1 ; i ++ ) {
