@@ -43,7 +43,7 @@ public class GameActivityOpenGL extends Activity {
 			// Set the Renderer for drawing on the GLSurfaceView
 			myRenderer = new LiquidWarRenderer() ;
 	        setRenderer(myRenderer);	
-	        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+//	        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
 		}
 		
 		@Override

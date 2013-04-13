@@ -49,6 +49,7 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         Matrix.setIdentityM(mProjMatrix, 0) ;
         Matrix.orthoM(mOrthoMatrix, 0, (float)-(LiquidWorld.getGamewidth()), (float)(LiquidWorld.getGamewidth()), (float)-(LiquidWorld.getGameheight()), (float)(LiquidWorld.getGameheight()), -40f, 40f) ;
 //        Matrix.orthoM(mOrthoMatrix, 0, -aspectRatio, aspectRatio, -1, 1, -1, 1 ) ;
+//        Matrix.orthoM(mOrthoMatrix, 0, 0f, (float)(LiquidWorld.getGamewidth()), (float)(LiquidWorld.getGameheight()),0f,  -40f, 40f) ;
         
         // Initialize game logic
         gameWorld = new LiquidWorld() ;
@@ -80,7 +81,7 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         Matrix.multiplyMM(mMVPMatrix, 0, mOrthoMatrix, 0, mMVPMatrix, 0) ;
 
         // Draw square
-        mSquare.draw(mMVPMatrix);
+//        mSquare.draw(mMVPMatrix);
         
         // Draw integer points
         myPointInt.draw(mMVPMatrix) ;
@@ -112,7 +113,7 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
 
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
-        Matrix.frustumM(mProjMatrix, 0, ratio, -ratio, -1, 1, 3, 7);
+        Matrix.frustumM(mProjMatrix, 0, 1, -1, -1, 1, 3, 7);
         
         Log.e("deviceProportions","width = "+width+" || height = "+height );
 
