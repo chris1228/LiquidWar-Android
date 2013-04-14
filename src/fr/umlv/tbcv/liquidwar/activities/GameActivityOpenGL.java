@@ -60,8 +60,8 @@ public class GameActivityOpenGL extends Activity {
 //	        GameInput.setxPlayer( (int) (x* LiquidWorld.getGamewidth() / this.getWidth())  ) ;
 //	        GameInput.setyPlayer( (int) (y* LiquidWorld.getGameheight() / this.getHeight()) ) ;
 	        
-	        GameInput.setxPlayer( (int) (x* LiquidWorld.getGamewidth() * 2 / this.getWidth()) - LiquidWorld.getGamewidth() ) ;
-	        GameInput.setyPlayer(  - ( (int) (y* LiquidWorld.getGameheight() * 2/ this.getHeight()) - LiquidWorld.getGameheight() ) ) ;
+	        GameInput.setxPlayer( (int) (x* LiquidWorld.getGamewidth()  / this.getWidth()) ) ;
+	        GameInput.setyPlayer( LiquidWorld.getGameheight() - ((int) (y* LiquidWorld.getGameheight() / this.getHeight()) ) ) ;
 	        
 	        Log.e("CustomCursor", "("+ GameInput.getxPlayer() + "," + GameInput.getyPlayer() + ")") ;
 	        

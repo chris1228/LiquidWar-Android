@@ -4,7 +4,7 @@ import android.util.Log;
 
 public class Armies {
 	
-	public static final int fighterNumber = 600 ;
+	public static final int fighterNumber = 150 ;
 	private Fighter[] fighters ;
 	private int[] fightersPosition ;
 	LiquidMap lwmap ;

@@ -45,7 +45,7 @@ public class LiquidMap {
 	
 	int checkPosition ( Coordinates pos ) {
 		if  ( pos.getX() < 0 || pos.getX() >= w || pos.getY() < 0 || pos.getY() >= h ) {
-			return -1 ;
+			return OBSTACLE ;
 		}
 		
 		return map[ Coordinates.calculateIndex(w, h, pos.getX(), pos.getY() )] ;
