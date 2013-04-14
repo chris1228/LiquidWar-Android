@@ -3,13 +3,10 @@ package fr.umlv.tbcv.liquidwar.display;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
-import java.util.Arrays;
 
 import android.opengl.GLES20;
-import android.util.Log;
 
 import fr.umlv.tbcv.liquidwar.input.GameInput;
-import fr.umlv.tbcv.liquidwar.logic.Armies;
 
 public class PlayerGL {
 	private IntBuffer vertexBuffer ;
@@ -19,9 +16,6 @@ public class PlayerGL {
 	static final int COORDS_PER_VERTEX = 2 ;
 	
 	static int pointCoords[] ;
-	
-	//Color of the point
-	float color[] = { 0.64215f, 0.83125f, 0.62265625f, 1.0f };
 	
     private final String vertexShaderCode =
             // This matrix member variable provides a hook to manipulate
@@ -101,7 +95,7 @@ public class PlayerGL {
         mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
 
         // Set color for drawing the triangle
-        GLES20.glUniform4fv(mColorHandle, 1, color, 0);
+        GLES20.glUniform4fv(mColorHandle, 1, Colors.getColor(0), 0);
 
         // get handle to shape's transformation matrix
         mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
