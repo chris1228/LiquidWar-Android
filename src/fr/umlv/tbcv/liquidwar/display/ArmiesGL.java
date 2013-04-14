@@ -3,10 +3,8 @@ package fr.umlv.tbcv.liquidwar.display;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
-import java.util.Arrays;
 
 import android.opengl.GLES20;
-import android.util.Log;
 
 import fr.umlv.tbcv.liquidwar.logic.Armies;
 
@@ -32,9 +30,6 @@ public class ArmiesGL {
 		 49,49,
 		 50,50
    };
-	
-	//Color of the point
-	float color[] = { 0.74215f, 0.83125f, 0.22265625f, 1.0f };
 	
     private final String vertexShaderCode =
             "uniform mat4 uMVPMatrix;" +
@@ -113,7 +108,7 @@ public class ArmiesGL {
         mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
 
         // Set color for drawing the triangle
-        GLES20.glUniform4fv(mColorHandle, 1, color, 0);
+        GLES20.glUniform4fv(mColorHandle, 1, Colors.getColor(0), 0);
 
         // get handle to shape's transformation matrix
         mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
