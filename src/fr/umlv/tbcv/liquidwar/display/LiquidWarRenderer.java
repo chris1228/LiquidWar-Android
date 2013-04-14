@@ -1,12 +1,5 @@
 package fr.umlv.tbcv.liquidwar.display;
 
-
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -27,7 +20,6 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
     private final float[] mProjMatrix = new float[16];
     private final float[] mVMatrix = new float[16];
     private final float[] mOrthoMatrix = new float[16];
-    private float[] mRotationMatrix = new float[16];
     private float[] mMVPMatrix = new float[16];
 
     // Declare as volatile because we are updating it from another thread
