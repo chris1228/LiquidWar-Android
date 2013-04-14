@@ -1,6 +1,5 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
-import android.util.Log;
 import fr.umlv.tbcv.liquidwar.input.GameInput;
 
 //import fr.umlv.tbcv.liquidwar.input.GameInput;
@@ -45,7 +44,7 @@ public class Fighter {
 		position = new Coordinates() ;
 		health = 100 ;
 		act_counter = 0 ;
-		team = 'a' ;
+		team = 1 ;
 		last_dir = 'n' ;
 		this.index = index ;
 		

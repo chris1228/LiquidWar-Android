@@ -1,10 +1,8 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
-import android.util.Log;
-
 public class Armies {
 	
-	public static final int fighterNumber = 150 ;
+	public static final int fighterNumber = 600 ;
 	private Fighter[] fighters ;
 	private int[] fightersPosition ;
 	LiquidMap lwmap ;

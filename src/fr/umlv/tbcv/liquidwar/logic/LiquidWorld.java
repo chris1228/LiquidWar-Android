@@ -3,9 +3,10 @@ package fr.umlv.tbcv.liquidwar.logic;
 import fr.umlv.tbcv.liquidwar.input.GameInput;
 
 public class LiquidWorld  {
-	private static final int gameWidth = 45 ;
-	private static final int gameHeight = 80 ;
-	private static final int gameDepth = 1 ;
+	public static final int gameWidth = 45 ;
+	public static final int gameHeight = 80 ;
+	public static final int gameDepth = 1 ;
+	public static int playerNumber = 2 ;
 	private LiquidMap lwmap ;
 	
 	boolean gameOn = true ;
