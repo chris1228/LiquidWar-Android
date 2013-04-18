@@ -21,6 +21,7 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
 
     private static final String TAG = "LiquidWarRenderer";
     private ArmiesGL armies ;
+    private static int width, height ;
     
     private Triangle mTriangle;
 
@@ -71,7 +72,7 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mMVPMatrix, 0, mProjMatrix, 0, mVMatrix, 0);
         
-        Matrix.multiplyMM(mMVPMatrix, 0, mOrthoMatrix, 0, mMVPMatrix, 0) ;
+//        Matrix.multiplyMM(mMVPMatrix, 0, mOrthoMatrix, 0, mMVPMatrix, 0) ;
 
 
 //        mTriangle.draw(mMVPMatrix) ;
@@ -85,6 +86,8 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 unused, int width, int height) {
         // Adjust the viewport based on geometry changes,
         // such as screen rotation
+    	this.width = width ;
+    	this.height = height ;
         GLES20.glViewport(0, 0, width, height);
 
 //        float ratio = (float) width / height;
@@ -127,6 +130,15 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
             throw new RuntimeException(glOperation + ": glError " + error);
         }
     }
+
+	public static int getWidth() {
+		return width;
+	}
+
+	public static int getHeight() {
+		return height;
+	}
+
 }
 
 
@@ -167,9 +179,9 @@ class Triangle {
     };
     
     static int intCoords[] = { // in counterclockwise order:
-        0,  6,    // top
-       -5, -3,  // bottom left
-        5, -3    // bottom right
+        45,  0,    // top
+       0, 0,  // bottom left
+        22, 80    // bottom right
    };
     
     private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
@@ -189,13 +201,7 @@ class Triangle {
         // create a floating point buffer from the ByteBuffer
         vertexBuffer = bb.asFloatBuffer();
         
-        for (int i = 0 ; i < intCoords.length ; i++ ) {
-        	triangleCoords[i] = (float) intCoords[i] ;
-        }
-        // add the coordinates to the FloatBuffer
-        vertexBuffer.put(triangleCoords);
-        // set the buffer to read the first coordinate
-        vertexBuffer.position(0);
+        
 
         // prepare shaders and OpenGL program
         int vertexShader = LiquidWarRenderer.loadShader(GLES20.GL_VERTEX_SHADER,
@@ -211,6 +217,19 @@ class Triangle {
     }
 
     public void draw(float[] mvpMatrix) {
+    	
+    	for (int i = 0 ; i < intCoords.length ; i++ ) {
+        	triangleCoords[i] = (float) (intCoords[i]*2f / LiquidWorld.gameWidth ) -1f ;
+        	i++ ;
+        	triangleCoords[i] = (float) (intCoords[i]*2f / LiquidWorld.gameHeight ) -1f ;
+        	
+//        	Log.e("triangleERROR", " computX = " + triangleCoords[i-1] + " | computY = " + triangleCoords[i] ) ;
+        }
+        // add the coordinates to the FloatBuffer
+        vertexBuffer.put(triangleCoords);
+        // set the buffer to read the first coordinate
+        vertexBuffer.position(0);
+        
         // Add program to OpenGL environment
         GLES20.glUseProgram(mProgram);
 
@@ -225,7 +244,7 @@ class Triangle {
                                      GLES20.GL_FLOAT, false,
                                      vertexStride, vertexBuffer);
 
-        // Triangleget handle to fragment shader's vColor member
+        // Triangle get handle to fragment shader's vColor member
         mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
 
         // Set color for drawing the triangle
@@ -240,7 +259,7 @@ class Triangle {
 //        LiquidWarRenderer.checkGlError("glUniformMatrix4fv");
 
         // Draw the triangle
-        GLES20.glDrawArrays(GLES20.GL_POINTS, 0, vertexCount);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
 
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
