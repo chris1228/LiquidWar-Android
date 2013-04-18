@@ -2,7 +2,7 @@ package fr.umlv.tbcv.liquidwar.logic;
 
 public class Armies {
 	
-	public static final int fighterNumber = 600 ;
+	public static final int fighterNumber = 300 ;
 	private Fighter[] fighters ;
 	private int[] fightersPosition ;
 	LiquidMap lwmap ;
