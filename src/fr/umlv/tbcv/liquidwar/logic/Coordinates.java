@@ -66,7 +66,19 @@ public class Coordinates {
 		y = source.getY() ;
 	}
 	
+	@Override
 	public String toString () {
 		return "("+x+","+y+")" ;
+	}
+	
+	@Override
+	public boolean equals (Object o) {
+		if ( o instanceof Coordinates ) {
+			Coordinates c = (Coordinates) o ;
+			if ( c.getX() == x && c.getY() == y ) {
+				return true ;
+			}
+		}
+		return false ;
 	}
 }

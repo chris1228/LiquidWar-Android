@@ -7,7 +7,7 @@ public class LiquidWorld  {
 	public static final int gameHeight = 80 ;
 	public static final int gameDepth = 1 ;
 	public static int playerNumber = 2 ;
-	private LiquidMap lwmap ;
+	private LiquidSimpleMap lwmap ;
 	
 	boolean gameOn = true ;
 	private Player player ;
@@ -15,7 +15,7 @@ public class LiquidWorld  {
 	
 	
 	public LiquidWorld() {
-		lwmap = new LiquidMap( gameWidth , gameHeight , gameDepth ) ;
+		lwmap = new LiquidSimpleMap( gameWidth , gameHeight , gameDepth ) ;
 		player = new Player() ;
 		armies = new Armies(lwmap) ;
 		
