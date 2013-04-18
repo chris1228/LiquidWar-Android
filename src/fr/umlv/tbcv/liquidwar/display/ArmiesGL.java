@@ -3,15 +3,19 @@ package fr.umlv.tbcv.liquidwar.display;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 
 import android.opengl.GLES20;
 
 import fr.umlv.tbcv.liquidwar.logic.Armies;
+import fr.umlv.tbcv.liquidwar.logic.LiquidWorld;
 
 public class ArmiesGL {
 	
 	private Armies armies ;
+	
+	float xFactor = 2f / LiquidWorld.gameWidth ;
+	float yFactor = 2f / LiquidWorld.gameHeight ;
+	
 	 private final String vertexShaderCode =
 		        // This matrix member variable provides a hook to manipulate
 		        // the coordinates of the objects that use this vertex shader
@@ -21,7 +25,7 @@ public class ArmiesGL {
 		        "void main() {" +
 		        // the matrix must be included as a modifier of gl_Position
 		        "  gl_Position = vPosition * uMVPMatrix;" +
-		        "  gl_PointSize = 8.0 ; " +
+		        "  gl_PointSize = 4.0 ; " +
 		        "}";
 
 		    private final String fragmentShaderCode =
@@ -39,17 +43,9 @@ public class ArmiesGL {
 
 		    // number of coordinates per vertex in this array
 		    static final int COORDS_PER_VERTEX = 2;
-		    static float triangleCoords[] = { // in counterclockwise order:
-		         0f,  0f, 0f, 0f, 0f , 0f   // bottom right
-		    };
+		    private static float[] triangleCoords ;
 		    
-		    static int intCoords[] = { // in counterclockwise order:
-		        0,  6,    // top
-		       -5, -3,  // bottom left
-		        5, -3    // bottom right
-		   };
-		    
-		    private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
+		    private final int vertexCount = Armies.fighterNumber * 2 / COORDS_PER_VERTEX;
 		    private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
 		    // Set color with red, green, blue and alpha (opacity) values
@@ -57,24 +53,21 @@ public class ArmiesGL {
 
 		    public ArmiesGL(Armies a) {
 		    	
+		    	triangleCoords = new float[Armies.fighterNumber * 2 ] ;
+		    	
 		    	armies = a ;
+		    	
+		    	armies.retrieveFightersPosition() ;
+		    	
 		        // initialize vertex byte buffer for shape coordinates
 		        ByteBuffer bb = ByteBuffer.allocateDirect(
 		                // (number of coordinate values * 4 bytes per float)
-		                triangleCoords.length * 4);
+		                armies.fighterNumber *2 * 4);
 		        // use the device hardware's native byte order
 		        bb.order(ByteOrder.nativeOrder());
 
 		        // create a floating point buffer from the ByteBuffer
 		        vertexBuffer = bb.asFloatBuffer();
-		        
-		        for (int i = 0 ; i < intCoords.length ; i++ ) {
-		        	triangleCoords[i] = (float) intCoords[i] ;
-		        }
-		        // add the coordinates to the FloatBuffer
-		        vertexBuffer.put(triangleCoords);
-		        // set the buffer to read the first coordinate
-		        vertexBuffer.position(0);
 
 		        // prepare shaders and OpenGL program
 		        int vertexShader = LiquidWarRenderer.loadShader(GLES20.GL_VERTEX_SHADER,
@@ -90,6 +83,21 @@ public class ArmiesGL {
 		    }
 
 		    public void draw(float[] mvpMatrix) {
+		    	
+		    	armies.retrieveFightersPosition() ;
+		    	
+		    	
+		    	for (int i = 0 ; i < armies.fighterNumber*2 ; i++ ) {
+			        	triangleCoords[i] = (float) (armies.getFightersPosition()[i]* xFactor) - 0.98f ;
+			        	i++ ;
+			        	triangleCoords[i] = (float) (armies.getFightersPosition()[i]* yFactor) - 0.98f ;
+			        }
+			        // add the coordinates to the FloatBuffer
+			        vertexBuffer.put(triangleCoords);
+			        // set the buffer to read the first coordinate
+			        vertexBuffer.position(0);
+		    	
+		    	
 		        // Add program to OpenGL environment
 		        GLES20.glUseProgram(mProgram);
 
