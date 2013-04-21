@@ -11,13 +11,13 @@ public class LiquidWorld  {
 	
 	boolean gameOn = true ;
 	private Player player ;
-	private Armies armies ;
+	private SimpleArmies armies ;
 	
 	
 	public LiquidWorld() {
 		lwmap = new LiquidSimpleMap( gameWidth , gameHeight , gameDepth ) ;
 		player = new Player() ;
-		armies = new Armies(lwmap) ;
+		armies = new SimpleArmies(lwmap) ;
 		
 		new GameInput() ;
 	}
@@ -51,10 +51,10 @@ public class LiquidWorld  {
 		this.player = player;
 	}
 	
-	public Armies getArmies() {
+	public SimpleArmies getArmies() {
 		return armies;
 	}
-	public void setArmies(Armies armies) {
+	public void setArmies(SimpleArmies armies) {
 		this.armies = armies;
 	}
 	

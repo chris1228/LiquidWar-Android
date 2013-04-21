@@ -6,12 +6,12 @@ import java.nio.FloatBuffer;
 
 import android.opengl.GLES20;
 
-import fr.umlv.tbcv.liquidwar.logic.Armies;
+import fr.umlv.tbcv.liquidwar.logic.SimpleArmies;
 import fr.umlv.tbcv.liquidwar.logic.LiquidWorld;
 
 public class ArmiesGL {
 	
-	private Armies armies ;
+	private SimpleArmies armies ;
 	
 	float xFactor = 2f / LiquidWorld.gameWidth ;
 	float yFactor = 2f / LiquidWorld.gameHeight ;
@@ -45,15 +45,15 @@ public class ArmiesGL {
 		    static final int COORDS_PER_VERTEX = 2;
 		    private static float[] triangleCoords ;
 		    
-		    private final int vertexCount = Armies.fighterNumber * 2 / COORDS_PER_VERTEX;
+		    private final int vertexCount = SimpleArmies.fighterNumber * 2 / COORDS_PER_VERTEX;
 		    private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
 		    // Set color with red, green, blue and alpha (opacity) values
 		    float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
 
-		    public ArmiesGL(Armies a) {
+		    public ArmiesGL(SimpleArmies a) {
 		    	
-		    	triangleCoords = new float[Armies.fighterNumber * 2 ] ;
+		    	triangleCoords = new float[SimpleArmies.fighterNumber * 2 ] ;
 		    	
 		    	armies = a ;
 		    	
