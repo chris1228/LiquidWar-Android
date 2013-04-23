@@ -45,7 +45,7 @@ public class ArmiesGL {
 		    static final int COORDS_PER_VERTEX = 2;
 		    private static float[] triangleCoords ;
 		    
-		    private final int vertexCount = SimpleArmies.fighterNumber * 2 / COORDS_PER_VERTEX;
+		    private final int vertexCount = armies.getFightersNumber() * 2 / COORDS_PER_VERTEX;
 		    private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
 		    // Set color with red, green, blue and alpha (opacity) values
@@ -62,7 +62,7 @@ public class ArmiesGL {
 		        // initialize vertex byte buffer for shape coordinates
 		        ByteBuffer bb = ByteBuffer.allocateDirect(
 		                // (number of coordinate values * 4 bytes per float)
-		                armies.fighterNumber *2 * 4);
+		                armies.getFightersNumber() *2 * 4);
 		        // use the device hardware's native byte order
 		        bb.order(ByteOrder.nativeOrder());
 
@@ -87,7 +87,7 @@ public class ArmiesGL {
 		    	armies.retrieveFightersPosition() ;
 		    	
 		    	
-		    	for (int i = 0 ; i < armies.fighterNumber*2 ; i++ ) {
+		    	for (int i = 0 ; i < armies.getFightersNumber() *2 ; i++ ) {
 			        	triangleCoords[i] = (float) (armies.getFightersPosition()[i]* xFactor) - 0.98f ;
 			        	i++ ;
 			        	triangleCoords[i] = (float) (armies.getFightersPosition()[i]* yFactor) - 0.98f ;
