@@ -5,7 +5,6 @@ import fr.umlv.tbcv.liquidwar.input.GameInput;
 public class LiquidWorld  {
 	public static final int gameWidth = 45 ;
 	public static final int gameHeight = 80 ;
-	public static final int gameDepth = 1 ;
 	public static int playerNumber = 2 ;
 	private LiquidSimpleMap lwmap ;
 	
@@ -15,7 +14,7 @@ public class LiquidWorld  {
 	
 	
 	public LiquidWorld() {
-		lwmap = new LiquidSimpleMap( gameWidth , gameHeight , gameDepth ) ;
+		lwmap = new LiquidSimpleMap( gameWidth , gameHeight) ;
 		player = new Player() ;
 		armies = new SimpleArmies(lwmap) ;
 		
