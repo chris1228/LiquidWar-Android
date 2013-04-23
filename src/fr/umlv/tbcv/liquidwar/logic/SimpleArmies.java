@@ -43,27 +43,17 @@ public class SimpleArmies implements Armies {
 		}
 	}
 	
-	/**
-	 * Reads every fighters' coordinates and aggregates them in an array
-	 * for drawing purposes
-	 */
-	public void updateFightersPosition () {  
+	
+	/* GETTER / SETTERS */
+	
+	public int[] getFightersPosition () { 
 		int i = 0 ;
 		
 		for ( int f = 0 ; f < fighterNumber ; f++ )
 		{
 			fightersPosition[i++] = fighters[f].getPosition().getX() ;
 			fightersPosition[i++] = fighters[f].getPosition().getY() ;
-//			Log.e("FighterPos", fighters[f].getPosition().toString() );
-//			Log.e("Array", "ARRAY["+ fightersPosition[i-2] + "," + fightersPosition[i-1] + "]") ;
 		}
-
-	}
-	
-	
-	/* GETTER / SETTERS */
-	
-	public int[] getFightersPosition () { 
 		return fightersPosition ;
 	}
 	
