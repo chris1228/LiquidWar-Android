@@ -1,24 +1,21 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
 public class LiquidSimpleMap implements LiquidMap {
-	private int w,h,d ;
+	private int w,h ;
 	private int map[] ;
 	
 	public static final int EMPTY = 0 ;
 	public static final int OBSTACLE = -1 ; 
 	
-	private int nbPlaces, nbZones, nbSlots, nbUsableSlots, nbRoomForArmies, maxZoneSize ;
 	// + lw6ker_place_struct_t
 	// + lw6ker_zone_struct_t
 	// + lw6ker_slot_struct_t
 	
 	// places , zones , slots 
 	
-	public LiquidSimpleMap (int w, int h, int d ) {
-		nbPlaces = nbZones = nbSlots = nbUsableSlots = nbRoomForArmies = maxZoneSize = 0 ;
+	public LiquidSimpleMap (int w, int h ) {
 		this.w = w ;
 		this.h = h ;
-		this.d = d ;
 		
 		// Every element initialized and equals 0 (EMPTY) at the creation
 		map = new int[w * h] ;
