@@ -6,6 +6,7 @@ import java.nio.FloatBuffer;
 
 import android.opengl.GLES20;
 
+
 import fr.umlv.tbcv.liquidwar.logic.SimpleArmies;
 import fr.umlv.tbcv.liquidwar.logic.LiquidWorld;
 
@@ -43,21 +44,22 @@ public class ArmiesGL {
 
 		    // number of coordinates per vertex in this array
 		    static final int COORDS_PER_VERTEX = 2;
-		    private static float[] triangleCoords ;
+		    private float[] pointsCoords ;	
 		    
-		    private final int vertexCount = armies.getFightersNumber() * 2 / COORDS_PER_VERTEX;
+		    private final int vertexCount ;
 		    private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
 		    // Set color with red, green, blue and alpha (opacity) values
-		    float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
+		    float color[] = Colors.getColor(1) ;
 
 		    public ArmiesGL(SimpleArmies a) {
 		    	
-		    	triangleCoords = new float[SimpleArmies.fighterNumber * 2 ] ;
+		    	pointsCoords = new float[SimpleArmies.fighterNumber * 2 ] ;
 		    	
 		    	armies = a ;
+		    	vertexCount = armies.getFightersNumber() * 2 / COORDS_PER_VERTEX;
 		    	
-		    	armies.retrieveFightersPosition() ;
+		    	armies.updateFightersPosition() ;
 		    	
 		        // initialize vertex byte buffer for shape coordinates
 		        ByteBuffer bb = ByteBuffer.allocateDirect(
@@ -84,16 +86,15 @@ public class ArmiesGL {
 
 		    public void draw(float[] mvpMatrix) {
 		    	
-		    	armies.retrieveFightersPosition() ;
-		    	
+		    	armies.updateFightersPosition() ;
 		    	
 		    	for (int i = 0 ; i < armies.getFightersNumber() *2 ; i++ ) {
-			        	triangleCoords[i] = (float) (armies.getFightersPosition()[i]* xFactor) - 0.98f ;
+			        	pointsCoords[i] = (float) (armies.getFightersPosition()[i]* xFactor) - 0.98f ;
 			        	i++ ;
-			        	triangleCoords[i] = (float) (armies.getFightersPosition()[i]* yFactor) - 0.98f ;
+			        	pointsCoords[i] = (float) (armies.getFightersPosition()[i]* yFactor) - 0.98f ;
 			        }
 			        // add the coordinates to the FloatBuffer
-			        vertexBuffer.put(triangleCoords);
+			        vertexBuffer.put(pointsCoords);
 			        // set the buffer to read the first coordinate
 			        vertexBuffer.position(0);
 		    	

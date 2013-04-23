@@ -46,7 +46,7 @@ public class SimpleArmies implements Armies {
 	 * Reads every fighters' coordinates and aggregates them in an array
 	 * for drawing purposes
 	 */
-	public void retrieveFightersPosition () {  
+	public void updateFightersPosition () {  
 		int i = 0 ;
 		
 		for ( int f = 0 ; f < fighterNumber ; f++ )
