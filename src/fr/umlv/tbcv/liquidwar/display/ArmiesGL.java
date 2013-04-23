@@ -7,12 +7,13 @@ import java.nio.FloatBuffer;
 import android.opengl.GLES20;
 
 
+import fr.umlv.tbcv.liquidwar.logic.Armies;
 import fr.umlv.tbcv.liquidwar.logic.SimpleArmies;
 import fr.umlv.tbcv.liquidwar.logic.LiquidWorld;
 
 public class ArmiesGL {
 	
-	private SimpleArmies armies ;
+	private Armies armies ;
 	
 	float xFactor = 2f / LiquidWorld.gameWidth ;
 	float yFactor = 2f / LiquidWorld.gameHeight ;
@@ -59,8 +60,6 @@ public class ArmiesGL {
 		    	armies = a ;
 		    	vertexCount = armies.getFightersNumber() * 2 / COORDS_PER_VERTEX;
 		    	
-		    	armies.updateFightersPosition() ;
-		    	
 		        // initialize vertex byte buffer for shape coordinates
 		        ByteBuffer bb = ByteBuffer.allocateDirect(
 		                // (number of coordinate values * 4 bytes per float)
@@ -86,12 +85,12 @@ public class ArmiesGL {
 
 		    public void draw(float[] mvpMatrix) {
 		    	
-		    	armies.updateFightersPosition() ;
+		    int[] fightersIntPosition = armies.getFightersPosition() ;
 		    	
 		    	for (int i = 0 ; i < armies.getFightersNumber() *2 ; i++ ) {
-			        	pointsCoords[i] = (float) (armies.getFightersPosition()[i]* xFactor) - 0.98f ;
+			        	pointsCoords[i] = (float) (fightersIntPosition[i]* xFactor) - 0.98f ;
 			        	i++ ;
-			        	pointsCoords[i] = (float) (armies.getFightersPosition()[i]* yFactor) - 0.98f ;
+			        	pointsCoords[i] = (float) (fightersIntPosition[i]* yFactor) - 0.98f ;
 			        }
 			        // add the coordinates to the FloatBuffer
 			        vertexBuffer.put(pointsCoords);
