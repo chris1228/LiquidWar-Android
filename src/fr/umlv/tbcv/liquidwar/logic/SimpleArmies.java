@@ -1,6 +1,6 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
-public class SimpleArmies {
+public class SimpleArmies implements Armies {
 	
 	public static final int fighterNumber = 300 ;
 	private SimpleFighter[] fighters ;
@@ -68,5 +68,16 @@ public class SimpleArmies {
 	
 	public SimpleFighter[] getFighters () {
 		return fighters ;
+	}
+
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getFightersNumber() {
+		return fighterNumber ;
 	}
 }
