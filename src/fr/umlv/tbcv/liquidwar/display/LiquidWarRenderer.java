@@ -21,9 +21,8 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
 
     private static final String TAG = "LiquidWarRenderer";
     private ArmiesGL armies ;
-    private static int width, height ;
     
-    private Triangle mTriangle;
+//    private Triangle mTriangle;
 
     private final float[] mProjMatrix = new float[16];
     private final float[] mVMatrix = new float[16];
@@ -52,7 +51,7 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         gameWorld = new LiquidWorld() ;
         // Initialize objects to be drawn
         armies = new ArmiesGL( gameWorld.getArmies() ) ;
-        mTriangle = new Triangle() ; 
+//        mTriangle = new Triangle() ; 
         
     }
 
@@ -86,8 +85,6 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 unused, int width, int height) {
         // Adjust the viewport based on geometry changes,
         // such as screen rotation
-    	this.width = width ;
-    	this.height = height ;
         GLES20.glViewport(0, 0, width, height);
 
 //        float ratio = (float) width / height;
@@ -130,14 +127,6 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
             throw new RuntimeException(glOperation + ": glError " + error);
         }
     }
-
-	public static int getWidth() {
-		return width;
-	}
-
-	public static int getHeight() {
-		return height;
-	}
 
 }
 
