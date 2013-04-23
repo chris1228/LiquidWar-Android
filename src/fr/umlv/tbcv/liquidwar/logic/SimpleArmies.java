@@ -36,7 +36,8 @@ public class SimpleArmies implements Armies {
 		}
 	}
 
-	public void move( LiquidSimpleMap lwmap ) {
+	@Override
+	public void move( LiquidMap lwmap ) {
 		for ( int i = 0 ; i < fighterNumber; i++ ) {
 			fighters[i].move( lwmap ) ;
 		}
@@ -70,11 +71,6 @@ public class SimpleArmies implements Armies {
 		return fighters ;
 	}
 
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public int getFightersNumber() {
