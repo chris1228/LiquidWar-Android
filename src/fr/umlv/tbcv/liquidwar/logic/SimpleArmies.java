@@ -24,7 +24,7 @@ public class SimpleArmies implements Armies {
 		int fakeWidth = 20 ;
 		
 		for ( int i = 0 ; i < fighterNumber ; i++ ) {
-			fighters[i] = new SimpleFighter(i+1,1);
+			fighters[i] = new SimpleFighter(i+1,0); // Right now, every soldier is in team 0
 			fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
 			fighters[i].getPosition().setY(  j ) ;
 

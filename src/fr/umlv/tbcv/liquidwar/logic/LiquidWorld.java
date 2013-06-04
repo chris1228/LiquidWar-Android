@@ -11,7 +11,7 @@ public class LiquidWorld  {
 	
 	boolean gameOn = true ;
 	private Player[] players ;
-	private SimpleArmies armies ;
+	private Armies armies ;
 
 
     public LiquidWorld(int nbPlayers) {
@@ -19,11 +19,11 @@ public class LiquidWorld  {
         lwmap = new LiquidSimpleMap( gameWidth , gameHeight) ;
         armies = new SimpleArmies(lwmap) ;
         players = new Player[nbPlayers] ;
-        for(Player p : players) {
-            p = new Player() ;
+        for(int i = 0 ; i < nbPlayers ; i++) {
+            players[i] = new Player();
         }
 
-        new GameInput() ;
+        new GameInput(nbPlayers) ;
     }
 
 	/**
@@ -31,7 +31,7 @@ public class LiquidWorld  {
 	 */
 	public void turn() {
 		// Update Player position
-        for(int i = 1 ; i <= MAXPLAYERS ; i++) {
+        for(int i = 0 ; i < nbPlayers ; i++) {
             players[i].setPosition(GameInput.getPlayerCoordinate(i));
         }
 		
@@ -51,12 +51,13 @@ public class LiquidWorld  {
 	public Player[] getPlayers() {
 		return players;
 	}
+
+    public int getNbPlayers () {
+        return nbPlayers ;
+    }
 	
-	public SimpleArmies getArmies() {
+	public Armies getArmies() {
 		return armies;
-	}
-	public void setArmies(SimpleArmies armies) {
-		this.armies = armies;
 	}
 	
 	

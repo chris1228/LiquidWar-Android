@@ -4,29 +4,33 @@ import fr.umlv.tbcv.liquidwar.logic.Coordinates;
 import fr.umlv.tbcv.liquidwar.logic.LiquidWorld;
 
 public class GameInput {
-    private static Coordinates[] playersCoordinates = new Coordinates[LiquidWorld.MAXPLAYERS] ;
-	private static volatile int xPlayer ;
-	private static volatile int yPlayer ;
+    private static int nbPlayers ;
+    private static Coordinates[] playersCoordinates ;
 	
-	public GameInput() {
-        for(Coordinates c : playersCoordinates) {
-            c = new Coordinates() ;
+	public GameInput(int nbPlayers) {
+        this.nbPlayers = nbPlayers ;
+        playersCoordinates = new Coordinates[nbPlayers] ;
+        for(int i = 0 ; i < nbPlayers ; i++) {
+            playersCoordinates[i] = new Coordinates() ;
         }
-		xPlayer = yPlayer = 0 ;
 	}
 
     public static Coordinates getPlayerCoordinate(int player) {
-        if(player < 1 ||player > LiquidWorld.MAXPLAYERS) {
+        if(player < 0 ||player >= LiquidWorld.MAXPLAYERS) {
             throw new RuntimeException() ;
         }
-        return playersCoordinates[player-1] ;
+        return playersCoordinates[player] ;
     }
 
     public static void setPlayersCoordinates(int player, Coordinates newCoordinates) {
-        if(player < 1 ||player > LiquidWorld.MAXPLAYERS) {
+        if(player < 0 ||player >= LiquidWorld.MAXPLAYERS) {
             throw new RuntimeException() ;
         }
-        playersCoordinates[player-1].copyCoordinates(newCoordinates);
+        playersCoordinates[player].copyCoordinates(newCoordinates);
+    }
+
+    public static int getNbPlayers () {
+        return nbPlayers ;
     }
 
 }

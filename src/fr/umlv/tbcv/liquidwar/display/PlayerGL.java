@@ -2,24 +2,31 @@ package fr.umlv.tbcv.liquidwar.display;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import android.opengl.GLES20;
 
 import fr.umlv.tbcv.liquidwar.input.GameInput;
+import fr.umlv.tbcv.liquidwar.logic.Coordinates;
+import fr.umlv.tbcv.liquidwar.logic.LiquidWorld;
+import fr.umlv.tbcv.liquidwar.logic.Player;
 
 /**
  * Draw players cursor on the screen with OpenGL ES
  */
 public class PlayerGL {
-	private IntBuffer vertexBuffer ;
+	private FloatBuffer vertexBuffer ;
 	private int mMVPMatrixHandle;
-	
+    private int nbPlayers = 1 ;
+    private Player[] players ;
+    float xFactor = 2f / LiquidWorld.gameWidth ;
+    float yFactor = 2f / LiquidWorld.gameHeight ;
+    private float pointCoords[] ;
+
 	// Number of coordinates per vertex in this array
 	static final int COORDS_PER_VERTEX = 2 ;
-	
-	static int pointCoords[] ;
-	
+
     private final String vertexShaderCode =
             // This matrix member variable provides a hook to manipulate
             // the coordinates of the objects that use this vertex shader
@@ -45,18 +52,20 @@ public class PlayerGL {
 
 	private int mColorHandle;
 	
-	private final int vertexCount = pointCoords.length / COORDS_PER_VERTEX;
+	private int vertexCount ;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 	
-	public PlayerGL() {
-		
-		pointCoords = new int[2] ;
+	public PlayerGL(Player[] players, int nbPlayers) {
+        this.players = players ;
+		this.nbPlayers = nbPlayers ;
+		pointCoords = new float[2*nbPlayers] ;
+        vertexCount = (2*nbPlayers) / COORDS_PER_VERTEX ;
 		
 		// Allocating number of element in the array * 4 bytes ( Size of a float ) 
 		ByteBuffer bb = ByteBuffer.allocateDirect( pointCoords.length * 4 ) ;
 		bb.order(ByteOrder.nativeOrder() ) ;
 		
-		vertexBuffer = bb.asIntBuffer() ;
+		vertexBuffer = bb.asFloatBuffer() ;
 		vertexBuffer.put( pointCoords ) ;
 		vertexBuffer.position(0) ;
 		
@@ -72,9 +81,12 @@ public class PlayerGL {
 	
 	public void draw(float [] mvpMatrix ) {
 		
-		// Update the int array with the actual fighters positions
-		pointCoords[0] = GameInput.getPlayerCoordinate(1).getX() ;
-		pointCoords[1] = GameInput.getPlayerCoordinate(1).getY() ;
+		// Update the float array with the players position
+        int i = 0 ;
+        for(Player p : players) {
+            pointCoords[i++] = (float)(p.getPosition().getX() * xFactor) - 0.98f ;
+            pointCoords[i++] = (float)(p.getPosition().getY() * yFactor) - 0.98f;
+        }
 		vertexBuffer.put( pointCoords ) ;
 		vertexBuffer.position(0) ;
 		
@@ -98,7 +110,7 @@ public class PlayerGL {
         mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
 
         // Set color for drawing the triangle
-        GLES20.glUniform4fv(mColorHandle, 1, Colors.getColor(0), 0);
+        GLES20.glUniform4fv(mColorHandle, 1, Colors.getColor(2), 0);
 
         // get handle to shape's transformation matrix
         mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
@@ -108,7 +120,7 @@ public class PlayerGL {
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
 //        LiquidWarRenderer.checkGlError("glUniformMatrix4fv");
 
-        // Draw the triangle
+        // Draw the points
         GLES20.glDrawArrays(GLES20.GL_POINTS, 0, vertexCount);
 
         // Disable vertex array

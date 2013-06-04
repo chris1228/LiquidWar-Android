@@ -56,7 +56,7 @@ public class ArmiesGL {
 		    // Set color with red, green, blue and alpha (opacity) values
 		    float color[] = Colors.getColor(1) ;
 
-		    public ArmiesGL(SimpleArmies a) {
+		    public ArmiesGL(Armies a) {
 		    	
 		    	pointsCoords = new float[SimpleArmies.fighterNumber * 2 ] ;
 		    	

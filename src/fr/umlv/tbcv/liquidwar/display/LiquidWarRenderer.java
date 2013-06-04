@@ -9,6 +9,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 
 import fr.umlv.tbcv.liquidwar.logic.LiquidWorld;
+import fr.umlv.tbcv.liquidwar.logic.Player;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
@@ -21,6 +22,7 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
 
     private static final String TAG = "LiquidWarRenderer";
     private ArmiesGL armies ;
+    private PlayerGL players ;
     
 //    private Triangle mTriangle;
 
@@ -51,6 +53,7 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         gameWorld = new LiquidWorld(1) ;
         // Initialize objects to be drawn
         armies = new ArmiesGL( gameWorld.getArmies() ) ;
+        players = new PlayerGL( gameWorld.getPlayers(), gameWorld.getNbPlayers() ) ;
 //        mTriangle = new Triangle() ;
 
     }
@@ -73,11 +76,13 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         
 //        Matrix.multiplyMM(mMVPMatrix, 0, mOrthoMatrix, 0, mMVPMatrix, 0) ;
 
-
 //        mTriangle.draw(mMVPMatrix) ;
 
-     // Draw soldiers
-        armies.draw(mMVPMatrix); 
+        // Draw soldiers
+        armies.draw(mMVPMatrix);
+
+        //Draw players
+        players.draw(mMVPMatrix);
         
     }
 
