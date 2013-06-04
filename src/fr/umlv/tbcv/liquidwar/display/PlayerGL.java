@@ -6,6 +6,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import android.opengl.GLES20;
+import android.util.Log;
 
 import fr.umlv.tbcv.liquidwar.input.GameInput;
 import fr.umlv.tbcv.liquidwar.logic.Coordinates;
@@ -36,7 +37,7 @@ public class PlayerGL {
             "void main() {" +
             // the matrix must be included as a modifier of gl_Position
             "  gl_Position = vPosition * uMVPMatrix;" +
-            "  gl_PointSize = 4.0 ; " +
+            "  gl_PointSize = 6.0 ; " +
             "}";
 
 	private final String fragmentShaderCode =
@@ -103,14 +104,14 @@ public class PlayerGL {
 
         // Prepare the triangle coordinate data
         GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX,
-                                     GLES20.GL_INT, false,
+                                     GLES20.GL_FLOAT, false,
                                      vertexStride, vertexBuffer);
 
         // get handle to fragment shader's vColor member
         mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
 
         // Set color for drawing the triangle
-        GLES20.glUniform4fv(mColorHandle, 1, Colors.getColor(2), 0);
+        GLES20.glUniform4fv(mColorHandle, 1, Colors.getColor(0), 0);
 
         // get handle to shape's transformation matrix
         mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");

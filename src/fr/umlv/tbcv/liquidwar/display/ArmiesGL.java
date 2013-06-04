@@ -54,7 +54,6 @@ public class ArmiesGL {
 		    private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
 		    // Set color with red, green, blue and alpha (opacity) values
-		    float color[] = Colors.getColor(1) ;
 
 		    public ArmiesGL(Armies a) {
 		    	
@@ -119,7 +118,7 @@ public class ArmiesGL {
 		        mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
 
 		        // Set color for drawing the triangle
-		        GLES20.glUniform4fv(mColorHandle, 1, color, 0);
+		        GLES20.glUniform4fv(mColorHandle, 1, Colors.getColor(1), 0);
 
 		        // get handle to shape's transformation matrix
 		        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
