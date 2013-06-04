@@ -7,6 +7,9 @@ public interface LiquidMap {
 	public void putObstacle (Coordinates coord) ;
 	
 	public void putSoldier (Coordinates coord, Fighter f);
+
+    public int getWidth() ;
+    public int getHeight() ;
 	
 //	public Fighter checkFighter (Coordinates pos) ;
 	

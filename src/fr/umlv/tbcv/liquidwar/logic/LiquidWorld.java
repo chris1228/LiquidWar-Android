@@ -1,12 +1,14 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
+import android.util.Log;
+
 import fr.umlv.tbcv.liquidwar.input.GameInput;
 
 public class LiquidWorld  {
     public static final int MAXPLAYERS = 4 ;
 	public static final int gameWidth = 45 ;
 	public static final int gameHeight = 80 ;
-    private int nbPlayers = 1 ;
+    private int nbPlayers  ;
     private LiquidSimpleMap lwmap ;
 	
 	boolean gameOn = true ;
@@ -16,14 +18,19 @@ public class LiquidWorld  {
 
     public LiquidWorld(int nbPlayers) {
         this.nbPlayers = nbPlayers ;
+        new GameInput(nbPlayers) ;
         lwmap = new LiquidSimpleMap( gameWidth , gameHeight) ;
-        armies = new SimpleArmies(lwmap) ;
+        armies = new SimpleArmies(lwmap,nbPlayers) ;
         players = new Player[nbPlayers] ;
         for(int i = 0 ; i < nbPlayers ; i++) {
-            players[i] = new Player();
+            switch(i) {
+                default :
+                case 0 : players[i] = new Player(0,0); break ;
+                case 1 : players[i] = new Player(0,gameHeight); break ;
+                case 2 : players[i] = new Player(gameWidth,gameHeight); break ;
+                case 3 : players[i] = new Player(gameWidth,0); break ;
+            }
         }
-
-        new GameInput(nbPlayers) ;
     }
 
 	/**
@@ -36,7 +43,7 @@ public class LiquidWorld  {
         }
 		
 		// Every fighter decides its next position and moves
-		armies.move( lwmap ) ;
+		armies.move() ;
 	}
 	
 	

@@ -40,7 +40,7 @@ public class ArmiesGL {
 		        "  gl_FragColor = vColor;" +
 		        "}";
 
-		    private final FloatBuffer vertexBuffer;
+		    private FloatBuffer vertexBuffer;
 		    private final int mProgram;
 		    private int mPositionHandle;
 		    private int mColorHandle;
@@ -48,29 +48,15 @@ public class ArmiesGL {
 
 		    // number of coordinates per vertex in this array
 		    static final int COORDS_PER_VERTEX = 2;
-		    private float[] pointsCoords ;	
 		    
-		    private final int vertexCount ;
+		    private int vertexCount ;
 		    private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
 		    // Set color with red, green, blue and alpha (opacity) values
 
 		    public ArmiesGL(Armies a) {
 		    	
-		    	pointsCoords = new float[SimpleArmies.fighterNumber * 2 ] ;
-		    	
 		    	armies = a ;
-		    	vertexCount = armies.getFightersNumber() * 2 / COORDS_PER_VERTEX;
-		    	
-		        // initialize vertex byte buffer for shape coordinates
-		        ByteBuffer bb = ByteBuffer.allocateDirect(
-		                // (number of coordinate values * 4 bytes per float)
-		                armies.getFightersNumber() *2 * 4);
-		        // use the device hardware's native byte order
-		        bb.order(ByteOrder.nativeOrder());
-
-		        // create a floating point buffer from the ByteBuffer
-		        vertexBuffer = bb.asFloatBuffer();
 
 		        // prepare shaders and OpenGL program
 		        int vertexShader = LiquidWarRenderer.loadShader(GLES20.GL_VERTEX_SHADER,
@@ -85,54 +71,70 @@ public class ArmiesGL {
 
 		    }
 
+            //TODO : Be able to draw several armies in different colors
 		    public void draw(float[] mvpMatrix) {
-		    	
-		    int[] fightersIntPosition = armies.getFightersPosition() ;
-		    	
-		    	for (int i = 0 ; i < armies.getFightersNumber() *2 ; i++ ) {
-			        	pointsCoords[i] = (float) (fightersIntPosition[i]* xFactor) - 0.98f ;
-			        	i++ ;
-			        	pointsCoords[i] = (float) (fightersIntPosition[i]* yFactor) - 0.98f ;
-			        }
-			        // add the coordinates to the FloatBuffer
-			        vertexBuffer.put(pointsCoords);
-			        // set the buffer to read the first coordinate
-			        vertexBuffer.position(0);
-		    	
-		    	
-		        // Add program to OpenGL environment
-		        GLES20.glUseProgram(mProgram);
 
-		        // get handle to vertex shader's vPosition member
-		        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
+            for(int j = 0 ; j < armies.getArmiesNumber() ; j++ ) {
+                float[] pointsCoords = new float[armies.getFightersNumber(j) * 2];
+                vertexCount = armies.getFightersNumber(j) * 2 / COORDS_PER_VERTEX;
 
-		        // Enable a handle to the triangle vertices
-		        GLES20.glEnableVertexAttribArray(mPositionHandle);
+                // initialize vertex byte buffer for shape coordinates
+                ByteBuffer bb = ByteBuffer.allocateDirect(
+                        // (number of coordinate values * 4 bytes per float)
+                        armies.getFightersNumber(j) *2 * 4);
+                // use the device hardware's native byte order
+                bb.order(ByteOrder.nativeOrder());
 
-		        // Prepare the triangle coordinate data
-		        GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX,
-		                                     GLES20.GL_FLOAT, false,
-		                                     vertexStride, vertexBuffer);
+                // create a floating point buffer from the ByteBuffer
+                vertexBuffer = bb.asFloatBuffer();
 
-		        // get handle to fragment shader's vColor member
-		        mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
+                int[] fightersIntPosition = armies.getFightersPosition(j) ;
 
-		        // Set color for drawing the triangle
-		        GLES20.glUniform4fv(mColorHandle, 1, Colors.getColor(1), 0);
+                    for (int i = 0 ; i < armies.getFightersNumber(j) *2 ; i++ ) {
+                            pointsCoords[i] = (float) (fightersIntPosition[i]* xFactor) - 0.98f ;
+                            i++ ;
+                            pointsCoords[i] = (float) (fightersIntPosition[i]* yFactor) - 0.98f ;
+                        }
+                        // add the coordinates to the FloatBuffer
+                        vertexBuffer.put(pointsCoords);
+                        // set the buffer to read the first coordinate
+                        vertexBuffer.position(0);
 
-		        // get handle to shape's transformation matrix
-		        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
-//		        LiquidWarRenderer.checkGlError("glGetUniformLocation");
 
-		        // Apply the projection and view transformation
-		        GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
-//		        LiquidWarRenderer.checkGlError("glUniformMatrix4fv");
+                    // Add program to OpenGL environment
+                    GLES20.glUseProgram(mProgram);
 
-		        // Draw the triangle
-		        GLES20.glDrawArrays(GLES20.GL_POINTS, 0, vertexCount);
+                    // get handle to vertex shader's vPosition member
+                    mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
 
-		        // Disable vertex array
-		        GLES20.glDisableVertexAttribArray(mPositionHandle);
+                    // Enable a handle to the triangle vertices
+                    GLES20.glEnableVertexAttribArray(mPositionHandle);
+
+                    // Prepare the triangle coordinate data
+                    GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX,
+                                                 GLES20.GL_FLOAT, false,
+                                                 vertexStride, vertexBuffer);
+
+                    // get handle to fragment shader's vColor member
+                    mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
+
+                    // Set color for drawing the triangle
+                    GLES20.glUniform4fv(mColorHandle, 1, Colors.getTeamColor(j), 0); // Every team has a different color
+
+                    // get handle to shape's transformation matrix
+                    mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
+    //		        LiquidWarRenderer.checkGlError("glGetUniformLocation");
+
+                    // Apply the projection and view transformation
+                    GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
+    //		        LiquidWarRenderer.checkGlError("glUniformMatrix4fv");
+
+                    // Draw the triangle
+                    GLES20.glDrawArrays(GLES20.GL_POINTS, 0, vertexCount);
+
+                    // Disable vertex array
+                    GLES20.glDisableVertexAttribArray(mPositionHandle);
+                }
 		    }
 
 }

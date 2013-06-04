@@ -61,7 +61,7 @@ public class GameActivityOpenGL extends Activity {
                     Coordinates playerCoordinate = GameInput.getPlayerCoordinate(i) ;
 
 //                    Log.e("DIST", "Distance entre toucher et player "+i+" = "+ Coordinates.getSquareDistance(touchCoordinate, playerCoordinate )) ;
-                    if( Coordinates.getSquareDistance(touchCoordinate, playerCoordinate ) < 30 ) {
+                    if( Coordinates.getSquareDistance(touchCoordinate, playerCoordinate ) < 25 ) {
                         GameInput.setPlayersCoordinates(i,touchCoordinate);
                         // Have to break here so that the touch coordinate only modifies one player cursor
                         break ;

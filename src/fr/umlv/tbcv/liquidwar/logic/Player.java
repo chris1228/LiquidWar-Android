@@ -15,7 +15,10 @@ public class Player {
 	public Player () {
 		position = new Coordinates() ;
 	}
-	
+
+    public Player(int x, int y) {
+        position = new Coordinates(x,y);
+    }
 	
 	
 }

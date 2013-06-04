@@ -11,7 +11,13 @@ public class GameInput {
         this.nbPlayers = nbPlayers ;
         playersCoordinates = new Coordinates[nbPlayers] ;
         for(int i = 0 ; i < nbPlayers ; i++) {
-            playersCoordinates[i] = new Coordinates() ;
+            switch(i) {
+                default :
+                case 0 : playersCoordinates[i] = new Coordinates(0,0); break ;
+                case 1 : playersCoordinates[i] = new Coordinates(0,LiquidWorld.gameHeight); break ;
+                case 2 : playersCoordinates[i] = new Coordinates(LiquidWorld.gameWidth,LiquidWorld.gameHeight); break ;
+                case 3 : playersCoordinates[i] = new Coordinates(LiquidWorld.gameWidth,0); break ;
+            }
         }
 	}
 

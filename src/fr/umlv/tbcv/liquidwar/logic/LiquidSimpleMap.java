@@ -5,13 +5,7 @@ public class LiquidSimpleMap implements LiquidMap {
 	private int map[] ;
 	
 	public static final int EMPTY = 0 ;
-	public static final int OBSTACLE = -1 ; 
-	
-	// + lw6ker_place_struct_t
-	// + lw6ker_zone_struct_t
-	// + lw6ker_slot_struct_t
-	
-	// places , zones , slots 
+	public static final int OBSTACLE = -1 ;
 	
 	public LiquidSimpleMap (int w, int h ) {
 		this.w = w ;
@@ -46,6 +40,16 @@ public class LiquidSimpleMap implements LiquidMap {
 		// New position (in coord) is now occupied by the fighter
 		putElement( coord, fighter.getIndex() ) ;
 	}
+
+    @Override
+    public int getWidth() {
+        return w ;
+    }
+
+    @Override
+    public int getHeight() {
+        return h ;
+    }
 	
 	@Override
 	public CellState checkPosition ( Coordinates pos ) {

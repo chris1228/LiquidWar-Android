@@ -5,11 +5,12 @@ public class SimpleArmies implements Armies {
 	public static final int fighterNumber = 300 ;
 	private SimpleFighter[] fighters ;
 	private int[] fightersPosition ;
-	LiquidSimpleMap lwmap ;
+    private int nbArmies = 1 ;
+	LiquidMap lwmap ;
 	
 	
-	public SimpleArmies ( LiquidSimpleMap lwmap ) {
-		
+	public SimpleArmies ( LiquidMap lwmap , int nbArmies ) {
+		this.nbArmies = nbArmies ;
 		this.lwmap = lwmap ;
 		
 		fighters = new SimpleFighter[ fighterNumber ] ;
@@ -19,12 +20,17 @@ public class SimpleArmies implements Armies {
 		fightersPosition = new int[fighterNumber * 2] ;
 	}
 
+    /**
+     * Initializes the position of every fighter
+     * Every fighter should be regrouped with its friends
+     * from the same Army in a corner of the map.
+     */
 	private void initArmy() {
 		int j  = 3 ;
 		int fakeWidth = 20 ;
 		
-		for ( int i = 0 ; i < fighterNumber ; i++ ) {
-			fighters[i] = new SimpleFighter(i+1,0); // Right now, every soldier is in team 0
+		for ( int i = 0 ; i < fighterNumber/2 ; i++ ) {
+			fighters[i] = new SimpleFighter(i+1,0);
 			fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
 			fighters[i].getPosition().setY(  j ) ;
 
@@ -34,10 +40,23 @@ public class SimpleArmies implements Armies {
 				j++ ;
 			}
 		}
+
+        j = lwmap.getHeight() - 3 ;
+        for ( int i = fighterNumber/2 ; i < fighterNumber ; i++ ) {
+            fighters[i] = new SimpleFighter(i+1,1);
+            fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
+            fighters[i].getPosition().setY( j ) ;
+
+//			Log.e("FighterPos", "Fighter init at" + fighters[i].getPosition() ) ;
+
+            if ( i >= fakeWidth && i % fakeWidth == 0 ) {
+                j-- ;
+            }
+        }
 	}
 
 	@Override
-	public void move( LiquidMap lwmap ) {
+	public void move() {
 		for ( int i = 0 ; i < fighterNumber; i++ ) {
 			fighters[i].move( lwmap ) ;
 		}
@@ -45,14 +64,17 @@ public class SimpleArmies implements Armies {
 	
 	
 	/* GETTER / SETTERS */
-	
-	public int[] getFightersPosition () { 
+
+    @Override
+	public int[] getFightersPosition (int team) {
 		int i = 0 ;
 		
 		for ( int f = 0 ; f < fighterNumber ; f++ )
 		{
-			fightersPosition[i++] = fighters[f].getPosition().getX() ;
-			fightersPosition[i++] = fighters[f].getPosition().getY() ;
+            if(fighters[f].team == team || team == -1) {
+                fightersPosition[i++] = fighters[f].getPosition().getX() ;
+                fightersPosition[i++] = fighters[f].getPosition().getY() ;
+            }
 		}
 		return fightersPosition ;
 	}
@@ -63,7 +85,23 @@ public class SimpleArmies implements Armies {
 
 
 	@Override
-	public int getFightersNumber() {
-		return fighterNumber ;
+	public int getFightersNumber(int team) {
+        if(team == -1) {
+            return fighterNumber ;
+        }
+
+        int i = 0 ;
+        for ( int f = 0 ; f < fighterNumber ; f++ )
+        {
+            if(fighters[f].team == team || team == -1) {
+                i++ ;
+            }
+        }
+        return i ;
 	}
+
+    @Override
+    public int getArmiesNumber() {
+        return nbArmies ;
+    }
 }
