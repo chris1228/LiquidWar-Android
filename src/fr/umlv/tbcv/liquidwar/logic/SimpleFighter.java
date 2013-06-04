@@ -8,7 +8,6 @@ public class SimpleFighter extends Fighter {
 	
 	int index ;
 	short act_counter ;
-	char team ;
 	
 	public int getIndex() {
 		return index;
@@ -17,25 +16,20 @@ public class SimpleFighter extends Fighter {
 		this.index = index;
 	}
 
-	char last_dir ;
-	
-//	private Coordinates nextPosition ;
-	
 
-	public SimpleFighter (int index) {
+
+
+	public SimpleFighter (int index, int team) {
 		position = new Coordinates() ;
 		health = 100 ;
 		act_counter = 0 ;
-		team = 1 ;
-		last_dir = 'n' ;
+		this.team = team ;
 		this.index = index ;
-		
-//		nextPosition = new Coordinates() ;
 	}
 	
 	@Override
 	public void move (LiquidMap lwmap) {
-		Coordinates cursor = GameInput.getPosition() ;
+		Coordinates cursor = GameInput.getPlayerCoordinate(team) ;
 		Coordinates finalPosition = new Coordinates( position.getX() , position.getY() ) ;
 		Coordinates tempPosition = new Coordinates( position.getX() , position.getY() ) ;
 		

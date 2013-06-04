@@ -8,8 +8,8 @@ public class Player {
 		return position;
 	}
 
-	public void setPosition(Coordinates position) {
-		this.position = position;
+	public void setPosition(Coordinates newPosition) {
+		this.position.copyCoordinates(newPosition);
 	}
 	
 	public Player () {

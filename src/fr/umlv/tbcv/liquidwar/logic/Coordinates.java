@@ -1,11 +1,10 @@
 package fr.umlv.tbcv.liquidwar.logic;
 
 public class Coordinates {
-	private int x,y,z ;
+	private int x,y ;
 	
 	public Coordinates () {
 		x = 0 ;
-		y = 0 ;
 		y = 0 ;
 	}
 	
@@ -29,14 +28,7 @@ public class Coordinates {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
-	public int getZ() {
-		return z;
-	}
 
-	public void setZ(int z) {
-		this.z = z;
-	}
 	
 	/**
 	 * Calculate the square distance between 2 positions

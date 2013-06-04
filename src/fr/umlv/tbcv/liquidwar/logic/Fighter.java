@@ -3,6 +3,7 @@ package fr.umlv.tbcv.liquidwar.logic;
 public abstract class Fighter {
 	protected Coordinates position ;
 	protected short health ;
+    protected int team ;
 	
 	public abstract void move (LiquidMap lwmap) ;
 	

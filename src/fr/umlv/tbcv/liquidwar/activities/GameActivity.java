@@ -24,7 +24,6 @@ public class GameActivity extends Activity implements OnTouchListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		//TODO stufe
 		super.onCreate(savedInstanceState) ;
 		
 		v = new OurView(this) ;

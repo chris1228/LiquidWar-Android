@@ -3,32 +3,37 @@ package fr.umlv.tbcv.liquidwar.logic;
 import fr.umlv.tbcv.liquidwar.input.GameInput;
 
 public class LiquidWorld  {
+    public static final int MAXPLAYERS = 4 ;
 	public static final int gameWidth = 45 ;
 	public static final int gameHeight = 80 ;
-	public static int playerNumber = 2 ;
-	private LiquidSimpleMap lwmap ;
+    private int nbPlayers = 1 ;
+    private LiquidSimpleMap lwmap ;
 	
 	boolean gameOn = true ;
-	private Player player ;
+	private Player[] players ;
 	private SimpleArmies armies ;
-	
-	
-	public LiquidWorld() {
-		lwmap = new LiquidSimpleMap( gameWidth , gameHeight) ;
-		player = new Player() ;
-		armies = new SimpleArmies(lwmap) ;
-		
-		new GameInput() ;
-	}
-	
+
+
+    public LiquidWorld(int nbPlayers) {
+        this.nbPlayers = nbPlayers ;
+        lwmap = new LiquidSimpleMap( gameWidth , gameHeight) ;
+        armies = new SimpleArmies(lwmap) ;
+        players = new Player[nbPlayers] ;
+        for(Player p : players) {
+            p = new Player() ;
+        }
+
+        new GameInput() ;
+    }
+
 	/**
 	 * Realize a game turn (Every fighter moves one pixel at most)
 	 */
 	public void turn() {
-		
 		// Update Player position
-		player.getPosition().setX( GameInput.getxPlayer() ) ;
-		player.getPosition().setY( GameInput.getyPlayer() ) ;
+        for(int i = 1 ; i <= MAXPLAYERS ; i++) {
+            players[i].setPosition(GameInput.getPlayerCoordinate(i));
+        }
 		
 		// Every fighter decides its next position and moves
 		armies.move( lwmap ) ;
@@ -43,11 +48,8 @@ public class LiquidWorld  {
 		return gameHeight;
 	}
 	
-	public Player getPlayer() {
-		return player;
-	}
-	public void setPlayer(Player player) {
-		this.player = player;
+	public Player[] getPlayers() {
+		return players;
 	}
 	
 	public SimpleArmies getArmies() {

@@ -11,6 +11,9 @@ import fr.umlv.tbcv.liquidwar.logic.Armies;
 import fr.umlv.tbcv.liquidwar.logic.SimpleArmies;
 import fr.umlv.tbcv.liquidwar.logic.LiquidWorld;
 
+/**
+ * Draw soldiers on the screen using OpenGL ES
+ */
 public class ArmiesGL {
 	
 	private Armies armies ;

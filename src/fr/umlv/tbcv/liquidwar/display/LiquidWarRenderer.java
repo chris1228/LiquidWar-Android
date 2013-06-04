@@ -48,11 +48,11 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
 //        Matrix.setIdentityM(mOrthoMatrix, 0);
         
         // Initialize game logic
-        gameWorld = new LiquidWorld() ;
+        gameWorld = new LiquidWorld(1) ;
         // Initialize objects to be drawn
         armies = new ArmiesGL( gameWorld.getArmies() ) ;
-//        mTriangle = new Triangle() ; 
-        
+//        mTriangle = new Triangle() ;
+
     }
 
     @Override

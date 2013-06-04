@@ -8,6 +8,9 @@ import android.opengl.GLES20;
 
 import fr.umlv.tbcv.liquidwar.input.GameInput;
 
+/**
+ * Draw players cursor on the screen with OpenGL ES
+ */
 public class PlayerGL {
 	private IntBuffer vertexBuffer ;
 	private int mMVPMatrixHandle;
@@ -70,8 +73,8 @@ public class PlayerGL {
 	public void draw(float [] mvpMatrix ) {
 		
 		// Update the int array with the actual fighters positions
-		pointCoords[0] = GameInput.getxPlayer() ;
-		pointCoords[1] = GameInput.getyPlayer() ;
+		pointCoords[0] = GameInput.getPlayerCoordinate(1).getX() ;
+		pointCoords[1] = GameInput.getPlayerCoordinate(1).getY() ;
 		vertexBuffer.put( pointCoords ) ;
 		vertexBuffer.position(0) ;
 		
