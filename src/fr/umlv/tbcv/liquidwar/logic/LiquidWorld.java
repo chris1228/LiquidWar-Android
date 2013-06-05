@@ -19,8 +19,8 @@ public class LiquidWorld  {
     public LiquidWorld(int nbPlayers) {
         this.nbPlayers = nbPlayers ;
         new GameInput(nbPlayers) ;
-        lwmap = new LiquidSimpleMap( gameWidth , gameHeight) ;
-        armies = new SimpleArmies(lwmap,nbPlayers) ;
+        lwmap = new LiquidSimpleMap(gameWidth , gameHeight) ;
+        armies = new SimpleArmies(lwmap, nbPlayers) ;
         players = new Player[nbPlayers] ;
         for(int i = 0 ; i < nbPlayers ; i++) {
             switch(i) {

@@ -3,11 +3,10 @@ package fr.umlv.tbcv.liquidwar.logic;
 public class LiquidSimpleMap implements LiquidMap {
 	private int w,h ;
 	private int map[] ;
-	
 	public static final int EMPTY = 0 ;
-	public static final int OBSTACLE = -1 ;
+	public static final int OBSTACLE = -1 ; // Map contains either 0(empty), -1(obstacle), or n > 0 : n being the fighter index in the Fighters[] array
 	
-	public LiquidSimpleMap (int w, int h ) {
+	public LiquidSimpleMap (int w, int h) {
 		this.w = w ;
 		this.h = h ;
 		
@@ -15,10 +14,32 @@ public class LiquidSimpleMap implements LiquidMap {
 		map = new int[w * h] ;
 	}
 	
-	void putElement ( Coordinates coord, int element) {
+	private void putElement ( Coordinates coord, int element) {
+        if( coord.getX() <  0 || coord.getX() >= w || coord.getY() < 0 || coord.getY() >= h ) {
+            throw new RuntimeException(); // Out of bounds : Throw exception
+        }
 		map[ Coordinates.calculateIndex(w, h, coord.getX() , coord.getY() ) ] = element ;
 	}
-	
+
+    private int getElement ( Coordinates coord ) {
+        if( coord.getX() <  0 || coord.getX() >= w || coord.getY() < 0 || coord.getY() >= h ) {
+            return -1 ; // Out of bounds : We say it's s an obstacle
+        }
+        return map[ Coordinates.calculateIndex(w, h, coord.getX() , coord.getY() ) ] ;
+    }
+
+    private Fighter getFighterWithIndex(Fighter[] fighters, int index) {
+        if( index <= 0 || index > fighters.length) {
+            throw new RuntimeException() ;
+        }
+        return fighters[index-1] ;
+    }
+
+    public Fighter getFighter(Fighter[] fighters, Coordinates c) {
+        return getFighterWithIndex( fighters, getElement(c)) ;
+    }
+
+    @Override
 	public void clear ( Coordinates coord ) {
 		putElement( coord,  EMPTY) ;
 	}
@@ -53,20 +74,28 @@ public class LiquidSimpleMap implements LiquidMap {
 	
 	@Override
 	public CellState checkPosition ( Coordinates pos ) {
-		if  ( pos.getX() < 0 || pos.getX() >= w || pos.getY() < 0 || pos.getY() >= h ) {
-			return CellState.OBSTACLE ;
-		}
-		
-		int mapCheck = -1 ;
-		
-		if ( ( mapCheck= map[ Coordinates.calculateIndex(w, h, pos.getX(), pos.getY()) ] ) > 0 ) {
-			return CellState.FIGHTER ;
-		}
-		else if ( mapCheck == 0 ) {
-			return CellState.EMPTY ;
-		}
-		return CellState.OBSTACLE ;
+		switch(getElement(pos)) {
+            case -1 : return CellState.OBSTACLE ;
+            case 0 : return CellState.EMPTY ;
+            default : return CellState.FIGHTER ;
+        }
 	}
+
+    @Override
+    public boolean isEmpty (Coordinates pos) {
+        if (checkPosition(pos) == CellState.EMPTY ) {
+            return true ;
+        }
+        return false ;
+    }
+
+    @Override
+    public boolean hasFighter(Coordinates pos) {
+        if (checkPosition(pos) == CellState.FIGHTER ) {
+            return true ;
+        }
+        return false ;
+    }
 
 
 }

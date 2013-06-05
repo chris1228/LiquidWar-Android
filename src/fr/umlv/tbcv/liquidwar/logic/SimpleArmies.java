@@ -3,16 +3,16 @@ package fr.umlv.tbcv.liquidwar.logic;
 public class SimpleArmies implements Armies {
 	
 	public static final int fighterNumber = 300 ;
-	private SimpleFighter[] fighters ;
+	private Fighter[] fighters ;
 	private int[] fightersPosition ;
     private int nbArmies = 1 ;
-	LiquidMap lwmap ;
+	LiquidSimpleMap lwmap ;
 	
 	
-	public SimpleArmies ( LiquidMap lwmap , int nbArmies ) {
+	public SimpleArmies ( LiquidSimpleMap lwmap , int nbArmies ) {
 		this.nbArmies = nbArmies ;
 		this.lwmap = lwmap ;
-		
+
 		fighters = new SimpleFighter[ fighterNumber ] ;
 		initArmy() ;
 
@@ -28,14 +28,14 @@ public class SimpleArmies implements Armies {
 	private void initArmy() {
 		int j  = 3 ;
 		int fakeWidth = 20 ;
-		
+
 		for ( int i = 0 ; i < fighterNumber/2 ; i++ ) {
 			fighters[i] = new SimpleFighter(i+1,0);
 			fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
 			fighters[i].getPosition().setY(  j ) ;
 
 //			Log.e("FighterPos", "Fighter init at" + fighters[i].getPosition() ) ;
-			
+
 			if ( i >= fakeWidth && i % fakeWidth == 0 ) {
 				j++ ;
 			}
@@ -58,10 +58,10 @@ public class SimpleArmies implements Armies {
 	@Override
 	public void move() {
 		for ( int i = 0 ; i < fighterNumber; i++ ) {
-			fighters[i].move( lwmap ) ;
+			fighters[i].move( lwmap, fighters ) ;
 		}
 	}
-	
+
 	
 	/* GETTER / SETTERS */
 
@@ -79,26 +79,27 @@ public class SimpleArmies implements Armies {
 		return fightersPosition ;
 	}
 	
-	public SimpleFighter[] getFighters () {
+	public Fighter[] getFighters () {
 		return fighters ;
 	}
 
 
 	@Override
 	public int getFightersNumber(int team) {
-        if(team == -1) {
-            return fighterNumber ;
-        }
-
         int i = 0 ;
         for ( int f = 0 ; f < fighterNumber ; f++ )
         {
-            if(fighters[f].team == team || team == -1) {
+            if(fighters[f].team == team) {
                 i++ ;
             }
         }
         return i ;
 	}
+
+    @Override
+    public int getFightersNumber() {
+        return fighterNumber ;
+    }
 
     @Override
     public int getArmiesNumber() {

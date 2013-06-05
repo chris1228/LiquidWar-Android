@@ -11,7 +11,7 @@ public interface LiquidMap {
     public int getWidth() ;
     public int getHeight() ;
 	
-//	public Fighter checkFighter (Coordinates pos) ;
-	
 	public CellState checkPosition (Coordinates pos) ;
+    public boolean isEmpty (Coordinates pos) ;
+    public boolean hasFighter (Coordinates pos) ;
 }

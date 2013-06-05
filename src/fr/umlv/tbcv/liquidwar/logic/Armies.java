@@ -15,6 +15,12 @@ public interface Armies {
 	public int getFightersNumber(int team) ;
 
     /**
+     * Get the total number of fighters
+     * @return The number of active fighters
+     */
+    public int getFightersNumber() ;
+
+    /**
      * Get the number of active armies
      * @return The number of armies
      */
