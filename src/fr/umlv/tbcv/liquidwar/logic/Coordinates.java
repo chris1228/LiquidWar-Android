@@ -20,6 +20,9 @@
 
 package fr.umlv.tbcv.liquidwar.logic;
 
+/**
+ * Coordinates in a 2 dimensional Cartesian space
+ */
 public class Coordinates {
 	private int x,y ;
 	

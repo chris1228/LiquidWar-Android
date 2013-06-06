@@ -20,6 +20,9 @@
 
 package fr.umlv.tbcv.liquidwar.logic;
 
+/**
+ * The Map of the game, or the grid.
+ */
 public interface LiquidMap {
 	
 	public void clear (Coordinates coord) ;

@@ -24,6 +24,10 @@ import android.util.Log;
 
 import fr.umlv.tbcv.liquidwar.input.GameInput;
 
+/**
+ * Main class describing the game state.
+ * There should be only one instance of LiquidWorld for a running Liquid Wars game.
+ */
 public class LiquidWorld  {
     public static final int MAXPLAYERS = 4 ;
 	public static final int gameWidth = 45 ;

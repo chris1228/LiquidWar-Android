@@ -20,6 +20,9 @@
 
 package fr.umlv.tbcv.liquidwar.logic;
 
+/**
+ * A group of fighters
+ */
 public interface Armies {
 
     /**

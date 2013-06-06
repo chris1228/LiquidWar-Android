@@ -20,6 +20,10 @@
 
 package fr.umlv.tbcv.liquidwar.logic;
 
+/**
+ * A player in the Liquid Wars game.
+ * The player gets to control a group of soldiers by changing his position on the map.
+ */
 public class Player {
 	
 	private Coordinates position ;

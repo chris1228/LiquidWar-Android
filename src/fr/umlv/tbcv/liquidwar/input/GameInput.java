@@ -23,6 +23,11 @@ package fr.umlv.tbcv.liquidwar.input;
 import fr.umlv.tbcv.liquidwar.logic.Coordinates;
 import fr.umlv.tbcv.liquidwar.logic.LiquidWorld;
 
+/**
+ * Input handling module.
+ * Every input, whatever its nature should be sent to this class,
+ * which in turn, will transmit the informations to the logic backend.
+ */
 public class GameInput {
     private static int nbPlayers ;
     private static Coordinates[] playersCoordinates ;
