@@ -33,7 +33,7 @@ public class LiquidWorld  {
 	public static final int gameWidth = 45 ;
 	public static final int gameHeight = 80 ;
     private int nbPlayers  ;
-    private LiquidSimpleMap lwmap ;
+    private LiquidMap lwmap ;
 	
 	boolean gameOn = true ;
 	private Player[] players ;
@@ -44,8 +44,11 @@ public class LiquidWorld  {
         this.nbPlayers = nbPlayers ;
         new GameInput(nbPlayers) ;
         lwmap = new LiquidSimpleMap(gameWidth , gameHeight) ;
-        armies = new SimpleArmies(lwmap, nbPlayers) ;
+        lwmap.loadMap(); // Important : have to load the map before creating the armies
+        armies = new SimpleArmies((LiquidSimpleMap)lwmap, nbPlayers) ;
         players = new Player[nbPlayers] ;
+
+        // Initialize players players position at the start of the game (every player at one corner of the map)
         for(int i = 0 ; i < nbPlayers ; i++) {
             switch(i) {
                 default :
@@ -90,6 +93,10 @@ public class LiquidWorld  {
 	public Armies getArmies() {
 		return armies;
 	}
+
+    public LiquidMap getLiquidMap() {
+        return lwmap ;
+    }
 	
 	
 	/*														*/

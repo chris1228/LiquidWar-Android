@@ -24,17 +24,22 @@ package fr.umlv.tbcv.liquidwar.logic;
  * The Map of the game, or the grid.
  */
 public interface LiquidMap {
+
+    /**
+     * Charge a map from a file.
+     * (File structure for map still undecided, so for now the maps are hardcoded)
+     */
+    public void loadMap();
 	
 	public void clear (Coordinates coord) ;
-	
 	public void putObstacle (Coordinates coord) ;
-	
 	public void putSoldier (Coordinates coord, Fighter f);
 
     public int getWidth() ;
-    public int getHeight() ;
-	
-	public CellState checkPosition (Coordinates pos) ;
+    public int getHeight();
+    public int countObstacles();
+
     public boolean isEmpty (Coordinates pos) ;
     public boolean hasFighter (Coordinates pos) ;
+    public boolean hasObstacle (Coordinates pos) ;
 }

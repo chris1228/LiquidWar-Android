@@ -48,8 +48,11 @@ public class SimpleArmies implements Armies {
 	private void initArmy() {
 		int j  = 3 ;
 		int fakeWidth = 20 ;
+        Coordinates tmp = new Coordinates() ;
 
 		for ( int i = 0 ; i < fighterNumber/2 ; i++ ) {
+            tmp.setCoordinates(i%(fakeWidth+1) , j);
+            if(lwmap.hasObstacle(tmp)) { continue ; }
 			fighters[i] = new SimpleFighter(i+1,0);
 			fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
 			fighters[i].getPosition().setY(  j ) ;
@@ -63,6 +66,8 @@ public class SimpleArmies implements Armies {
 
         j = lwmap.getHeight() - 3 ;
         for ( int i = fighterNumber/2 ; i < fighterNumber ; i++ ) {
+            tmp.setCoordinates(i%(fakeWidth+1) , j);
+            if(lwmap.hasObstacle(tmp)) { continue ; }
             fighters[i] = new SimpleFighter(i+1,1);
             fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
             fighters[i].getPosition().setY( j ) ;

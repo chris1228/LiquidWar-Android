@@ -52,6 +52,11 @@ public class Coordinates {
 		this.y = y;
 	}
 
+    public void setCoordinates(int x, int y) {
+        this.x = x ;
+        this.y = y ;
+    }
+
 	
 	/**
 	 * Calculate the square distance between 2 positions

@@ -33,6 +33,10 @@ public class Colors {
         {    0.88f,    0.28f,	    0.18f, 1.0f } ,
         {    0.14f,    0.59f,       0.42f, 1.0f }
     } ;
+
+    private static final float[][] mapColors = {
+        {    0.99f,    0.02f,       0.92f, 1.0f }
+    } ;
 	
 	public static float[] getColor (int number) {
 		if ( number >= colors.length )  return colors[0] ;
@@ -42,5 +46,10 @@ public class Colors {
     public static float[] getTeamColor (int number) {
         if ( number >= teamColors.length )  return teamColors[0] ;
         return teamColors[number] ;
+    }
+
+    public static float[] getMapColor (int number) {
+        if ( number >= mapColors.length )  return mapColors[0] ;
+        return mapColors[number] ;
     }
 }

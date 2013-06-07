@@ -22,7 +22,7 @@ package fr.umlv.tbcv.liquidwar.logic;
 
 public class LiquidSimpleMap implements LiquidMap {
 	private int w,h ;
-	private int map[] ;
+	private int[][] map;
 	public static final int EMPTY = 0 ;
 	public static final int OBSTACLE = -1 ; // Map contains either 0(empty), -1(obstacle), or n > 0 : n being the fighter index in the Fighters[] array
 	
@@ -31,21 +31,31 @@ public class LiquidSimpleMap implements LiquidMap {
 		this.h = h ;
 		
 		// Every element initialized and equals 0 (EMPTY) at the creation
-		map = new int[w * h] ;
+		map = new int[w][h] ;
 	}
+
+    public void loadMap() {
+        // HARDCODED FOR NOW
+        for (int i = 5 ; i <= 20 ; i++ ) {
+            map[i][15] = OBSTACLE ;
+        }
+        for (int j = 15 ; j <= 40 ; j++) {
+            map[15][j] = OBSTACLE ;
+        }
+    }
 	
 	private void putElement ( Coordinates coord, int element) {
         if( coord.getX() <  0 || coord.getX() >= w || coord.getY() < 0 || coord.getY() >= h ) {
             throw new RuntimeException(); // Out of bounds : Throw exception
         }
-		map[ Coordinates.calculateIndex(w, h, coord.getX() , coord.getY() ) ] = element ;
+		map[ coord.getX() ][ coord.getY() ] = element ;
 	}
 
     private int getElement ( Coordinates coord ) {
         if( coord.getX() <  0 || coord.getX() >= w || coord.getY() < 0 || coord.getY() >= h ) {
             return -1 ; // Out of bounds : We say it's s an obstacle
         }
-        return map[ Coordinates.calculateIndex(w, h, coord.getX() , coord.getY() ) ] ;
+        return map[ coord.getX() ][ coord.getY() ] ;
     }
 
     private Fighter getFighterWithIndex(Fighter[] fighters, int index) {
@@ -91,8 +101,21 @@ public class LiquidSimpleMap implements LiquidMap {
     public int getHeight() {
         return h ;
     }
-	
-	@Override
+
+    @Override
+    public int countObstacles() {
+        int obstacles = 0 ;
+        for(int i = 0 ; i < w ; i++) {
+            for(int j = 0 ; j < h ; j++) {
+                if (map[i][j] == OBSTACLE) {
+                    obstacles++ ;
+                }
+            }
+        }
+        return obstacles ;
+    }
+
+
 	public CellState checkPosition ( Coordinates pos ) {
 		switch(getElement(pos)) {
             case -1 : return CellState.OBSTACLE ;
@@ -112,6 +135,14 @@ public class LiquidSimpleMap implements LiquidMap {
     @Override
     public boolean hasFighter(Coordinates pos) {
         if (checkPosition(pos) == CellState.FIGHTER ) {
+            return true ;
+        }
+        return false ;
+    }
+
+    @Override
+    public boolean hasObstacle (Coordinates pos) {
+        if (checkPosition(pos) == CellState.OBSTACLE) {
             return true ;
         }
         return false ;
