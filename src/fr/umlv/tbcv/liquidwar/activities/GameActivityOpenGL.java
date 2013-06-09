@@ -82,6 +82,20 @@ public class GameActivityOpenGL extends Activity {
 
 //                    Log.e("DIST", "Distance entre toucher et player "+i+" = "+ Coordinates.getSquareDistance(touchCoordinate, playerCoordinate )) ;
                     if( Coordinates.getSquareDistance(touchCoordinate, playerCoordinate ) < 25 ) {
+                        // Safeguard so that player cursor never gets out of bounds
+                        if(touchCoordinate.getX() >= LiquidWorld.getGamewidth()) {
+                            touchCoordinate.setX(LiquidWorld.getGamewidth()-1);
+                        }
+                        else if (touchCoordinate.getX() <= 0) {
+                            touchCoordinate.setX(0);
+                        }
+
+                        if(touchCoordinate.getY() >= LiquidWorld.getGameheight()) {
+                            touchCoordinate.setY(LiquidWorld.getGameheight()-1);
+                        }
+                        else if (touchCoordinate.getY() <= 0) {
+                            touchCoordinate.setY(0);
+                        }
                         GameInput.setPlayersCoordinates(i,touchCoordinate);
                         // Have to break here so that the touch coordinate only modifies one player cursor
                         break ;

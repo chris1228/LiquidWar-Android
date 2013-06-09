@@ -72,6 +72,10 @@ public abstract class Fighter {
 	public void setHealth(short health) {
 		this.health = health;
 	}
+
+    public int getTeam() {
+        return team ;
+    }
 	
 	protected void removeHealth(int damage) {
 		health -= damage ;

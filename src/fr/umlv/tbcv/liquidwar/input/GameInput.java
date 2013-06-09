@@ -39,9 +39,9 @@ public class GameInput {
             switch(i) {
                 default :
                 case 0 : playersCoordinates[i] = new Coordinates(0,0); break ;
-                case 1 : playersCoordinates[i] = new Coordinates(0,LiquidWorld.gameHeight); break ;
-                case 2 : playersCoordinates[i] = new Coordinates(LiquidWorld.gameWidth,LiquidWorld.gameHeight); break ;
-                case 3 : playersCoordinates[i] = new Coordinates(LiquidWorld.gameWidth,0); break ;
+                case 1 : playersCoordinates[i] = new Coordinates(0,LiquidWorld.gameHeight-1); break ;
+                case 2 : playersCoordinates[i] = new Coordinates(LiquidWorld.gameWidth-1,LiquidWorld.gameHeight-1); break ;
+                case 3 : playersCoordinates[i] = new Coordinates(LiquidWorld.gameWidth-1,0); break ;
             }
         }
 	}

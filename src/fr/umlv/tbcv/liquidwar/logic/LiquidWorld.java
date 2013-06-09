@@ -41,11 +41,11 @@ public class LiquidWorld  {
 
 
     public LiquidWorld(int nbPlayers) {
+        if( nbPlayers < 1 || nbPlayers > MAXPLAYERS ) {
+            throw new RuntimeException() ;
+        }
         this.nbPlayers = nbPlayers ;
         new GameInput(nbPlayers) ;
-        lwmap = new LiquidSimpleMap(gameWidth , gameHeight) ;
-        lwmap.loadMap(); // Important : have to load the map before creating the armies
-        armies = new SimpleArmies((LiquidSimpleMap)lwmap, nbPlayers) ;
         players = new Player[nbPlayers] ;
 
         // Initialize players players position at the start of the game (every player at one corner of the map)
@@ -53,11 +53,16 @@ public class LiquidWorld  {
             switch(i) {
                 default :
                 case 0 : players[i] = new Player(0,0); break ;
-                case 1 : players[i] = new Player(0,gameHeight); break ;
-                case 2 : players[i] = new Player(gameWidth,gameHeight); break ;
-                case 3 : players[i] = new Player(gameWidth,0); break ;
+                case 1 : players[i] = new Player(0,gameHeight-1); break ;
+                case 2 : players[i] = new Player(gameWidth-1,gameHeight-1); break ;
+                case 3 : players[i] = new Player(gameWidth-1,0); break ;
             }
         }
+
+        lwmap = new LiquidSimpleMap(gameWidth,gameHeight) ;
+        lwmap.loadMap(); // Important : have to load the map before creating the armies
+        armies = new SimpleArmies((LiquidSimpleMap)lwmap, nbPlayers) ;
+
     }
 
 	/**

@@ -30,9 +30,21 @@ public interface LiquidMap {
      * (File structure for map still undecided, so for now the maps are hardcoded)
      */
     public void loadMap();
-	
+
+    /**
+     * Sets an empty block on the grid at the specified coordinates
+     * @param coord Coordinates to set as empty
+     */
 	public void clear (Coordinates coord) ;
+    /**
+     * Sets an obstacle on the grid at the specified coordinates
+     * @param coord The obstacle coordinates
+     */
 	public void putObstacle (Coordinates coord) ;
+    /**
+     * Sets a fighter on the grid at the specified coordinates
+     * @param f The fighter to move
+     */
 	public void putSoldier (Coordinates coord, Fighter f);
 
     public int getWidth() ;
