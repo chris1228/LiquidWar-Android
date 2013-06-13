@@ -21,13 +21,17 @@
 package fr.umlv.tbcv.liquidwar.logic.pathfinding;
 
 import java.util.List;
+import java.util.Queue;
 
 import fr.umlv.tbcv.liquidwar.logic.Coordinates;
 import fr.umlv.tbcv.liquidwar.logic.LiquidMap;
 
 /**
- * Gives a path to go from point A to point B on a map considering obstacles
+ * Gives a path to go from point A to point B on a map considering obstacles.
  */
-public interface PathFinder {
-    List finder (Coordinates start, Coordinates end, LiquidMap lwmap);
+public abstract class PathFinder {
+    Heuristic hFunction = new Manhattan();
+    LiquidMap map = null ;
+
+    abstract Queue<Coordinates> finder (Coordinates start, Coordinates end);
 }

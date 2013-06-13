@@ -20,6 +20,9 @@
 
 package fr.umlv.tbcv.liquidwar.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LiquidSimpleMap implements LiquidMap {
 	private int w,h ;
 	private int[][] map;
@@ -146,6 +149,31 @@ public class LiquidSimpleMap implements LiquidMap {
             return true ;
         }
         return false ;
+    }
+
+    @Override
+    public boolean hasObstacle (int x, int y) {
+        if (checkPosition(new Coordinates(x,y)) == CellState.OBSTACLE) {
+            return true ;
+        }
+        return false ;
+    }
+
+    @Override
+    public List<Coordinates> getNeighbors(Coordinates cell) {
+        List<Coordinates> neighborList = new ArrayList<Coordinates>() ;
+        if(cell != null) {
+            for(int i = cell.getX()-1 ; i <= cell.getX()+1 ; i++){
+                if(i < 0 || i >= w) { continue ; }
+                for(int j = cell.getY()-1 ; j <= cell.getY()+1 ; j++) {
+                    if(j < 0 || j >= h) { continue ; }
+                    if(map[i][j] != OBSTACLE && (i != cell.getX() || j != cell.getY()) ) {
+                        neighborList.add(new Coordinates(i,j)) ;
+                    }
+                }
+            }
+        }
+        return neighborList ;
     }
 
 

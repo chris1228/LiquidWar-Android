@@ -20,6 +20,8 @@
 
 package fr.umlv.tbcv.liquidwar.logic;
 
+import java.util.List;
+
 /**
  * The Map of the game, or the grid.
  */
@@ -54,4 +56,7 @@ public interface LiquidMap {
     public boolean isEmpty (Coordinates pos) ;
     public boolean hasFighter (Coordinates pos) ;
     public boolean hasObstacle (Coordinates pos) ;
+    public boolean hasObstacle (int x, int y) ;
+
+    public List<Coordinates> getNeighbors (Coordinates cell) ;
 }

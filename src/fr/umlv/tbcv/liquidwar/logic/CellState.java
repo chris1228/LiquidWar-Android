@@ -23,6 +23,6 @@ package fr.umlv.tbcv.liquidwar.logic;
 /**
  * Possible states for vertices on the grid.
  */
-public enum CellState {
+public enum  CellState {
 	EMPTY, OBSTACLE, FIGHTER
 }

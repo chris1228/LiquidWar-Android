@@ -9,49 +9,18 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2fbf6c1-197e-498f-bebc-139f41b4b998" name="Default" comment="Set up classes for pathfinding">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Chebyshev.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Heuristic.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Manhattan.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/PathFinder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/Fighter.java" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/Fighter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/activities/GameActivityOpenGL.java" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/activities/GameActivityOpenGL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/input/GameInput.java" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/input/GameInput.java" />
+    <list default="true" id="d2fbf6c1-197e-498f-bebc-139f41b4b998" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/JumpPointFinder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidNodeMap.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Node.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/CellState.java" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/CellState.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidMap.java" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidWorld.java" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidWorld.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidSimpleMap.java" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidSimpleMap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/PathFinder.java" afterPath="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/PathFinder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="LiquidWar-Android.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370796997117" ignored="false" />
-    <file path="/GameActivity.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370453728132" ignored="false" />
-    <file path="/a.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370370250180" ignored="false" />
-    <file path="/GameActivityOpenGL.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370684879669" ignored="false" />
-    <file path="/LiquidWorld.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370797029408" ignored="false" />
-    <file path="/GameInput.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370526375105" ignored="false" />
-    <file path="/Player.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370526050918" ignored="false" />
-    <file path="/SimpleFighter.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370448190156" ignored="false" />
-    <file path="/PlayerGL.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370375743895" ignored="false" />
-    <file path="/ArmiesGL.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370606201173" ignored="false" />
-    <file path="/Fighter.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370645457890" ignored="false" />
-    <file path="/sample.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370370278583" ignored="false" />
-    <file path="/SimpleArmies.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370612038166" ignored="false" />
-    <file path="/LiquidWarRenderer.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370611722645" ignored="false" />
-    <file path="/Armies.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370526321131" ignored="false" />
-    <file path="/Colors.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370610711116" ignored="false" />
-    <file path="/LiquidMap.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370615076047" ignored="false" />
-    <file path="/LiquidSimpleMap.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370612877321" ignored="false" />
-    <file path="/MainActivity.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370453806612" ignored="false" />
-    <file path="/Coordinates.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370611992714" ignored="false" />
-    <file path="/CellState.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370526271725" ignored="false" />
-    <file path="/MapGL.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370612651521" ignored="false" />
-    <file path="/PotentialMap.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370687277628" ignored="false" />
-    <file path="/PotentialFighter.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370684636509" ignored="false" />
-    <file path="/PotentialArmies.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370647680521" ignored="false" />
-    <file path="/Heuristic.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370795409728" ignored="false" />
-    <file path="/Manhattan.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370796293630" ignored="false" />
-    <file path="/Chebyshev.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370796234971" ignored="false" />
-    <file path="/PathFinder.java" changelist="d2fbf6c1-197e-498f-bebc-139f41b4b998" time="1370796763977" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +40,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -108,6 +76,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -117,30 +86,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="LiquidWorld.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidWorld.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="46" selection-start="859" selection-end="859" vertical-scroll-proportion="-0.3655761">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameInput.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/input/GameInput.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="57" selection-start="1457" selection-end="1457" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="LiquidWarRenderer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/display/LiquidWarRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="116" column="0" selection-start="3998" selection-end="3998" vertical-scroll-proportion="0.0">
+            <state line="116" column="0" selection-start="3998" selection-end="3998" vertical-scroll-proportion="0.0" vertical-offset="1245" max-vertical-offset="1980">
               <folding />
             </state>
           </provider>
@@ -149,7 +98,40 @@
       <file leaf-file-name="LiquidSimpleMap.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidSimpleMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="120" column="49" selection-start="3591" selection-end="3591" vertical-scroll-proportion="0.0">
+            <state line="163" column="8" selection-start="4591" selection-end="5176" vertical-scroll-proportion="0.0" vertical-offset="1817" max-vertical-offset="2520">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4637#4650#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LiquidNodeMap.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidNodeMap.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="173" column="25" selection-start="5180" selection-end="5180" vertical-scroll-proportion="0.0" vertical-offset="1652" max-vertical-offset="2460">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4449#4462#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Coordinates.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/Coordinates.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="25" column="13" selection-start="858" selection-end="858" vertical-scroll-proportion="0.0" vertical-offset="677" max-vertical-offset="1380">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LiquidMap.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidMap.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="61" column="1" selection-start="1915" selection-end="1915" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="750">
               <folding />
             </state>
           </provider>
@@ -158,7 +140,7 @@
       <file leaf-file-name="Heuristic.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Heuristic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="747" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="747" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
               <folding />
             </state>
           </provider>
@@ -167,46 +149,33 @@
       <file leaf-file-name="PathFinder.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/PathFinder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="8" selection-start="1043" selection-end="1043" vertical-scroll-proportion="0.0">
+            <state line="33" column="26" selection-start="1134" selection-end="1134" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JumpPointFinder.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/JumpPointFinder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="63" selection-start="1572" selection-end="1572" vertical-scroll-proportion="0.33333334" vertical-offset="209" max-vertical-offset="3390">
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1619#1781#0" expanded="true" />
+                <element signature="e#1770#1771#0" expanded="true" />
+                <element signature="e#5843#5856#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Manhattan.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Manhattan.java">
+      <file leaf-file-name="Node.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Node.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="74" selection-start="1084" selection-end="1084" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Chebyshev.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Chebyshev.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="1" selection-start="1107" selection-end="1107" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleFighter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/SimpleFighter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="747" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Fighter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/Fighter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="21" selection-start="2168" selection-end="2168" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="67" column="0" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.0" vertical-offset="167" max-vertical-offset="975">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -235,12 +204,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/Coordinates.java" />
-        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/SimpleArmies.java" />
-        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/display/MapGL.java" />
-        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidSimpleMap.java" />
-        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidMap.java" />
-        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/Fighter.java" />
         <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/potential/PotentialArmies.java" />
         <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/input/GameInput.java" />
         <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/potential/PotentialFighter.java" />
@@ -249,8 +212,14 @@
         <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Heuristic.java" />
         <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Chebyshev.java" />
         <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Manhattan.java" />
-        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/PathFinder.java" />
         <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidWorld.java" />
+        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/PathFinder.java" />
+        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidMap.java" />
+        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidSimpleMap.java" />
+        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/CellState.java" />
+        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Node.java" />
+        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidNodeMap.java" />
+        <option value="$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/JumpPointFinder.java" />
       </list>
     </option>
   </component>
@@ -306,8 +275,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -447,14 +416,14 @@
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="290" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="290" />
     <property name="OverrideImplement.combined" value="true" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="290" />
+    <property name="project.structure.proportion" value="0.0" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="296" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="296" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$USER_HOME$/AndroidStudio" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="291" />
@@ -465,16 +434,17 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="options.lastSelected" value="reference.settings.ide.settings.spelling" />
+    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="options.searchVisible" value="true" />
@@ -653,7 +623,9 @@
       <workItem from="1370606004496" duration="26382000" />
       <workItem from="1370682556497" duration="4688000" />
       <workItem from="1370794950979" duration="1830000" />
-      <workItem from="1370796870345" duration="206000" />
+      <workItem from="1370796870345" duration="468000" />
+      <workItem from="1371131472500" duration="37000" />
+      <workItem from="1371131609036" duration="78000" />
     </task>
     <task id="LOCAL-00001" summary="GameInput module supports several players">
       <created>1370360574684</created>
@@ -687,11 +659,15 @@
       <created>1370612974335</created>
       <updated>1370612974335</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Set up classes for pathfinding">
+      <created>1370797097208</created>
+      <updated>1370797097208</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81856000" />
+    <option name="totallyTimeSpent" value="82233000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -717,18 +693,20 @@
     <frame x="0" y="0" width="1600" height="873" extended-state="0" />
     <editor active="true" />
     <layout>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25997248" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15181866" sideWeight="0.28619152" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32786885" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15181866" sideWeight="0.28619152" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32647464" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32713348" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19652061" sideWeight="0.7400275" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32737276" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -810,121 +788,127 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/display/ArmiesGL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="40" selection-start="1329" selection-end="1329" vertical-scroll-proportion="0.3611898">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/display/MapGL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="38" selection-start="2737" selection-end="2737" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#5441#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="3" selection-start="0" selection-end="746" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="5" selection-start="1033" selection-end="1033" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/SimpleArmies.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="12" selection-start="118" selection-end="118" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/Fighter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="21" selection-start="2168" selection-end="2168" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidSimpleMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="49" selection-start="3591" selection-end="3591" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/SimpleFighter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="747" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/activities/GameActivityOpenGL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="56" selection-start="3454" selection-end="3454" vertical-scroll-proportion="0.2369186">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Chebyshev.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="1" selection-start="1107" selection-end="1107" vertical-scroll-proportion="0.0">
+        <state line="33" column="1" selection-start="1107" selection-end="1107" vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="600">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Manhattan.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="74" selection-start="1084" selection-end="1084" vertical-scroll-proportion="0.0">
+        <state line="30" column="74" selection-start="1084" selection-end="1084" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="585">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/input/GameInput.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="57" selection-start="1457" selection-end="1457" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Heuristic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="747" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/PathFinder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="8" selection-start="1043" selection-end="1043" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/display/LiquidWarRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="0" selection-start="3998" selection-end="3998" vertical-scroll-proportion="0.0">
+        <state line="40" column="57" selection-start="1457" selection-end="1457" vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="1095">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidWorld.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="46" selection-start="859" selection-end="859" vertical-scroll-proportion="-0.3655761">
+        <state line="71" column="33" selection-start="2435" selection-end="2435" vertical-scroll-proportion="0.0" vertical-offset="1050" max-vertical-offset="1725">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/Fighter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="5" selection-start="2002" selection-end="2002" vertical-scroll-proportion="0.0" vertical-offset="362" max-vertical-offset="1065">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/android-sdk/sources/android-17/java/util/PriorityQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="11" selection-start="2137" selection-end="2137" vertical-scroll-proportion="0.3328592" vertical-offset="321" max-vertical-offset="5955">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/display/LiquidWarRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="116" column="0" selection-start="3998" selection-end="3998" vertical-scroll-proportion="0.0" vertical-offset="1245" max-vertical-offset="1980">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Heuristic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="747" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="1" selection-start="1915" selection-end="1915" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="750">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/CellState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="13" selection-start="853" selection-end="853" vertical-scroll-proportion="0.14935988" vertical-offset="0" max-vertical-offset="703">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/Coordinates.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="13" selection-start="858" selection-end="858" vertical-scroll-proportion="0.0" vertical-offset="677" max-vertical-offset="1380">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="0" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.0" vertical-offset="167" max-vertical-offset="975">
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidSimpleMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="163" column="8" selection-start="4591" selection-end="5176" vertical-scroll-proportion="0.0" vertical-offset="1817" max-vertical-offset="2520">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4637#4650#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/LiquidNodeMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="173" column="25" selection-start="5180" selection-end="5180" vertical-scroll-proportion="0.0" vertical-offset="1652" max-vertical-offset="2460">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4449#4462#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/PathFinder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="26" selection-start="1134" selection-end="1134" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/umlv/tbcv/liquidwar/logic/pathfinding/JumpPointFinder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="63" selection-start="1572" selection-end="1572" vertical-scroll-proportion="0.33333334" vertical-offset="209" max-vertical-offset="3390">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1619#1781#0" expanded="true" />
+            <element signature="e#1770#1771#0" expanded="true" />
+            <element signature="e#5843#5856#0" expanded="true" />
           </folding>
         </state>
       </provider>
