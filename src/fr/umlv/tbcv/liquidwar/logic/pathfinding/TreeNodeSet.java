@@ -20,19 +20,29 @@
 
 package fr.umlv.tbcv.liquidwar.logic.pathfinding;
 
-import java.util.Deque;
-import java.util.List;
-import java.util.Queue;
-
-import fr.umlv.tbcv.liquidwar.logic.Coordinates;
-import fr.umlv.tbcv.liquidwar.logic.LiquidMap;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 /**
- * Gives a path to go from point A to point B on a map considering obstacles.
+ * A TreeSet with an update method (only works for Node)
  */
-public abstract class PathFinder {
-    Heuristic hFunction = new Manhattan();
-    LiquidMap map = null ;
+public class TreeNodeSet<E> extends TreeSet {
 
-    abstract Deque<Coordinates> finder (Coordinates start, Coordinates end);
+    public TreeNodeSet(Comparator<? super E> comparator) {
+        super(comparator) ;
+    }
+
+    public boolean update(E e) {
+        if(remove(e)) { // Current node
+            if(add(e)) {
+                return true ;
+            }
+        }
+        return false ;
+    }
+
+    @Override
+    public E pollFirst() {
+        return (E) super.pollFirst();
+    }
 }

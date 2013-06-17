@@ -18,21 +18,14 @@
 
  */
 
-package fr.umlv.tbcv.liquidwar.logic.pathfinding;
-
-import java.util.Deque;
-import java.util.List;
-import java.util.Queue;
-
-import fr.umlv.tbcv.liquidwar.logic.Coordinates;
-import fr.umlv.tbcv.liquidwar.logic.LiquidMap;
+package fr.umlv.tbcv.liquidwar.logic;
 
 /**
- * Gives a path to go from point A to point B on a map considering obstacles.
+ * Implementation of Fighter using Nodes for pathfinding (interacting with LiquidNodeMap).
  */
-public abstract class PathFinder {
-    Heuristic hFunction = new Manhattan();
-    LiquidMap map = null ;
+public class NodeFighter extends Fighter {
+    @Override
+    public void move(LiquidMap lwmap, Fighter[] fighters) {
 
-    abstract Deque<Coordinates> finder (Coordinates start, Coordinates end);
+    }
 }

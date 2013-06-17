@@ -22,6 +22,7 @@ package fr.umlv.tbcv.liquidwar.logic.pathfinding;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -35,18 +36,24 @@ import fr.umlv.tbcv.liquidwar.logic.LiquidNodeMap;
  * Implementation of PathFinder with the Jump Point Search algorithm.
  */
 public class JumpPointFinder extends PathFinder{
-    Queue<Node> openSet ;
+    TreeNodeSet<Node> openSet ;
     Node startNode, endNode ;
     LiquidNodeMap nodemap ;
 
     public JumpPointFinder(LiquidMap lwmap) {
+        if(!(lwmap instanceof LiquidNodeMap)) {
+            throw new RuntimeException() ;
+        }
         this.nodemap = (LiquidNodeMap) lwmap ;
     }
 
     @Override
-    public Queue<Coordinates> finder(Coordinates start, Coordinates end) {
-        //TODO : Rewrite a priority queue that supports updates
-        openSet = new PriorityQueue<Node>(12, new Comparator<Node>() {
+    public Deque<Coordinates> finder(Coordinates start, Coordinates end) {
+        if(nodemap == null) {
+            // Constructor should be called before calling finder
+            throw new RuntimeException() ;
+        }
+        openSet = new TreeNodeSet<Node>(new Comparator<Node>() {
             @Override
             public int compare(Node lhs, Node rhs) {
                 return lhs.f - rhs.f ;
@@ -62,14 +69,14 @@ public class JumpPointFinder extends PathFinder{
         startNode.opened = true ;
 
         while(!openSet.isEmpty()) {
-            Node n = openSet.remove();
+            Node n = openSet.pollFirst();
             n.closed = true ;
             if( n.equals(endNode)) {
-                //TODO : backtrace
+                return n.backtrace() ;
             }
-            //TODO : identify successors
+            identifySuccessors(n);
         }
-
+        // If path cannot be found
         return null;
     }
 
@@ -105,7 +112,7 @@ public class JumpPointFinder extends PathFinder{
                         jumpNode.opened = true ;
                     }
                     else {
-                        //TODO : openlist UPDATE jumpNode
+                        openSet.update(jumpNode);
                     }
 
                 }

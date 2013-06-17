@@ -20,6 +20,9 @@
 
 package fr.umlv.tbcv.liquidwar.logic.pathfinding;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import fr.umlv.tbcv.liquidwar.logic.CellState;
 import fr.umlv.tbcv.liquidwar.logic.Coordinates;
 
@@ -72,6 +75,36 @@ public class Node {
 
     public void setFighterNumber(int fighterNumber) {
         this.fighterNumber = fighterNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof Node) {
+            Node n = (Node) o ;
+            return coord.equals(n.coord) ;
+        }
+        return false ;
+    }
+
+    /**
+     * Build a list of node by adding parents successively
+     * @return The list of parents of the node
+     */
+    public Deque<Coordinates> backtrace () {
+        Deque<Coordinates> path = new ArrayDeque<>() ;
+        Node nParent = null ;
+
+        path.push(this.coord) ;
+        nParent = this.parent ;
+        this.parent = null ; // Remove the parent link for the next algorithm iteration
+        while(nParent != null) {
+            path.push(nParent.coord) ;
+            Node temp = nParent ;
+            nParent = nParent.parent ;
+            temp.parent = null ; // Remove the parent link for the next algorithm iteration
+        }
+
+        return path ;
     }
 
 }

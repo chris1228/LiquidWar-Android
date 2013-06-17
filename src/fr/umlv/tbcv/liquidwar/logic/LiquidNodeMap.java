@@ -63,7 +63,7 @@ public class LiquidNodeMap implements LiquidMap{
 
     private int getElement ( Coordinates coord ) {
         if( coord.getX() <  0 || coord.getX() >= w || coord.getY() < 0 || coord.getY() >= h ) {
-            return -1 ; // Out of bounds : We say it's s an obstacle
+            return OBSTACLE ; // Out of bounds : We say it's s an obstacle
         }
         switch(map[ coord.getX() ][ coord.getY() ].getState()) {
             case EMPTY : return EMPTY ;
@@ -119,39 +119,27 @@ public class LiquidNodeMap implements LiquidMap{
 
     @Override
     public boolean isEmpty(Coordinates pos) {
-        if( getElement(pos) == EMPTY ) {
-            return true ;
-        }
-        return false;
+        return getElement(pos) == EMPTY ;
     }
 
     @Override
     public boolean hasFighter(Coordinates pos) {
-        if( getElement(pos) > 0 ) {
-            return true ;
-        }
-        return false;
+        return getElement(pos) > 0 ;
     }
 
     @Override
     public boolean hasObstacle(Coordinates pos) {
-        if( getElement(pos) == OBSTACLE ) {
-            return true ;
-        }
-        return false;
+        return  getElement(pos) == OBSTACLE ;
     }
 
     @Override
     public boolean hasObstacle(int x, int y) {
-        if( getElement( new Coordinates(x,y)) == OBSTACLE ) {
-            return true ;
-        }
-        return false;
+        return getElement( new Coordinates(x,y)) == OBSTACLE ;
     }
 
     @Override
     public List<Coordinates> getNeighbors(Coordinates cell) {
-        List<Coordinates> neighborList = new ArrayList<Coordinates>() ;
+        List<Coordinates> neighborList = new ArrayList<>() ;
         if(cell != null) {
             for(int i = cell.getX()-1 ; i <= cell.getX()+1 ; i++){
                 if(i < 0 || i >= w) { continue ; }
