@@ -36,6 +36,11 @@ public class Coordinates {
 		this.y = y ;
 	}
 
+    public Coordinates (Coordinates c) {
+        x = c.x ;
+        y = c.y ;
+    }
+
 	public int getX() {
 		return x;
 	}

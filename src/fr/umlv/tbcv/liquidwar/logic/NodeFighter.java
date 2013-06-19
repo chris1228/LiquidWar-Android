@@ -20,12 +20,160 @@
 
 package fr.umlv.tbcv.liquidwar.logic;
 
+import android.util.Log;
+
+import java.util.Deque;
+
+import fr.umlv.tbcv.liquidwar.input.GameInput;
+import fr.umlv.tbcv.liquidwar.logic.pathfinding.JumpPointFinder;
+import fr.umlv.tbcv.liquidwar.logic.pathfinding.PathFinder;
+
 /**
  * Implementation of Fighter using Nodes for pathfinding (interacting with LiquidNodeMap).
  */
 public class NodeFighter extends Fighter {
+    Deque<Coordinates> path ;
+    PathFinder pathFinder ;
+    Coordinates nextPosition ;
+
+    public NodeFighter (LiquidMap lwmap, int team) {
+        super(team) ;
+        pathFinder = new JumpPointFinder(lwmap) ;
+    }
+
     @Override
     public void move(LiquidMap lwmap, Fighter[] fighters) {
+        if(!(lwmap instanceof LiquidNodeMap)) {
+            throw new RuntimeException() ;
+        }
+        LiquidNodeMap nodeMap = (LiquidNodeMap) lwmap ;
 
+        // Get a path
+        computePath();
+
+
+        // If after computing, no available paths were found, we don't move
+        if(path == null || path.peek() == null) {
+            return ;
+        }
+
+        if(nextPosition == null || areClose(position, nextPosition)) {
+            nextPosition = path.pop() ;
+        }
+
+        Coordinates tempPosition = new Coordinates(position.getX(), position.getY()) ;
+        Coordinates idealPosition = new Coordinates(position.getX(), position.getY()) ;
+        Coordinates finalPosition = new Coordinates(position.getX(), position.getY()) ;
+
+        for (int i = position.getX() - 1 ; i <= position.getX() + 1 ; i ++ ) {
+            tempPosition.setX(i) ;
+            for ( int j = position.getY() - 1 ; j <= position.getY() + 1  ; j++ ) {
+                tempPosition.setY( j ) ;
+                if ( (nodeMap.isEmpty(tempPosition)) &&
+                        Coordinates.getSquareDistance( tempPosition, nextPosition ) <
+                                Coordinates.getSquareDistance( finalPosition, nextPosition) ) {
+                    finalPosition.copyCoordinates( tempPosition ); // Figure out the next best possible position
+                }
+                if ( Coordinates.getSquareDistance( tempPosition, nextPosition ) <
+                        Coordinates.getSquareDistance( idealPosition, nextPosition) ) {
+                    idealPosition.copyCoordinates( tempPosition ); // Figure out the next best position regardless of possibility
+                }
+            }
+        }
+
+        Log.e("FIGHTER","CURRENT POSITION" + position) ;
+        Log.e("FIGHTER","WANTED POSITION " + nextPosition) ;
+
+        // If the fighter hasnt been able to move, there is an obstacle/a soldier
+        if(finalPosition.equals(position)) {
+            if(nodeMap.hasFighter(idealPosition)) {
+                Fighter obstacle = nodeMap.getFighter(idealPosition) ;
+                if (isFriend(obstacle)) {
+                    heal(obstacle) ;
+                }
+                else {
+                    attack(obstacle) ;
+                }
+            }
+            return ;
+        }
+        // Fighter can move freely, its position is updated
+        else {
+            nodeMap.putSoldier(finalPosition, this) ;
+            position.copyCoordinates(finalPosition);
+        }
+    }
+
+    /**
+     * move equivalent to the one in SimpleFighter for testing purposes
+     * @param lwmap The grid
+     * @param fighters The array of fighters (useless in here)
+     */
+    public void move2(LiquidMap lwmap, Fighter[] fighters) {
+        if(!(lwmap instanceof LiquidNodeMap)) {
+            throw new RuntimeException() ;
+        }
+        LiquidNodeMap nodeMap = (LiquidNodeMap) lwmap ;
+        Coordinates cursor = GameInput.getPlayerCoordinate(team) ;
+        Coordinates tempPosition = new Coordinates(position.getX(), position.getY()) ;
+        Coordinates idealPosition = new Coordinates(position.getX(), position.getY()) ;
+        Coordinates finalPosition = new Coordinates(position.getX(), position.getY()) ;
+
+        for (int i = position.getX() - 1 ; i <= position.getX() + 1 ; i ++ ) {
+            tempPosition.setX(i) ;
+            for ( int j = position.getY() - 1 ; j <= position.getY() + 1  ; j++ ) {
+                tempPosition.setY( j ) ;
+                if ( (nodeMap.isEmpty(tempPosition)) &&
+                        Coordinates.getSquareDistance( tempPosition, cursor ) <
+                                Coordinates.getSquareDistance( finalPosition, cursor) ) {
+                    finalPosition.copyCoordinates( tempPosition ); // Figure out the next best possible position
+                }
+                if ( Coordinates.getSquareDistance( tempPosition, cursor ) <
+                        Coordinates.getSquareDistance( idealPosition, cursor) ) {
+                    idealPosition.copyCoordinates( tempPosition ); // Figure out the next best position regardless of possibility
+                }
+            }
+        }
+
+//        Log.e("FIGHTER","CURRENT POSITION" + position) ;
+//        Log.e("FIGHTER","WANTED POSITION " + nextPosition) ;
+
+        // If the fighter hasnt been able to move, there is an obstacle/a soldier
+        if(finalPosition.equals(position)) {
+            if(nodeMap.hasFighter(idealPosition)) {
+                Fighter obstacle = nodeMap.getFighter(idealPosition) ;
+                if (isFriend(obstacle)) {
+                    heal(obstacle) ;
+                }
+                else {
+                    attack(obstacle) ;
+                }
+            }
+            return ;
+        }
+        // Fighter can move freely, its position is updated
+        else {
+            nodeMap.putSoldier(finalPosition, this) ;
+            position.copyCoordinates(finalPosition);
+        }
+    }
+
+    /**
+     * Figure out if 2 coordinates are close to each other
+     * @param a First coordinate
+     * @param b Second coordinate
+     * @return True if the two coordinates are close to each other, false otherwise
+     */
+    private boolean areClose (Coordinates a, Coordinates b) {
+        return Coordinates.getSquareDistance(a,b) <= 10 ;
+    }
+
+    private void computePath () {
+        Coordinates cursor = GameInput.getPlayerCoordinate(team) ;
+        path = pathFinder.finder(position,cursor) ;
+        if(path != null) {
+            Log.e("COMPUTE","Computing path between "+position+" and "+cursor);
+            Log.e("COMPUTE","Found path :" + path);
+        }
     }
 }

@@ -39,59 +39,76 @@ public class LiquidNodeMap implements LiquidMap{
 
         // Every element initialized and equals 0 (EMPTY) at the creation
         map = new Node[w][h] ;
+
+        // Initialize every node with its coordinate
+        for(int i = 0 ; i < w ; i++)  {
+            for(int j = 0 ; j < h ; j++) {
+                map[i][j] = new Node(i,j) ;
+            }
+        }
     }
 
-    private void putElement ( Coordinates coord, int element) {
+    private boolean outOfBounds (Coordinates coord) {
         if( coord.getX() <  0 || coord.getX() >= w || coord.getY() < 0 || coord.getY() >= h ) {
-            throw new RuntimeException(); // Out of bounds : Throw exception
+            return true ;
         }
-        switch(element) {
-            case EMPTY :
-                map[ coord.getX() ][ coord.getY() ].setState(CellState.EMPTY);
-                break ;
-
-            case OBSTACLE :
-                map[ coord.getX() ][ coord.getY() ].setState(CellState.OBSTACLE) ;
-                break ;
-
-            default :
-                map[ coord.getX() ][ coord.getY() ].setState(CellState.FIGHTER) ;
-                map[ coord.getX() ][ coord.getY() ].setFighterNumber(element);
-                break ;
-        }
+        return false ;
     }
 
-    private int getElement ( Coordinates coord ) {
-        if( coord.getX() <  0 || coord.getX() >= w || coord.getY() < 0 || coord.getY() >= h ) {
-            return OBSTACLE ; // Out of bounds : We say it's s an obstacle
+    /**
+     * Set a coordinate state on the grid as EMPTY or OBSTACLE
+     * @param coord Coordinate to modify on the grid
+     * @param newState New state of the node on the grid
+     */
+    private void putElement ( Coordinates coord, CellState newState) {
+        if( outOfBounds(coord) ) {
+            //TODO : Send to err log
+            return; // Out of bounds : Nothing is done
         }
-        switch(map[ coord.getX() ][ coord.getY() ].getState()) {
-            case EMPTY : return EMPTY ;
-            case OBSTACLE : return OBSTACLE ;
-            default : return map[ coord.getX() ][ coord.getY() ].getFighterNumber() ;
-        }
+        map[ coord.getX() ][ coord.getY() ].setState(newState);
     }
+
+    private CellState getElement ( Coordinates coord ) {
+        if(outOfBounds(coord)) {
+            return CellState.OBSTACLE ; // Out of bounds : We say it's s an obstacle
+        }
+        return map[ coord.getX() ][ coord.getY() ].getState() ;
+    }
+
 
     @Override
     public void loadMap() {
-
+        // HARDCODED FOR NOW
+        for (int i = 5 ; i <= 20 ; i++ ) {
+            putObstacle(new Coordinates(i,15));
+        }
+        for (int j = 15 ; j <= 40 ; j++) {
+            putObstacle(new Coordinates(15,j));
+        }
     }
 
     @Override
     public void clear(Coordinates coord) {
-        putElement(coord,EMPTY);
+        putElement(coord,CellState.EMPTY);
     }
 
     @Override
     public void putObstacle(Coordinates coord) {
-        putElement(coord,OBSTACLE);
+        putElement(coord,CellState.OBSTACLE);
     }
 
     @Override
     public void putSoldier(Coordinates coord, Fighter f) {
-        //TODO : Make a NodeFighter
-        SimpleFighter sf = (SimpleFighter) f ;
-        putElement(coord, sf.getIndex() );
+        if(!(f instanceof NodeFighter)) {
+            throw new RuntimeException() ;
+        }
+        if( outOfBounds(coord)) {
+            return ; // Nothing is done if the coordinates are invalid
+        }
+        NodeFighter nf = (NodeFighter) f ;
+        clear(f.getPosition()) ;
+        putElement(coord, CellState.FIGHTER );
+        map[ coord.getX() ][ coord.getY() ].setFighter(nf);
     }
 
     @Override
@@ -119,22 +136,22 @@ public class LiquidNodeMap implements LiquidMap{
 
     @Override
     public boolean isEmpty(Coordinates pos) {
-        return getElement(pos) == EMPTY ;
+        return getElement(pos) == CellState.EMPTY ;
     }
 
     @Override
     public boolean hasFighter(Coordinates pos) {
-        return getElement(pos) > 0 ;
+        return getElement(pos) == CellState.FIGHTER ;
     }
 
     @Override
     public boolean hasObstacle(Coordinates pos) {
-        return  getElement(pos) == OBSTACLE ;
+        return  getElement(pos) == CellState.OBSTACLE ;
     }
 
     @Override
     public boolean hasObstacle(int x, int y) {
-        return getElement( new Coordinates(x,y)) == OBSTACLE ;
+        return getElement( new Coordinates(x,y)) == CellState.OBSTACLE ;
     }
 
     @Override
@@ -156,6 +173,13 @@ public class LiquidNodeMap implements LiquidMap{
 
     public Node getNode(Coordinates cell) {
         return map[cell.getX()][cell.getY()] ;
+    }
+
+    public Fighter getFighter(Coordinates cell) {
+        if(outOfBounds(cell)) {
+            return null ;
+        }
+        return getNode(cell).getFighter();
     }
 
     public Node getNode(int x, int y) {

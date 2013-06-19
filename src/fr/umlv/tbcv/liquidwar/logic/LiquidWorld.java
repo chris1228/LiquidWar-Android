@@ -59,9 +59,12 @@ public class LiquidWorld  {
             }
         }
 
-        lwmap = new LiquidSimpleMap(gameWidth,gameHeight) ;
-        lwmap.loadMap(); // Important : have to load the map before creating the armies
-        armies = new SimpleArmies((LiquidSimpleMap)lwmap, nbPlayers) ;
+//        lwmap = new LiquidSimpleMap(gameWidth,gameHeight) ;
+//        lwmap.loadMap(); // Important : have to load the map before creating the armies
+//        armies = new SimpleArmies((LiquidSimpleMap)lwmap, nbPlayers) ;
+        lwmap = new LiquidNodeMap(gameWidth,gameHeight) ;
+        lwmap.loadMap();
+        armies = new NodeArmies(lwmap,nbPlayers);
 
     }
 

@@ -25,7 +25,7 @@ package fr.umlv.tbcv.liquidwar.logic;
  */
 public class NodeArmies implements Armies{
 
-    public static final int fighterNumber = 300 ;
+    public static final int fighterNumber = 6 ;
     private Fighter[] fighters ;
     private int[] fightersPosition ;
     private int nbArmies = 1 ;
@@ -56,10 +56,11 @@ public class NodeArmies implements Armies{
         int fakeWidth = 20 ;
         Coordinates tmp = new Coordinates() ;
 
+        // TODO : Generalize init
         for ( int i = 0 ; i < fighterNumber/2 ; i++ ) {
             tmp.setCoordinates(i%(fakeWidth+1) , j);
             if(lwmap.hasObstacle(tmp)) { continue ; }
-            fighters[i] = new SimpleFighter(i+1,0);
+            fighters[i] = new NodeFighter(lwmap,0);
             fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
             fighters[i].getPosition().setY(  j ) ;
 
@@ -74,7 +75,7 @@ public class NodeArmies implements Armies{
         for ( int i = fighterNumber/2 ; i < fighterNumber ; i++ ) {
             tmp.setCoordinates(i%(fakeWidth+1) , j);
             if(lwmap.hasObstacle(tmp)) { continue ; }
-            fighters[i] = new SimpleFighter(i+1,1);
+            fighters[i] = new NodeFighter(lwmap,1);
             fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
             fighters[i].getPosition().setY( j ) ;
 
@@ -91,8 +92,10 @@ public class NodeArmies implements Armies{
      */
     @Override
     public void move() {
-        for ( int i = 0 ; i < fighterNumber; i++ ) {
-            fighters[i].move( lwmap, fighters ) ;
+        for ( Fighter f : fighters ) {
+            if(f != null) {
+                f.move( lwmap, fighters ) ;
+            }
         }
     }
 
@@ -105,10 +108,10 @@ public class NodeArmies implements Armies{
     @Override
     public int getFightersNumber(int team) {
         int i = 0 ;
-        for ( int f = 0 ; f < fighterNumber ; f++ )
+        for ( Fighter f : fighters)
         {
-            if(fighters[f].team == team) {
-                i++ ;
+            if(f != null && f.team == team) {
+                i++;
             }
         }
         return i ;
@@ -144,11 +147,11 @@ public class NodeArmies implements Armies{
     public int[] getFightersPosition(int team) {
         int i = 0 ;
 
-        for ( int f = 0 ; f < fighterNumber ; f++ )
+        for ( Fighter f : fighters)
         {
-            if(fighters[f].team == team || team == -1) {
-                fightersPosition[i++] = fighters[f].getPosition().getX() ;
-                fightersPosition[i++] = fighters[f].getPosition().getY() ;
+            if(f != null && f.team == team || team == -1) {
+                fightersPosition[i++] = f.getPosition().getX() ;
+                fightersPosition[i++] = f.getPosition().getY() ;
             }
         }
         return fightersPosition ;

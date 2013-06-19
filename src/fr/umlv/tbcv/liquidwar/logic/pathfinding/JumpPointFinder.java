@@ -20,6 +20,8 @@
 
 package fr.umlv.tbcv.liquidwar.logic.pathfinding;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Deque;
@@ -44,7 +46,7 @@ public class JumpPointFinder extends PathFinder{
         if(!(lwmap instanceof LiquidNodeMap)) {
             throw new RuntimeException() ;
         }
-        this.nodemap = (LiquidNodeMap) lwmap ;
+        nodemap = (LiquidNodeMap) lwmap ;
     }
 
     @Override
@@ -53,7 +55,7 @@ public class JumpPointFinder extends PathFinder{
             // Constructor should be called before calling finder
             throw new RuntimeException() ;
         }
-        openSet = new TreeNodeSet<Node>(new Comparator<Node>() {
+        openSet = new TreeNodeSet<>(new Comparator<Node>() {
             @Override
             public int compare(Node lhs, Node rhs) {
                 return lhs.f - rhs.f ;
@@ -84,10 +86,8 @@ public class JumpPointFinder extends PathFinder{
         List<Coordinates> neighbors ;
 
         neighbors = findNeighbors(n) ;
-        int length = neighbors.size() ;
 
-        for(int i = 0; i < length ; i++) {
-            Coordinates neighbor = neighbors.get(i) ;
+        for (Coordinates neighbor : neighbors) {
             Coordinates jumpPoint = jump(neighbor, n.getCoord()) ;
             if(jumpPoint != null) {
                 Node jumpNode = nodemap.getNode(jumpPoint) ;
@@ -127,7 +127,7 @@ public class JumpPointFinder extends PathFinder{
         int dx = child.getX() - parent.getX() ;
         int dy = child.getY() - parent.getY() ;
 
-        if(map.hasObstacle(child)) {
+        if(nodemap.hasObstacle(child)) {
             return null ;
         }
         else if ( child.equals(endNode.getCoord())) {
@@ -137,21 +137,21 @@ public class JumpPointFinder extends PathFinder{
         // Check for forced neighbors
         // along the diagonal
         if( dx!=0 && dy !=0) {
-            if ((!map.hasObstacle(x - dx, y + dy) && map.hasObstacle(x - dx, y)) ||
-                    (!map.hasObstacle(x + dx, y - dy) && map.hasObstacle(x, y - dy))) {
+            if ((!nodemap.hasObstacle(x - dx, y + dy) && nodemap.hasObstacle(x - dx, y)) ||
+                    (!nodemap.hasObstacle(x + dx, y - dy) && nodemap.hasObstacle(x, y - dy))) {
                 return child ;
             }
         }
         else {
             if( dx != 0 ) { // moving along x
-                if((!map.hasObstacle(x + dx, y + 1) && map.hasObstacle(x, y + 1)) ||
-                        (!map.hasObstacle(x + dx, y - 1) && map.hasObstacle(x, y - 1))) {
+                if((!nodemap.hasObstacle(x + dx, y + 1) && nodemap.hasObstacle(x, y + 1)) ||
+                        (!nodemap.hasObstacle(x + dx, y - 1) && nodemap.hasObstacle(x, y - 1))) {
                     return child ;
                 }
             }
             else {
-                if((!map.hasObstacle(x + 1, y + dy) && map.hasObstacle(x + 1, y)) ||
-                        (!map.hasObstacle(x - 1, y + dy) && map.hasObstacle(x - 1, y))) {
+                if((!nodemap.hasObstacle(x + 1, y + dy) && nodemap.hasObstacle(x + 1, y)) ||
+                        (!nodemap.hasObstacle(x - 1, y + dy) && nodemap.hasObstacle(x - 1, y))) {
                     return child ;
                 }
             }
@@ -168,7 +168,7 @@ public class JumpPointFinder extends PathFinder{
 
         // moving diagonally, must make sure one of the vertical/horizontal
         // neighbors is open to allow the path
-        if (!map.hasObstacle(x + dx, y) || !map.hasObstacle(x, y + dy)) {
+        if (!nodemap.hasObstacle(x + dx, y) || !nodemap.hasObstacle(x, y + dy)) {
             return jump(new Coordinates(x + dx, y + dy) , child);
         } else {
             return null;
@@ -178,7 +178,7 @@ public class JumpPointFinder extends PathFinder{
     private List<Coordinates> findNeighbors (Node n) {
         int x = n.getCoord().getX() ;
         int y = n.getCoord().getY() ;
-        List<Coordinates> neighbors = new ArrayList<Coordinates>() ;
+        List<Coordinates> neighbors = new ArrayList<>() ;
 
         if(n.getParent() != null){
             int px = n.getParent().getCoord().getX() ;
@@ -190,46 +190,46 @@ public class JumpPointFinder extends PathFinder{
 
             // Diagonal search
             if(dx != 0 && dy != 0) {
-                if(!map.hasObstacle(x , y+dy)) {
+                if(!nodemap.hasObstacle(x , y+dy)) {
                     neighbors.add(new Coordinates(x , y+dy)) ;
                 }
 
-                if(!map.hasObstacle(x+dx , y)) {
+                if(!nodemap.hasObstacle(x+dx , y)) {
                     neighbors.add(new Coordinates(x+dx , y)) ;
                 }
 
-                if(!map.hasObstacle(x , y+dy) || !map.hasObstacle(x+dx , y)) {
+                if(!nodemap.hasObstacle(x , y+dy) || !nodemap.hasObstacle(x+dx , y)) {
                     neighbors.add(new Coordinates(x+dx , y+dy)) ;
                 }
 
-                if(map.hasObstacle(x-dx , y) && !map.hasObstacle(x , y+dy)) {
+                if(nodemap.hasObstacle(x-dx , y) && !nodemap.hasObstacle(x , y+dy)) {
                     neighbors.add(new Coordinates(x+dx , y+dy)) ;
                 }
 
-                if(map.hasObstacle(x , y-dy) && !map.hasObstacle(x+dx , y)) {
+                if(nodemap.hasObstacle(x , y-dy) && !nodemap.hasObstacle(x+dx , y)) {
                     neighbors.add(new Coordinates(x+dx , y-dy)) ;
                 }
             }
             // Horizontal-Vertical search
             else {
                 if (dx == 0) {
-                    if(!map.hasObstacle(x, y+dy)) {
+                    if(!nodemap.hasObstacle(x, y+dy)) {
                         neighbors.add(new Coordinates(x , y+dy));
-                        if(map.hasObstacle(x+1 , y)) {
+                        if(nodemap.hasObstacle(x+1 , y)) {
                             neighbors.add(new Coordinates(x+1 , y+dy)) ;
                         }
-                        if(map.hasObstacle(x-1 , y)) {
+                        if(nodemap.hasObstacle(x-1 , y)) {
                             neighbors.add(new Coordinates(x-1 , y+dy)) ;
                         }
                     }
                 }
                 else {
-                    if(!map.hasObstacle(x+dx, y)) {
+                    if(!nodemap.hasObstacle(x+dx, y)) {
                         neighbors.add(new Coordinates(x+dx , y));
-                        if(map.hasObstacle(x , y+1)) {
+                        if(nodemap.hasObstacle(x , y+1)) {
                             neighbors.add(new Coordinates(x+dx , y+1)) ;
                         }
-                        if(map.hasObstacle(x , y-1)) {
+                        if(nodemap.hasObstacle(x , y-1)) {
                             neighbors.add(new Coordinates(x+dx , y-1)) ;
                         }
                     }
@@ -238,7 +238,7 @@ public class JumpPointFinder extends PathFinder{
         }
         // Return all neighbors
         else {
-            neighbors = map.getNeighbors(n.getCoord()) ;
+            neighbors = nodemap.getNeighbors(n.getCoord()) ;
         }
     return neighbors ;
     }

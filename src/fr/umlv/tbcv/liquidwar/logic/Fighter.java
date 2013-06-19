@@ -30,6 +30,11 @@ public abstract class Fighter {
 	protected Coordinates position ;
 	protected short health ;
     protected int team ;
+
+    public Fighter(int team) {
+        position = new Coordinates() ;
+        this.team = team ;
+    }
 	
 	public abstract void move (LiquidMap lwmap, Fighter[] fighters) ;
 

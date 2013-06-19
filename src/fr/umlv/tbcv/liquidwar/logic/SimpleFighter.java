@@ -39,9 +39,9 @@ public class SimpleFighter extends Fighter {
 
 
 	public SimpleFighter (int index, int team) {
+        super(team) ;
 		position = new Coordinates() ;
 		health = 100 ;
-		this.team = team ;
 		this.index = index ;
 	}
 	
@@ -88,10 +88,13 @@ public class SimpleFighter extends Fighter {
             }
             return ;
         }
+        // Fighter can move freely, its position is updated
+        else {
+            simpleMap.putSoldier(finalPosition, this) ;
+            position.setX( finalPosition.getX() ) ;
+            position.setY( finalPosition.getY() ) ;
+        }
 
-        simpleMap.putSoldier(finalPosition, this) ;
-        position.setX( finalPosition.getX() ) ;
-        position.setY( finalPosition.getY() ) ;
 	    return ;
 	}
 

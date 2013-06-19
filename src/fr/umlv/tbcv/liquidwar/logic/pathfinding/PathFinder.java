@@ -32,7 +32,6 @@ import fr.umlv.tbcv.liquidwar.logic.LiquidMap;
  */
 public abstract class PathFinder {
     Heuristic hFunction = new Manhattan();
-    LiquidMap map = null ;
 
-    abstract Deque<Coordinates> finder (Coordinates start, Coordinates end);
+    public abstract Deque<Coordinates> finder (Coordinates start, Coordinates end);
 }

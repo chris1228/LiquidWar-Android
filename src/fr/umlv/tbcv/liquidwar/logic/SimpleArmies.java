@@ -82,8 +82,10 @@ public class SimpleArmies implements Armies {
 
 	@Override
 	public void move() {
-		for ( int i = 0 ; i < fighterNumber; i++ ) {
-			fighters[i].move( lwmap, fighters ) ;
+		for ( Fighter f : fighters) {
+            if(f != null) {
+			    f.move( lwmap, fighters ) ;
+            }
 		}
 	}
 
@@ -94,11 +96,11 @@ public class SimpleArmies implements Armies {
 	public int[] getFightersPosition (int team) {
 		int i = 0 ;
 		
-		for ( int f = 0 ; f < fighterNumber ; f++ )
+		for ( Fighter f : fighters )
 		{
-            if(fighters[f].team == team || team == -1) {
-                fightersPosition[i++] = fighters[f].getPosition().getX() ;
-                fightersPosition[i++] = fighters[f].getPosition().getY() ;
+            if(f!= null && f.team == team || team == -1) {
+                fightersPosition[i++] = f.getPosition().getX() ;
+                fightersPosition[i++] = f.getPosition().getY() ;
             }
 		}
 		return fightersPosition ;
@@ -112,9 +114,9 @@ public class SimpleArmies implements Armies {
 	@Override
 	public int getFightersNumber(int team) {
         int i = 0 ;
-        for ( int f = 0 ; f < fighterNumber ; f++ )
+        for ( Fighter f : fighters )
         {
-            if(fighters[f].team == team) {
+            if(f != null && f.team == team) {
                 i++ ;
             }
         }

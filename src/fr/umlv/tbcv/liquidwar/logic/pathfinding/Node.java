@@ -25,6 +25,7 @@ import java.util.Deque;
 
 import fr.umlv.tbcv.liquidwar.logic.CellState;
 import fr.umlv.tbcv.liquidwar.logic.Coordinates;
+import fr.umlv.tbcv.liquidwar.logic.Fighter;
 
 /**
  * Nodes for pathfinding
@@ -37,12 +38,18 @@ public class Node {
     protected boolean opened, closed ;
     private Node parent = null ;
     private CellState state = CellState.EMPTY ;
-    private int fighterNumber ;
+    private Fighter fighter ;
 
     public Node(Coordinates c) {
         goal = heuristic = f = 0 ;
         opened = closed = false ;
-        coord.copyCoordinates(c);
+        coord = new Coordinates(c) ;
+    }
+
+    public Node(int x, int y) {
+        goal = heuristic = f = 0 ;
+        opened = closed = false ;
+        coord = new Coordinates(x,y) ;
     }
 
     public Coordinates getCoord() {
@@ -69,12 +76,12 @@ public class Node {
         this.state = state;
     }
 
-    public int getFighterNumber() {
-        return fighterNumber;
+    public Fighter getFighter() {
+        return fighter;
     }
 
-    public void setFighterNumber(int fighterNumber) {
-        this.fighterNumber = fighterNumber;
+    public void setFighter(Fighter f) {
+        fighter = f ;
     }
 
     @Override
@@ -92,7 +99,7 @@ public class Node {
      */
     public Deque<Coordinates> backtrace () {
         Deque<Coordinates> path = new ArrayDeque<>() ;
-        Node nParent = null ;
+        Node nParent ;
 
         path.push(this.coord) ;
         nParent = this.parent ;
@@ -103,8 +110,12 @@ public class Node {
             nParent = nParent.parent ;
             temp.parent = null ; // Remove the parent link for the next algorithm iteration
         }
-
         return path ;
+    }
+
+    @Override
+    public String toString() {
+        return "Node " + coord + " | opened = " + opened + "closed = " + closed ;
     }
 
 }
