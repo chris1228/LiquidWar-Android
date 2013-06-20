@@ -103,14 +103,23 @@ public class Node {
 
         path.push(this.coord) ;
         nParent = this.parent ;
-        this.parent = null ; // Remove the parent link for the next algorithm iteration
+        this.resetNode(); // Remove the parent link for the next algorithm iteration
         while(nParent != null) {
             path.push(nParent.coord) ;
             Node temp = nParent ;
             nParent = nParent.parent ;
-            temp.parent = null ; // Remove the parent link for the next algorithm iteration
+            temp.resetNode(); // Remove the parent link for the next algorithm iteration
         }
         return path ;
+    }
+
+    /**
+     * Reset the node state so that previous pathfinding algorithm call doesn't interfere with a next one.
+     */
+    public void resetNode() {
+        goal = heuristic = f = 0 ;
+        opened = closed = false ;
+        parent = null ;
     }
 
     @Override

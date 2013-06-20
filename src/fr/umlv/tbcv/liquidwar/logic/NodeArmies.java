@@ -20,12 +20,14 @@
 
 package fr.umlv.tbcv.liquidwar.logic;
 
+import android.util.Log;
+
 /**
  * Implementation of Army using Nodes (interacting with LiquidNodMap).
  */
 public class NodeArmies implements Armies{
 
-    public static final int fighterNumber = 6 ;
+    public static final int fighterNumber = 1 ;
     private Fighter[] fighters ;
     private int[] fightersPosition ;
     private int nbArmies = 1 ;
@@ -55,36 +57,58 @@ public class NodeArmies implements Armies{
         int j  = 3 ;
         int fakeWidth = 20 ;
         Coordinates tmp = new Coordinates() ;
+        int fightersPerTeam = fighterNumber / nbArmies ;
 
-        // TODO : Generalize init
-        for ( int i = 0 ; i < fighterNumber/2 ; i++ ) {
-            tmp.setCoordinates(i%(fakeWidth+1) , j);
-            if(lwmap.hasObstacle(tmp)) { continue ; }
-            fighters[i] = new NodeFighter(lwmap,0);
-            fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
-            fighters[i].getPosition().setY(  j ) ;
+        for(int t = 0 ; t < nbArmies ; t++) {
+            switch(t) {
+                case 1 : case 3 : j = lwmap.getHeight()-3 ; break ;
+                default : j = 3 ; break ;
+            }
+            for ( int i = t*(fightersPerTeam) ; i < (t+1)*fightersPerTeam ; i++ ) {
+                tmp.setCoordinates(i%(fakeWidth+1) , j);
+                if(lwmap.hasObstacle(tmp)) { continue ; }
+                fighters[i] = new NodeFighter(lwmap,t);
+                fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
+                fighters[i].getPosition().setY(  j ) ;
 
 //			Log.e("FighterPos", "Fighter init at" + fighters[i].getPosition() ) ;
 
-            if ( i >= fakeWidth && i % fakeWidth == 0 ) {
-                j++ ;
+                if ( i >= fakeWidth && i % fakeWidth == 0 ) {
+                    switch(t) {
+                        case 1 :case 3 : j-- ; break ;
+                        default : j++ ; break ;
+                    }
+                }
             }
         }
-
-        j = lwmap.getHeight() - 3 ;
-        for ( int i = fighterNumber/2 ; i < fighterNumber ; i++ ) {
-            tmp.setCoordinates(i%(fakeWidth+1) , j);
-            if(lwmap.hasObstacle(tmp)) { continue ; }
-            fighters[i] = new NodeFighter(lwmap,1);
-            fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
-            fighters[i].getPosition().setY( j ) ;
-
-//			Log.e("FighterPos", "Fighter init at" + fighters[i].getPosition() ) ;
-
-            if ( i >= fakeWidth && i % fakeWidth == 0 ) {
-                j-- ;
-            }
-        }
+//        for ( int i = 0 ; i < fighterNumber/2 ; i++ ) {
+//            tmp.setCoordinates(i%(fakeWidth+1) , j);
+//            if(lwmap.hasObstacle(tmp)) { continue ; }
+//            fighters[i] = new NodeFighter(lwmap,0);
+//            fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
+//            fighters[i].getPosition().setY(  j ) ;
+//
+////			Log.e("FighterPos", "Fighter init at" + fighters[i].getPosition() ) ;
+//
+//            if ( i >= fakeWidth && i % fakeWidth == 0 ) {
+//                j++ ;
+//            }
+//        }
+//
+//        j = lwmap.getHeight() - 3 ;
+//        for ( int i = fighterNumber/2 ; i < fighterNumber ; i++ ) {
+//            tmp.setCoordinates(i%(fakeWidth+1) , j);
+//            if(lwmap.hasObstacle(tmp)) { continue ; }
+//            fighters[i] = new NodeFighter(lwmap,1);
+//            fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
+//            fighters[i].getPosition().setY( j ) ;
+//
+////			Log.e("FighterPos", "Fighter init at" + fighters[i].getPosition() ) ;
+//
+//            if ( i >= fakeWidth && i % fakeWidth == 0 ) {
+//                j-- ;
+//            }
+//        }
     }
 
     /**

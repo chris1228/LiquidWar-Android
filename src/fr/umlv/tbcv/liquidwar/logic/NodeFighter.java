@@ -41,7 +41,6 @@ public class NodeFighter extends Fighter {
         pathFinder = new JumpPointFinder(lwmap) ;
     }
 
-    @Override
     public void move(LiquidMap lwmap, Fighter[] fighters) {
         if(!(lwmap instanceof LiquidNodeMap)) {
             throw new RuntimeException() ;
@@ -51,14 +50,17 @@ public class NodeFighter extends Fighter {
         // Get a path
         computePath();
 
-
         // If after computing, no available paths were found, we don't move
         if(path == null || path.peek() == null) {
             return ;
         }
 
         if(nextPosition == null || areClose(position, nextPosition)) {
+            if(areClose(position,nextPosition)) {
+                Log.e("MOVE","ARE CLOSE : "+position+" and "+nextPosition);
+            }
             nextPosition = path.pop() ;
+            Log.e("MOVE","Position popped :" + nextPosition);
         }
 
         Coordinates tempPosition = new Coordinates(position.getX(), position.getY()) ;
@@ -83,6 +85,7 @@ public class NodeFighter extends Fighter {
 
         Log.e("FIGHTER","CURRENT POSITION" + position) ;
         Log.e("FIGHTER","WANTED POSITION " + nextPosition) ;
+        Log.e("FIGHTER","FINAL POSITION " + finalPosition );
 
         // If the fighter hasnt been able to move, there is an obstacle/a soldier
         if(finalPosition.equals(position)) {
@@ -165,15 +168,20 @@ public class NodeFighter extends Fighter {
      * @return True if the two coordinates are close to each other, false otherwise
      */
     private boolean areClose (Coordinates a, Coordinates b) {
-        return Coordinates.getSquareDistance(a,b) <= 10 ;
+        return Coordinates.getSquareDistance(a,b) <= 5 ;
     }
 
     private void computePath () {
         Coordinates cursor = GameInput.getPlayerCoordinate(team) ;
+        Log.e("COMPUTE","FIGURING A PATH BETWEEN "+position+" AND "+ cursor );
         path = pathFinder.finder(position,cursor) ;
-        if(path != null) {
+        if(path != null && !path.isEmpty()) {
             Log.e("COMPUTE","Computing path between "+position+" and "+cursor);
             Log.e("COMPUTE","Found path :" + path);
+            path.pop(); // First node is useless (it's where we are right now)
+        }
+        else {
+            Log.e("COMPUTE","NO PATH FOUND (not possible)") ;
         }
     }
 }

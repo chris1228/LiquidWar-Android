@@ -26,7 +26,7 @@ import java.util.TreeSet;
 /**
  * A TreeSet with an update method (only works for Node)
  */
-public class TreeNodeSet<E> extends TreeSet {
+public class TreeNodeSet<E> extends TreeSet<E> implements Iterable<E>{
 
     public TreeNodeSet(Comparator<? super E> comparator) {
         super(comparator) ;

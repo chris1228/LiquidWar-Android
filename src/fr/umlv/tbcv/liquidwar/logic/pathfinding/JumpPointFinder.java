@@ -67,6 +67,7 @@ public class JumpPointFinder extends PathFinder{
         startNode.goal = 0 ;
         startNode.heuristic = 0 ;
 
+        // Push the start node in the open set
         openSet.add(startNode) ;
         startNode.opened = true ;
 
@@ -78,7 +79,11 @@ public class JumpPointFinder extends PathFinder{
             }
             identifySuccessors(n);
         }
-        // If path cannot be found
+        // If path cannot be found, we return null
+        // But we need to reset the used nodes first
+        for(Node openedNode : openSet) {
+            openedNode.resetNode();
+        }
         return null;
     }
 

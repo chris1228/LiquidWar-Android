@@ -81,7 +81,7 @@ public class GameActivityOpenGL extends Activity {
                     Coordinates playerCoordinate = GameInput.getPlayerCoordinate(i) ;
 
 //                    Log.e("DIST", "Distance entre toucher et player "+i+" = "+ Coordinates.getSquareDistance(touchCoordinate, playerCoordinate )) ;
-                    if( Coordinates.getSquareDistance(touchCoordinate, playerCoordinate ) < 25 ) {
+                    if( Coordinates.getSquareDistance(touchCoordinate, playerCoordinate ) < 20 ) {
                         // Safeguard so that player cursor never gets out of bounds
                         if(touchCoordinate.getX() >= LiquidWorld.getGamewidth()) {
                             touchCoordinate.setX(LiquidWorld.getGamewidth()-1);
