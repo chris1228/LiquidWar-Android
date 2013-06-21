@@ -39,5 +39,5 @@ public abstract class PathFinder {
      * @param end Coordinate of the point of arrival
      * @return A deque of coordinates leading to the arrival if it can be reached, null otherwise
      */
-    public abstract Deque<Coordinates> finder (Coordinates start, Coordinates end);
+    public abstract Deque<Coordinates>      finder (Coordinates start, Coordinates end);
 }

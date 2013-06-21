@@ -23,7 +23,7 @@ package fr.umlv.tbcv.liquidwar.logic;
 /**
  * A fighter, soldier in an army.
  * It can attack or heal other fighters depending on their team.
- * Its only goal is ultimately to follow the player controlling its team.
+ * Its only objective is ultimately to follow the player controlling its team.
  */
 public abstract class Fighter {
     private static final int FULL_HEALTH = 100 ;

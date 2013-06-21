@@ -30,24 +30,24 @@ import fr.umlv.tbcv.liquidwar.logic.Fighter;
 /**
  * Nodes for pathfinding
  */
-public class Node {
-    private Coordinates coord ;
-    protected int goal ;
-    protected int heuristic ;
-    protected int f ;
-    protected boolean opened, closed ;
-    private Node parent = null ;
-    private CellState state = CellState.EMPTY ;
-    private Fighter fighter ;
+public class Node implements Comparable {
+    private Coordinates coord ;                     // Coordinates on the grid of the node
+    protected double g;                             // Exact cost of the path from the starting point to that node
+    protected double heuristic ;                    // Approximate cost of the path from that node to the ending point
+    protected double f ;                            // g+f
+    protected boolean opened, closed ;              // Whether the node is in the open set and/or closed set
+    private Node parent = null ;                    // Parent node (JPS algorithm)
+    private CellState state = CellState.EMPTY ;     // State of the node : empty, obstacle, or fighter
+    private Fighter fighter ;                       // Fighter present on the node, if any
 
     public Node(Coordinates c) {
-        goal = heuristic = f = 0 ;
+        g = heuristic = f = 0 ;
         opened = closed = false ;
         coord = new Coordinates(c) ;
     }
 
     public Node(int x, int y) {
-        goal = heuristic = f = 0 ;
+        g = heuristic = f = 0 ;
         opened = closed = false ;
         coord = new Coordinates(x,y) ;
     }
@@ -95,7 +95,7 @@ public class Node {
 
     /**
      * Build a list of node by adding parents successively
-     * @return The list of parents of the node
+     * @return A deque consisting of a node and every parent it has
      */
     public Deque<Coordinates> backtrace () {
         Deque<Coordinates> path = new ArrayDeque<>() ;
@@ -103,12 +103,9 @@ public class Node {
 
         path.push(this.coord) ;
         nParent = this.parent ;
-        this.resetNode(); // Remove the parent link for the next algorithm iteration
         while(nParent != null) {
             path.push(nParent.coord) ;
-            Node temp = nParent ;
             nParent = nParent.parent ;
-            temp.resetNode(); // Remove the parent link for the next algorithm iteration
         }
         return path ;
     }
@@ -117,7 +114,7 @@ public class Node {
      * Reset the node state so that previous pathfinding algorithm call doesn't interfere with a next one.
      */
     public void resetNode() {
-        goal = heuristic = f = 0 ;
+        g = heuristic = f = 0 ;
         opened = closed = false ;
         parent = null ;
     }
@@ -127,4 +124,30 @@ public class Node {
         return "Node " + coord + " | opened = " + opened + "closed = " + closed ;
     }
 
+    /**
+     * Compares this object to the specified object to determine their relative
+     * order.
+     *
+     * @param another the object to compare to this instance.
+     * @return a negative integer if this instance is less than {@code another};
+     *         a positive integer if this instance is greater than
+     *         {@code another}; 0 if this instance has the same order as
+     *         {@code another}.
+     * @throws ClassCastException if {@code another} cannot be converted into something
+     *                            comparable to {@code this} instance.
+     */
+    @Override
+    public int compareTo(Object another) {
+        if(!(another instanceof Node)) {
+            throw new RuntimeException() ;
+        }
+        Node n = (Node) another ;
+        if(f - n.f < 0) {
+            return -1 ;
+        }
+        if(f - n.f < 0) {
+            return 1 ;
+        }
+        return 0;
+    }
 }

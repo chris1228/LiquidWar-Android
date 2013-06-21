@@ -23,12 +23,8 @@ package fr.umlv.tbcv.liquidwar.logic.pathfinding;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Deque;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Stack;
 
 import fr.umlv.tbcv.liquidwar.logic.Coordinates;
 import fr.umlv.tbcv.liquidwar.logic.LiquidMap;
@@ -55,16 +51,12 @@ public class JumpPointFinder extends PathFinder{
             // Constructor should be called before calling finder
             throw new RuntimeException() ;
         }
-        openSet = new TreeNodeSet<>(new Comparator<Node>() {
-            @Override
-            public int compare(Node lhs, Node rhs) {
-                return lhs.f - rhs.f ;
-            }
-        }) ;
+        openSet = new TreeNodeSet<>() ;
+        Log.e("FINDER","Searching from "+start+" to "+end);
         startNode = nodemap.getNode(start) ;
         endNode = nodemap.getNode(end) ;
 
-        startNode.goal = 0 ;
+        startNode.g = 0 ;
         startNode.heuristic = 0 ;
 
         // Push the start node in the open set
@@ -75,22 +67,17 @@ public class JumpPointFinder extends PathFinder{
             Node n = openSet.pollFirst();
             n.closed = true ;
             if( n.equals(endNode)) {
+                Log.e("FINDER","Path ok ");
                 return n.backtrace() ;
             }
             identifySuccessors(n);
         }
-        // If path cannot be found, we return null
-        // But we need to reset the used nodes first
-        for(Node openedNode : openSet) {
-            openedNode.resetNode();
-        }
+        Log.e("FINDER","No path found wtf");
         return null;
     }
 
     private void identifySuccessors (Node n) {
-        List<Coordinates> neighbors ;
-
-        neighbors = findNeighbors(n) ;
+        List<Coordinates> neighbors = findNeighbors(n) ;
 
         for (Coordinates neighbor : neighbors) {
             Coordinates jumpPoint = jump(neighbor, n.getCoord()) ;
@@ -101,15 +88,17 @@ public class JumpPointFinder extends PathFinder{
                 }
 
                 // Include distance, as parent may not be immediately adjacent
-                int d = hFunction.distance(n.getCoord() , jumpPoint );
-                int ng = n.goal + d ;
+                int dx = Math.abs(n.getCoord().getX() - jumpPoint.getX());
+                int dy = Math.abs(n.getCoord().getY() - jumpPoint.getY());
+                double d = Math.sqrt( dx*dx + dy*dy );
+                double ng = n.g + d ;
 
-                if(!jumpNode.opened || ng < jumpNode.goal ) {
-                    jumpNode.goal = ng ;
+                if(!jumpNode.opened || ng < jumpNode.g) {
+                    jumpNode.g = ng ;
                     if(jumpNode.heuristic == 0) {
                         jumpNode.heuristic = hFunction.distance(jumpPoint , endNode.getCoord() ) ;
                     }
-                    jumpNode.f = jumpNode.goal + jumpNode.heuristic ;
+                    jumpNode.f = jumpNode.g + jumpNode.heuristic ;
                     jumpNode.setParent(n);
 
                     if(!jumpNode.opened) {
@@ -208,7 +197,7 @@ public class JumpPointFinder extends PathFinder{
                 }
 
                 if(nodemap.hasObstacle(x-dx , y) && !nodemap.hasObstacle(x , y+dy)) {
-                    neighbors.add(new Coordinates(x+dx , y+dy)) ;
+                    neighbors.add(new Coordinates(x-dx , y+dy)) ;
                 }
 
                 if(nodemap.hasObstacle(x , y-dy) && !nodemap.hasObstacle(x+dx , y)) {

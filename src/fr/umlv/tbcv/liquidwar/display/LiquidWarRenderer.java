@@ -63,7 +63,6 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
         
 //        float aspectRatio = (float) LiquidWorld.getGamewidth() / (float) LiquidWorld.getGameheight() ;
         
-        
         Matrix.setIdentityM(mProjMatrix, 0) ;
         Matrix.orthoM(mOrthoMatrix, 0, (float)-(LiquidWorld.getGamewidth()), (float)(LiquidWorld.getGamewidth()), (float)-(LiquidWorld.getGameheight()), (float)(LiquidWorld.getGameheight()), -5f, 5f) ;
 //        Matrix.orthoM(mOrthoMatrix, 0, -aspectRatio, aspectRatio, -1, 1, -1, 1 ) ;

@@ -75,15 +75,41 @@ public class LiquidNodeMap implements LiquidMap{
         return map[ coord.getX() ][ coord.getY() ].getState() ;
     }
 
-
+    /**
+     * Load map information, which for now consists in obstacle coordinates
+     */
     @Override
     public void loadMap() {
-        // HARDCODED FOR NOW
+        loadMapOne();
+    }
+
+    private void loadMapOne() {
         for (int i = 5 ; i <= 20 ; i++ ) {
             putObstacle(new Coordinates(i,15));
         }
         for (int j = 15 ; j <= 40 ; j++) {
             putObstacle(new Coordinates(15,j));
+        }
+    }
+
+    private void loadMapTwo() {
+        // HARDCODED FOR NOW
+        int i = 5 ;
+        for(int j = 0 ; j < h-5 ; j++ ) {
+            putObstacle(new Coordinates(i,j));
+        }
+        i = 25 ;
+        for(int j = 0 ; j < h-5 ; j++ ) {
+            putObstacle(new Coordinates(i,j));
+        }
+
+        i = 15 ;
+        for(int j = 5 ; j < h ; j++ ) {
+            putObstacle(new Coordinates(i,j));
+        }
+        i= 35 ;
+        for(int j = 5 ; j < h ; j++ ) {
+            putObstacle(new Coordinates(i,j));
         }
     }
 
@@ -154,6 +180,17 @@ public class LiquidNodeMap implements LiquidMap{
         return getElement( new Coordinates(x,y)) == CellState.OBSTACLE ;
     }
 
+    /**
+     * Reset every field used by path algorithm for every node on the grid
+     */
+    public void resetNodes() {
+        for(int i = 0 ; i < w ; i++)  {
+            for(int j = 0 ; j < h ; j++) {
+                map[i][j].resetNode();
+            }
+        }
+    }
+
     @Override
     public List<Coordinates> getNeighbors(Coordinates cell) {
         List<Coordinates> neighborList = new ArrayList<>() ;
@@ -172,7 +209,13 @@ public class LiquidNodeMap implements LiquidMap{
     }
 
     public Node getNode(Coordinates cell) {
+        // TODO Treat out of bounds case
         return map[cell.getX()][cell.getY()] ;
+    }
+
+    public Node getNode(int x, int y) {
+        // TODO Treat out of bounds case
+        return map[x][y] ;
     }
 
     public Fighter getFighter(Coordinates cell) {
@@ -182,7 +225,29 @@ public class LiquidNodeMap implements LiquidMap{
         return getNode(cell).getFighter();
     }
 
-    public Node getNode(int x, int y) {
-        return map[x][y];
+    /**
+     * Determine if, in a direct path between one point and another, there is an obstacle
+     */
+    public boolean obstacleInPath (Coordinates a, Coordinates b) {
+        Node n = getNode(a) ;
+
+        while(! n.getCoord().equals(b)) {
+            int x = n.getCoord().getX() ;
+            int y = n.getCoord().getY() ;
+            for(int i = x-1 ; i <= x+1 ; i++) {
+                if(i<0 || i >= w) { continue; }
+                for(int j = y-1 ; j <= y+1 ; j++) {
+                    if(j<0 || j >= h) { continue ; }
+                    Node t = getNode(i,j) ;
+                    if( Coordinates.getSquareDistance(t.getCoord(),b) < Coordinates.getSquareDistance(n.getCoord(),b)) {
+                        n = getNode(i,j) ;
+                        if(hasObstacle(n.getCoord())) {
+                            return true ;
+                        }
+                    }
+                }
+            }
+        }
+        return false ;
     }
 }

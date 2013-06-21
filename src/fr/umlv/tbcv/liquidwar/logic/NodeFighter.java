@@ -25,40 +25,42 @@ import android.util.Log;
 import java.util.Deque;
 
 import fr.umlv.tbcv.liquidwar.input.GameInput;
+import fr.umlv.tbcv.liquidwar.logic.pathfinding.AStar;
 import fr.umlv.tbcv.liquidwar.logic.pathfinding.JumpPointFinder;
+import fr.umlv.tbcv.liquidwar.logic.pathfinding.Naive;
 import fr.umlv.tbcv.liquidwar.logic.pathfinding.PathFinder;
 
 /**
  * Implementation of Fighter using Nodes for pathfinding (interacting with LiquidNodeMap).
  */
 public class NodeFighter extends Fighter {
-    Deque<Coordinates> path ;
-    PathFinder pathFinder ;
-    Coordinates nextPosition ;
+    Deque<Coordinates> path ;       // Path of coordinates that the fighter has to follow to reach the cursor. Recalculated every time the cursor moves
+    PathFinder pathFinder ;         // Path algorithm used to reach the cursor
+    Coordinates nextPosition ;      // Next coordinate that the fighter has to reach
+    Coordinates approximateCursor ; // Last good cursor position. Only updated when the real cursor has moved far away from that last position
+    LiquidNodeMap nodeMap ;         // The grid
 
     public NodeFighter (LiquidMap lwmap, int team) {
         super(team) ;
-        pathFinder = new JumpPointFinder(lwmap) ;
-    }
-
-    public void move(LiquidMap lwmap, Fighter[] fighters) {
         if(!(lwmap instanceof LiquidNodeMap)) {
             throw new RuntimeException() ;
         }
-        LiquidNodeMap nodeMap = (LiquidNodeMap) lwmap ;
+        nodeMap = (LiquidNodeMap) lwmap ;
+        pathFinder = new JumpPointFinder(lwmap) ;
 
+    }
+
+    public void move(LiquidMap lwmap, Fighter[] fighters) {
         // Get a path
         computePath();
+        nodeMap.resetNodes();
 
         // If after computing, no available paths were found, we don't move
         if(path == null || path.peek() == null) {
             return ;
         }
 
-        if(nextPosition == null || areClose(position, nextPosition)) {
-            if(areClose(position,nextPosition)) {
-                Log.e("MOVE","ARE CLOSE : "+position+" and "+nextPosition);
-            }
+        if(nextPosition == null || position.equals(nextPosition)) {
             nextPosition = path.pop() ;
             Log.e("MOVE","Position popped :" + nextPosition);
         }
@@ -173,10 +175,24 @@ public class NodeFighter extends Fighter {
 
     private void computePath () {
         Coordinates cursor = GameInput.getPlayerCoordinate(team) ;
+
+        // Update approximate cursor
+        if(approximateCursor == null) {
+            approximateCursor = new Coordinates(cursor) ;
+        }
+        else {
+            if(!areClose(approximateCursor,cursor) || nodeMap.obstacleInPath(approximateCursor,cursor)) {
+                approximateCursor.copyCoordinates(cursor);
+            }
+        }
+
+        // Make sure we're not already at the destination
+        if(position.equals(cursor)) {
+            return ;
+        }
         Log.e("COMPUTE","FIGURING A PATH BETWEEN "+position+" AND "+ cursor );
         path = pathFinder.finder(position,cursor) ;
         if(path != null && !path.isEmpty()) {
-            Log.e("COMPUTE","Computing path between "+position+" and "+cursor);
             Log.e("COMPUTE","Found path :" + path);
             path.pop(); // First node is useless (it's where we are right now)
         }

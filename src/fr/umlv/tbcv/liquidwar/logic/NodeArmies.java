@@ -27,11 +27,11 @@ import android.util.Log;
  */
 public class NodeArmies implements Armies{
 
-    public static final int fighterNumber = 1 ;
-    private Fighter[] fighters ;
-    private int[] fightersPosition ;
-    private int nbArmies = 1 ;
-    LiquidNodeMap lwmap ;
+    public static final int fighterNumber = 1;      // Number of fighters in total
+    private Fighter[] fighters ;                    // Array of every fighter on the battlefield
+    private int[] fightersPosition ;                // Array of every fighter position. First int is f1(x), second int is f1(y), third int is f2(x)...
+    private int nbArmies = 1 ;                      // Number of armies/players
+    LiquidNodeMap lwmap ;                           // The grid
 
     public NodeArmies (LiquidMap map, int nbArmies) {
         if(!(map instanceof LiquidNodeMap)) {

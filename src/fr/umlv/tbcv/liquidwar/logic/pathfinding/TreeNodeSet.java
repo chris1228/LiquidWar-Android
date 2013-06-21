@@ -28,10 +28,6 @@ import java.util.TreeSet;
  */
 public class TreeNodeSet<E> extends TreeSet<E> implements Iterable<E>{
 
-    public TreeNodeSet(Comparator<? super E> comparator) {
-        super(comparator) ;
-    }
-
     public boolean update(E e) {
         if(remove(e)) { // Current node
             if(add(e)) {
