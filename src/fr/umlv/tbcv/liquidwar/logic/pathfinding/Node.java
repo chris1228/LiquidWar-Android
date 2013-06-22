@@ -41,7 +41,7 @@ public class Node implements Comparable {
     private Fighter fighter ;                       // Fighter present on the node, if any
 
     public Node(Coordinates c) {
-        g = heuristic = f = 0 ;
+        g = heuristic = f = 0;
         opened = closed = false ;
         coord = new Coordinates(c) ;
     }
@@ -114,14 +114,19 @@ public class Node implements Comparable {
      * Reset the node state so that previous pathfinding algorithm call doesn't interfere with a next one.
      */
     public void resetNode() {
-        g = heuristic = f = 0 ;
+        g = heuristic = f = 0;
         opened = closed = false ;
         parent = null ;
     }
 
     @Override
     public String toString() {
-        return "Node " + coord + " | opened = " + opened + "closed = " + closed ;
+        StringBuilder sb = new StringBuilder() ;
+        sb.append("Node ").append(coord).append("[") ;
+        if(opened) { sb.append("O") ; }
+        if(closed) { sb.append("C") ; }
+        sb.append("]");
+        return sb.toString() ;
     }
 
     /**
@@ -145,7 +150,7 @@ public class Node implements Comparable {
         if(f - n.f < 0) {
             return -1 ;
         }
-        if(f - n.f < 0) {
+        else if(f - n.f > 0) {
             return 1 ;
         }
         return 0;
