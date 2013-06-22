@@ -31,7 +31,7 @@ import fr.umlv.tbcv.liquidwar.logic.LiquidMap;
  * Gives a path to go from point A to point B on a map considering obstacles.
  */
 public abstract class PathFinder {
-    Heuristic hFunction = new Manhattan();
+    Heuristic hFunction = new Chebyshev();
 
     /**
      * Get a path between a start position and an ending position
@@ -39,5 +39,5 @@ public abstract class PathFinder {
      * @param end Coordinate of the point of arrival
      * @return A deque of coordinates leading to the arrival if it can be reached, null otherwise
      */
-    public abstract Deque<Coordinates>      finder (Coordinates start, Coordinates end);
+    public abstract Deque<Coordinates> finder (Coordinates start, Coordinates end);
 }

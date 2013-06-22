@@ -64,7 +64,7 @@ public class LiquidWorld  {
 //        armies = new SimpleArmies((LiquidSimpleMap)lwmap, nbPlayers) ;
         lwmap = new LiquidNodeMap(gameWidth,gameHeight) ;
         lwmap.loadMap();
-        armies = new NodeArmies(lwmap,nbPlayers);
+        armies = new NodeArmies(lwmap,nbPlayers,2);
 
     }
 

@@ -25,6 +25,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import fr.umlv.tbcv.liquidwar.logic.Coordinates;
 import fr.umlv.tbcv.liquidwar.logic.LiquidMap;
@@ -34,7 +35,7 @@ import fr.umlv.tbcv.liquidwar.logic.LiquidNodeMap;
  * Implementation of PathFinder with the Jump Point Search algorithm.
  */
 public class JumpPointFinder extends PathFinder{
-    TreeNodeSet<Node> openSet ;
+    PriorityQueue<Node> openSet ;
     Node startNode, endNode ;
     LiquidNodeMap nodemap ;
 
@@ -51,8 +52,7 @@ public class JumpPointFinder extends PathFinder{
             // Constructor should be called before calling finder
             throw new RuntimeException() ;
         }
-        openSet = new TreeNodeSet<>() ;
-        Log.e("FINDER","Searching from "+start+" to "+end);
+        openSet = new PriorityQueue<>() ;
         startNode = nodemap.getNode(start) ;
         endNode = nodemap.getNode(end) ;
 
@@ -60,19 +60,18 @@ public class JumpPointFinder extends PathFinder{
         startNode.heuristic = 0 ;
 
         // Push the start node in the open set
-        openSet.add(startNode) ;
+
         startNode.opened = true ;
+        openSet.add(startNode) ;
 
         while(!openSet.isEmpty()) {
-            Node n = openSet.pollFirst();
+            Node n = openSet.poll();
             n.closed = true ;
             if( n.equals(endNode)) {
-                Log.e("FINDER","Path ok ");
                 return n.backtrace() ;
             }
             identifySuccessors(n);
         }
-        Log.e("FINDER","No path found wtf");
         return null;
     }
 
@@ -94,19 +93,20 @@ public class JumpPointFinder extends PathFinder{
                 double ng = n.g + d ;
 
                 if(!jumpNode.opened || ng < jumpNode.g) {
+                    if(jumpNode.opened) {
+                        if(! openSet.remove(jumpNode)) {
+                            throw new RuntimeException();
+                        }
+                        jumpNode.opened = false ;
+                    }
                     jumpNode.g = ng ;
                     if(jumpNode.heuristic == 0) {
                         jumpNode.heuristic = hFunction.distance(jumpPoint , endNode.getCoord() ) ;
                     }
                     jumpNode.f = jumpNode.g + jumpNode.heuristic ;
                     jumpNode.setParent(n);
-
-                    if(!jumpNode.opened) {
-                        openSet.add(jumpNode);
-                        jumpNode.opened = true ;
-                    }
-                    else {
-                        openSet.update(jumpNode);
+                    if(!openSet.add(jumpNode) ) {
+                        throw  new RuntimeException() ;
                     }
 
                 }
@@ -121,6 +121,10 @@ public class JumpPointFinder extends PathFinder{
         int dx = child.getX() - parent.getX() ;
         int dy = child.getY() - parent.getY() ;
 
+        if(dx > 0) { dx = 1 ; } else if (dx < 0 ) { dx = -1 ; } else { dx = 0 ; }
+        if(dy > 0) { dy = 1 ; } else if (dy < 0 ) { dy = -1 ; } else { dy = 0 ; }
+
+
         if(nodemap.hasObstacle(child)) {
             return null ;
         }
@@ -131,21 +135,21 @@ public class JumpPointFinder extends PathFinder{
         // Check for forced neighbors
         // along the diagonal
         if( dx!=0 && dy !=0) {
-            if ((!nodemap.hasObstacle(x - dx, y + dy) && nodemap.hasObstacle(x - dx, y)) ||
-                    (!nodemap.hasObstacle(x + dx, y - dy) && nodemap.hasObstacle(x, y - dy))) {
+            if ( (!nodemap.hasObstacle(x - dx, y + dy) && nodemap.hasObstacle(x - dx, y)) ||
+                 (!nodemap.hasObstacle(x + dx, y - dy) && nodemap.hasObstacle(x, y - dy))) {
                 return child ;
             }
         }
         else {
             if( dx != 0 ) { // moving along x
-                if((!nodemap.hasObstacle(x + dx, y + 1) && nodemap.hasObstacle(x, y + 1)) ||
-                        (!nodemap.hasObstacle(x + dx, y - 1) && nodemap.hasObstacle(x, y - 1))) {
+                if( (!nodemap.hasObstacle(x + dx, y + 1) && nodemap.hasObstacle(x, y + 1)) ||
+                    (!nodemap.hasObstacle(x + dx, y - 1) && nodemap.hasObstacle(x, y - 1))) {
                     return child ;
                 }
             }
             else {
-                if((!nodemap.hasObstacle(x + 1, y + dy) && nodemap.hasObstacle(x + 1, y)) ||
-                        (!nodemap.hasObstacle(x - 1, y + dy) && nodemap.hasObstacle(x - 1, y))) {
+                if( (!nodemap.hasObstacle(x + 1, y + dy) && nodemap.hasObstacle(x + 1, y)) ||
+                    (!nodemap.hasObstacle(x - 1, y + dy) && nodemap.hasObstacle(x - 1, y))) {
                     return child ;
                 }
             }
@@ -179,8 +183,11 @@ public class JumpPointFinder extends PathFinder{
             int py = n.getParent().getCoord().getY() ;
 
             // Get direction of travel
-            int dx = (x-px) / Math.max(Math.abs(x-px) , 1) ;
-            int dy = (y-py) / Math.max(Math.abs(y-py) , 1) ;
+            int dx = (x-px) ;
+            int dy = (y-py)  ;
+
+            if(dx > 0) { dx = 1 ; } else if (dx < 0 ) { dx = -1 ; } else { dx = 0 ; }
+            if(dy > 0) { dy = 1 ; } else if (dy < 0 ) { dy = -1 ; } else { dy = 0 ; }
 
             // Diagonal search
             if(dx != 0 && dy != 0) {

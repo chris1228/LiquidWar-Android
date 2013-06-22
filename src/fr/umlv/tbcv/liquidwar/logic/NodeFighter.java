@@ -39,6 +39,8 @@ public class NodeFighter extends Fighter {
     Coordinates nextPosition ;      // Next coordinate that the fighter has to reach
     Coordinates approximateCursor ; // Last good cursor position. Only updated when the real cursor has moved far away from that last position
     LiquidNodeMap nodeMap ;         // The grid
+    boolean isLeader ;              // If node is leader
+    NodeFighter leader ;            // Leader fighter to follow if current fighter isn't itself a leader
 
     public NodeFighter (LiquidMap lwmap, int team) {
         super(team) ;
@@ -51,16 +53,16 @@ public class NodeFighter extends Fighter {
     }
 
     public void move(LiquidMap lwmap, Fighter[] fighters) {
-        // Get a path
+        // Get a pathJumpPointFinder
         computePath();
         nodeMap.resetNodes();
 
         // If after computing, no available paths were found, we don't move
-        if(path == null || path.peek() == null) {
+        if(path == null || path.isEmpty()) {
             return ;
         }
 
-        if(nextPosition == null || position.equals(nextPosition)) {
+        if(nextPosition == null || (Coordinates.getSquareDistance(position,nextPosition) <= 3 )) {
             nextPosition = path.pop() ;
             Log.e("MOVE","Position popped :" + nextPosition);
         }
@@ -85,9 +87,9 @@ public class NodeFighter extends Fighter {
             }
         }
 
-        Log.e("FIGHTER","CURRENT POSITION" + position) ;
-        Log.e("FIGHTER","WANTED POSITION " + nextPosition) ;
-        Log.e("FIGHTER","FINAL POSITION " + finalPosition );
+//        Log.e("FIGHTER","CURRENT POSITION" + position) ;
+//        Log.e("FIGHTER","WANTED POSITION " + nextPosition) ;
+//        Log.e("FIGHTER","FINAL POSITION " + finalPosition );
 
         // If the fighter hasnt been able to move, there is an obstacle/a soldier
         if(finalPosition.equals(position)) {
@@ -170,10 +172,17 @@ public class NodeFighter extends Fighter {
      * @return True if the two coordinates are close to each other, false otherwise
      */
     private boolean areClose (Coordinates a, Coordinates b) {
-        return Coordinates.getSquareDistance(a,b) <= 5 ;
+        return Coordinates.getSquareDistance(a,b) <= 2 ;
     }
 
-    private void computePath () {
+    /**
+     * Calculate a path between the soldier current position and the player's cursor
+     *
+     * @return 1 if a path has been found ;
+     *         -1 if no path exists ;
+     *         0 if the path doesn't need to be recalculated (follow previous path)
+     */
+    private int computePath () {
         Coordinates cursor = GameInput.getPlayerCoordinate(team) ;
 
         // Update approximate cursor
@@ -181,23 +190,25 @@ public class NodeFighter extends Fighter {
             approximateCursor = new Coordinates(cursor) ;
         }
         else {
-            if(!areClose(approximateCursor,cursor) || nodeMap.obstacleInPath(approximateCursor,cursor)) {
+            if( !approximateCursor.equals(cursor) || nodeMap.obstacleInPath(approximateCursor,cursor)) {
                 approximateCursor.copyCoordinates(cursor);
             }
+            //TODO Fix this. Supposed to avoid useless path recalculations but has weird side effets with JPS
+//            else {
+//                // No need to recalculate paths if the cursor hasnt moved since last time
+//                return 0 ;
+//            }
         }
 
         // Make sure we're not already at the destination
         if(position.equals(cursor)) {
-            return ;
+            return 0 ;
         }
-        Log.e("COMPUTE","FIGURING A PATH BETWEEN "+position+" AND "+ cursor );
         path = pathFinder.finder(position,cursor) ;
         if(path != null && !path.isEmpty()) {
-            Log.e("COMPUTE","Found path :" + path);
             path.pop(); // First node is useless (it's where we are right now)
+            return 0 ;
         }
-        else {
-            Log.e("COMPUTE","NO PATH FOUND (not possible)") ;
-        }
+        return -1 ;
     }
 }

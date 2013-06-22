@@ -20,6 +20,8 @@
 
 package fr.umlv.tbcv.liquidwar.logic.pathfinding;
 
+import android.util.Log;
+
 import java.util.Comparator;
 import java.util.TreeSet;
 
@@ -33,12 +35,18 @@ public class TreeNodeSet<E> extends TreeSet<E> implements Iterable<E>{
             if(add(e)) {
                 return true ;
             }
+            Log.e("TNSET","add failed ! (Element "+e+" )") ;
         }
+        else {
+            Log.e("TNSET","remove failed ! (Element "+e+" )") ;
+            Log.e("TNTSET","list contains ? : "+ this.contains(e) );
+        }
+
         return false ;
     }
 
     @Override
     public E pollFirst() {
-        return (E) super.pollFirst();
+        return super.pollFirst();
     }
 }

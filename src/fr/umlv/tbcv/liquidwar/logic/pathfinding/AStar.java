@@ -24,6 +24,10 @@ import android.util.Log;
 
 import java.util.Deque;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import fr.umlv.tbcv.liquidwar.logic.Coordinates;
 import fr.umlv.tbcv.liquidwar.logic.LiquidMap;
@@ -33,9 +37,8 @@ import fr.umlv.tbcv.liquidwar.logic.LiquidNodeMap;
  * Implementation of PathFinder with the A* algorithm
  */
 public class AStar extends PathFinder {
-    TreeNodeSet<Node> openSet ;
-    Node startNode, endNode ;
-    LiquidNodeMap nodemap ;
+    private LiquidNodeMap nodemap ;
+    public static final double sqrt2 = Math.sqrt(2);
 
     public AStar(LiquidMap lwmap){
         if(!(lwmap instanceof LiquidNodeMap)) {
@@ -43,6 +46,7 @@ public class AStar extends PathFinder {
         }
         nodemap = (LiquidNodeMap) lwmap ;
     }
+
     /**
      * Get a path between a start position and an ending position
      *
@@ -56,17 +60,19 @@ public class AStar extends PathFinder {
             // Constructor should be called before calling finder
             throw new RuntimeException() ;
         }
-        openSet = new TreeNodeSet<>() ;
-        Log.e("FINDER", "Searching from " + start + " to " + end);
-        startNode = nodemap.getNode(start) ;
-        endNode = nodemap.getNode(end) ;
+        PriorityQueue<Node>openSet = new PriorityQueue<>() ;
+        Node startNode = nodemap.getNode(start) ;
+        Node endNode = nodemap.getNode(end) ;
 
-        openSet.add(startNode);
+        startNode.g = 0 ;
+        startNode.f = 0 ;
+
         startNode.opened = true ;
+        openSet.add(startNode);
 
         while(!openSet.isEmpty()) {
             // Retrieve the node with the minimum 'f' value
-            Node n = openSet.pollFirst() ;
+            Node n = openSet.poll() ;
             n.closed = true ;
 
             // If n is the final node it's over
@@ -83,22 +89,36 @@ public class AStar extends PathFinder {
                 }
 
                 // Get the distance between current node and neighbor
-                double ng = nodeNeighbor.g + ((neighbor.getX()-n.getCoord().getX() == 0 || neighbor.getY()-n.getCoord().getY() == 0 ) ? 1 : Math.sqrt(2)) ;
+                double ng = n.g + ((neighbor.getX() - n.getCoord().getX() == 0 || neighbor.getY() - n.getCoord().getY() == 0 ) ? 1 : sqrt2 );
 
                 if(!nodeNeighbor.opened || ng < nodeNeighbor.g) {
-                    nodeNeighbor.g = ng ;
-                    if(nodeNeighbor.heuristic == 0) {
-                        nodeNeighbor.heuristic = hFunction.distance(nodeNeighbor.getCoord() , endNode.getCoord()) ;
+
+                    // nodeNeighbor wasn't opened, so we add it in the open set
+                    if(!nodeNeighbor.opened) {
+                        nodeNeighbor.g = ng ;
+                        if(nodeNeighbor.heuristic == 0) {
+                            nodeNeighbor.heuristic = hFunction.distance(nodeNeighbor.getCoord() , endNode.getCoord()) ;
+                        }
+
                         nodeNeighbor.f = nodeNeighbor.g + nodeNeighbor.heuristic ;
                         nodeNeighbor.setParent(n);
-
-                        if(!nodeNeighbor.opened) {
-                            openSet.add(nodeNeighbor);
-                            nodeNeighbor.opened = true ;
+                        nodeNeighbor.opened = true ;
+                        openSet.add(nodeNeighbor);
+                    }
+                    else {
+                        // nodeNeighbor was already opened and can be reached with a smaller cost
+                        if ( !openSet.remove(nodeNeighbor)) {
+                            throw new RuntimeException() ;
                         }
-                        else {
-                            // nodeNeighbor can be reached with a smaller cost
-                            openSet.update(nodeNeighbor) ;
+                        nodeNeighbor.g = ng ;
+                        if(nodeNeighbor.heuristic == 0) {
+                            nodeNeighbor.heuristic = hFunction.distance(nodeNeighbor.getCoord() , endNode.getCoord()) ;
+                        }
+
+                        nodeNeighbor.f = nodeNeighbor.g + nodeNeighbor.heuristic ;
+                        nodeNeighbor.setParent(n);
+                        if ( !openSet.add(nodeNeighbor)) {
+                            throw new RuntimeException() ;
                         }
                     }
                 }

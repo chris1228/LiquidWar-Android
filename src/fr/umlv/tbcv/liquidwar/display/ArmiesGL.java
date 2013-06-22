@@ -91,7 +91,6 @@ public class ArmiesGL {
 
 		    }
 
-            //TODO : Be able to draw several armies in different colors
 		    public void draw(float[] mvpMatrix) {
 
             for(int j = 0 ; j < armies.getArmiesNumber() ; j++ ) {

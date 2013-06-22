@@ -27,7 +27,7 @@ import android.util.Log;
  */
 public class NodeArmies implements Armies{
 
-    public static final int fighterNumber = 1;      // Number of fighters in total
+    public int fighterNumber = 2;      // Number of fighters in total
     private Fighter[] fighters ;                    // Array of every fighter on the battlefield
     private int[] fightersPosition ;                // Array of every fighter position. First int is f1(x), second int is f1(y), third int is f2(x)...
     private int nbArmies = 1 ;                      // Number of armies/players
@@ -46,6 +46,11 @@ public class NodeArmies implements Armies{
 
         // 2 slots ( one for X, the other for Y ) for each fighter
         fightersPosition = new int[fighterNumber * 2] ;
+    }
+
+    public NodeArmies (LiquidMap map, int nbArmies, int fighterNumber) {
+        this(map,nbArmies);
+        this.fighterNumber = fighterNumber ;
     }
 
     /**

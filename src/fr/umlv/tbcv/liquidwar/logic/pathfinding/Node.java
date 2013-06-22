@@ -20,6 +20,8 @@
 
 package fr.umlv.tbcv.liquidwar.logic.pathfinding;
 
+import android.util.Log;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -88,10 +90,11 @@ public class Node implements Comparable {
     public boolean equals(Object o) {
         if(o instanceof Node) {
             Node n = (Node) o ;
-            return coord.equals(n.coord) ;
+            return coord.equals(n.coord) && f == n.f;
         }
         return false ;
     }
+
 
     /**
      * Build a list of node by adding parents successively

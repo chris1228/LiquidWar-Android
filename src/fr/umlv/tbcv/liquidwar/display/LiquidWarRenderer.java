@@ -70,7 +70,7 @@ public class LiquidWarRenderer implements GLSurfaceView.Renderer {
 //        Matrix.setIdentityM(mOrthoMatrix, 0);
         
         // Initialize game logic
-        gameWorld = new LiquidWorld(1) ; //TODO Find a way to ask input for number of players (currently 2)
+        gameWorld = new LiquidWorld(2) ; //TODO Find a way to ask input for number of players (currently 2)
         // Initialize objects to be drawn
         armies = new ArmiesGL( gameWorld.getArmies() ) ;
         players = new PlayerGL( gameWorld.getPlayers(), gameWorld.getNbPlayers() ) ;
