@@ -34,13 +34,14 @@ import fr.umlv.tbcv.liquidwar.logic.pathfinding.PathFinder;
  * Implementation of Fighter using Nodes for pathfinding (interacting with LiquidNodeMap).
  */
 public class NodeFighter extends Fighter {
-    Deque<Coordinates> path ;       // Path of coordinates that the fighter has to follow to reach the cursor. Recalculated every time the cursor moves
-    PathFinder pathFinder ;         // Path algorithm used to reach the cursor
-    Coordinates nextPosition ;      // Next coordinate that the fighter has to reach
-    Coordinates approximateCursor ; // Last good cursor position. Only updated when the real cursor has moved far away from that last position
-    LiquidNodeMap nodeMap ;         // The grid
-    boolean isLeader ;              // If node is leader
-    NodeFighter leader ;            // Leader fighter to follow if current fighter isn't itself a leader
+    private Deque<Coordinates> path ;       // Path of coordinates that the fighter has to follow to reach the cursor. Recalculated every time the cursor moves
+    private PathFinder pathFinder ;         // Path algorithm used to reach the cursor
+    private Coordinates nextPosition ;      // Next coordinate that the fighter has to reach
+    private Coordinates approximateCursor ; // Last good cursor position. Only updated when the real cursor has moved far away from that last position
+    private LiquidNodeMap nodeMap ;         // The grid
+    private boolean isLeader ;              // If node is leader
+    private NodeFighter leader ;            // Leader fighter to follow if current fighter isn't itself a leader
+    private Squad squad ;                   // Current squad in which the fighter belongs to
 
     public NodeFighter (LiquidMap lwmap, int team) {
         super(team) ;
@@ -49,23 +50,39 @@ public class NodeFighter extends Fighter {
         }
         nodeMap = (LiquidNodeMap) lwmap ;
         pathFinder = new JumpPointFinder(lwmap) ;
+        isLeader = true ;
+    }
 
+    public NodeFighter (LiquidMap lwmap, int team, Fighter leader) {
+        this(lwmap,team) ;
+        if(leader == null || !(leader instanceof NodeFighter)) {
+            throw new RuntimeException() ; // Should never happen
+        }
+        isLeader = false ;
+        this.leader = (NodeFighter)leader ;
     }
 
     public void move(LiquidMap lwmap, Fighter[] fighters) {
-        // Get a pathJumpPointFinder
-        computePath();
-        nodeMap.resetNodes();
 
-        // If after computing, no available paths were found, we don't move
-        if(path == null || path.isEmpty()) {
-            return ;
+        // Get a path JumpPointFinder
+        if(isLeader) {
+            computePath();
+            nodeMap.resetNodes();
+
+            // If after computing, no available paths were found, we don't move
+            if(path == null || path.isEmpty()) {
+                return ;
+            }
+
+            if(nextPosition == null || (Coordinates.getSquareDistance(position,nextPosition) <= 3 )) {
+                nextPosition = path.pop() ;
+            }
+        }
+        else {
+            nextPosition = leader.nextPosition ;
         }
 
-        if(nextPosition == null || (Coordinates.getSquareDistance(position,nextPosition) <= 3 )) {
-            nextPosition = path.pop() ;
-            Log.e("MOVE","Position popped :" + nextPosition);
-        }
+
 
         Coordinates tempPosition = new Coordinates(position.getX(), position.getY()) ;
         Coordinates idealPosition = new Coordinates(position.getX(), position.getY()) ;
@@ -211,4 +228,31 @@ public class NodeFighter extends Fighter {
         }
         return -1 ;
     }
+
+    /** GETTERS / SETTERS **/
+    public Squad getSquad() {
+        return squad;
+    }
+
+    public void setSquad(Squad squad) {
+        this.squad = squad;
+    }
+
+
+    public NodeFighter getLeader() {
+        return leader;
+    }
+
+    public void setLeader(NodeFighter leader) {
+        this.leader = leader;
+    }
+
+    public void turnIntoLeader() {
+        isLeader = true ;
+    }
+
+    public void turnIntoGrunt() {
+        isLeader = false ;
+    }
+
 }

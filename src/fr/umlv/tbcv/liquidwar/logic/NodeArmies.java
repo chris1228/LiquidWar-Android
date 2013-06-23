@@ -22,16 +22,20 @@ package fr.umlv.tbcv.liquidwar.logic;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Implementation of Army using Nodes (interacting with LiquidNodMap).
  */
 public class NodeArmies implements Armies{
 
-    public int fighterNumber = 2;      // Number of fighters in total
+    public int fighterNumber = 20;      // Number of fighters in total
     private Fighter[] fighters ;                    // Array of every fighter on the battlefield
     private int[] fightersPosition ;                // Array of every fighter position. First int is f1(x), second int is f1(y), third int is f2(x)...
-    private int nbArmies = 1 ;                      // Number of armies/players
+    private int nbArmies = 1 ;                      // Number of armies/players (default being 1)
     LiquidNodeMap lwmap ;                           // The grid
+    List<Squad> squads ;                            // Squads of fighters (fighters grouped by proximity)
 
     public NodeArmies (LiquidMap map, int nbArmies) {
         if(!(map instanceof LiquidNodeMap)) {
@@ -42,6 +46,7 @@ public class NodeArmies implements Armies{
         this.lwmap = (LiquidNodeMap)map ;
 
         fighters = new NodeFighter[ fighterNumber ] ;
+        squads = new ArrayList<>() ;
         initArmy() ;
 
         // 2 slots ( one for X, the other for Y ) for each fighter
@@ -64,19 +69,40 @@ public class NodeArmies implements Armies{
         Coordinates tmp = new Coordinates() ;
         int fightersPerTeam = fighterNumber / nbArmies ;
 
+        // Variables used to designate leaders in armies
+        boolean first = true ;
+        Fighter parent = null ;
+
+        // For every army/player in the game
         for(int t = 0 ; t < nbArmies ; t++) {
             switch(t) {
                 case 1 : case 3 : j = lwmap.getHeight()-3 ; break ;
                 default : j = 3 ; break ;
             }
+            first = true ;
+            parent = null ;
+            // Generate fighters
+            Squad tempSquad = new Squad() ;
             for ( int i = t*(fightersPerTeam) ; i < (t+1)*fightersPerTeam ; i++ ) {
                 tmp.setCoordinates(i%(fakeWidth+1) , j);
                 if(lwmap.hasObstacle(tmp)) { continue ; }
-                fighters[i] = new NodeFighter(lwmap,t);
-                fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
-                fighters[i].getPosition().setY(  j ) ;
+                // The first fighter in an army is the leader
+                if(first) {
+                    fighters[i] = new NodeFighter(lwmap,t) ;
+                    tempSquad.addLeader((NodeFighter)fighters[i]);
+                    parent = fighters[i] ;
+                    first = false ;
+                }
+                // Others follow that leader
+                else {
+                    if(parent == null) { throw new RuntimeException() ; }
+                    fighters[i] = new NodeFighter(lwmap,t,parent);
+                    tempSquad.addFighter((NodeFighter)fighters[i]);
+                }
 
-//			Log.e("FighterPos", "Fighter init at" + fighters[i].getPosition() ) ;
+                // Set fighter position on the corner of the map (First team : bottom left, second team : top left...)
+                fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
+                fighters[i].getPosition().setY( j ) ;
 
                 if ( i >= fakeWidth && i % fakeWidth == 0 ) {
                     switch(t) {
@@ -85,7 +111,9 @@ public class NodeArmies implements Armies{
                     }
                 }
             }
+            squads.add(tempSquad);
         }
+        Log.e("NodeArmies","Squads are : "+ squads);
 //        for ( int i = 0 ; i < fighterNumber/2 ; i++ ) {
 //            tmp.setCoordinates(i%(fakeWidth+1) , j);
 //            if(lwmap.hasObstacle(tmp)) { continue ; }
