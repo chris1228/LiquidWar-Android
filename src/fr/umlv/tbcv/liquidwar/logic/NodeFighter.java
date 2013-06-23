@@ -27,7 +27,6 @@ import java.util.Deque;
 import fr.umlv.tbcv.liquidwar.input.GameInput;
 import fr.umlv.tbcv.liquidwar.logic.pathfinding.AStar;
 import fr.umlv.tbcv.liquidwar.logic.pathfinding.JumpPointFinder;
-import fr.umlv.tbcv.liquidwar.logic.pathfinding.Naive;
 import fr.umlv.tbcv.liquidwar.logic.pathfinding.PathFinder;
 
 /**
