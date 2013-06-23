@@ -64,14 +64,14 @@ public class NodeArmies implements Armies{
      * from the same Army in a corner of the map.
      */
     private void initArmy() {
-        int j  = 3 ;
+        int j ;
         int fakeWidth = 20 ;
         Coordinates tmp = new Coordinates() ;
         int fightersPerTeam = fighterNumber / nbArmies ;
 
         // Variables used to designate leaders in armies
-        boolean first = true ;
-        Fighter parent = null ;
+        boolean first ;
+        Fighter parent ;
 
         // For every army/player in the game
         for(int t = 0 ; t < nbArmies ; t++) {
@@ -151,13 +151,13 @@ public class NodeArmies implements Armies{
     public void move() {
         for( Squad s : squads ) {
             s.move(lwmap , fighters ) ;
-        }
-        //TODO Remove this
-//        for ( Fighter f : fighters ) {
-//            if(f != null) {
-//                f.move( lwmap, fighters ) ;
+            // Scraped it because it was too slow
+//            Squad newSquad = s.splitSquad(lwmap) ;
+//            if(newSquad != null) {
+//                newSquads.add(newSquad) ; // Every new squad resulting from a split are put in a temporary list
 //            }
-//        }
+        }
+//        squads.addAll(newSquads) ; // Concatenate squad list with the temporary list
     }
 
     /**

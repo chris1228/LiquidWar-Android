@@ -26,14 +26,16 @@ package fr.umlv.tbcv.liquidwar.logic;
  * Its only objective is ultimately to follow the player controlling its team.
  */
 public abstract class Fighter {
-    private static final int FULL_HEALTH = 100 ;
+    protected static final int FULL_HEALTH = 100 ;
+    protected static final int damageAmount = 3 ;
 	protected Coordinates position ;
-	protected short health ;
+	protected int health ;
     protected int team ;
 
     public Fighter(int team) {
         position = new Coordinates() ;
         this.team = team ;
+        health = FULL_HEALTH ;
     }
 
     /**
@@ -48,13 +50,14 @@ public abstract class Fighter {
         return team == f.team ;
     }
 	
-	public void attack (Fighter ennemy) {
-        int damageAmount = 3 ;
+	public Fighter attack (Fighter ennemy) {
         ennemy.health -= damageAmount ;
         if(ennemy.health <= 0) {
             ennemy.health = FULL_HEALTH ;
             ennemy.team = team ;
+            return ennemy ;
         }
+        return null ;
     }
 
     public void heal (Fighter friend) {
@@ -77,7 +80,7 @@ public abstract class Fighter {
 		this.position.copyCoordinates(position) ;
 	}
 	
-	public short getHealth() {
+	public int getHealth() {
 		return health;
 	}
 	public void setHealth(short health) {

@@ -39,9 +39,10 @@ public class NodeFighter extends Fighter {
     private Coordinates nextPosition ;      // Next coordinate that the fighter has to reach
     private Coordinates approximateCursor ; // Last good cursor position. Only updated when the real cursor has moved far away from that last position
     private LiquidNodeMap nodeMap ;         // The grid
-    private boolean isLeader ;              // If node is leader
+    protected boolean isLeader ;            // If node is leader
     private NodeFighter leader ;            // Leader fighter to follow if current fighter isn't itself a leader
     private Squad squad ;                   // Current squad in which the fighter belongs to
+    private Squad newSquad ;                // Next squad the fighter will belong to, used when the fighter has to change team
 
     public NodeFighter (LiquidMap lwmap, int team) {
         super(team) ;
@@ -184,13 +185,29 @@ public class NodeFighter extends Fighter {
     }
 
     /**
-     * Figure out if 2 coordinates are close to each other
-     * @param a First coordinate
-     * @param b Second coordinate
-     * @return True if the two coordinates are close to each other, false otherwise
+     * Attacks another fighter
+     * @param ennemy Fighter to attack
+     * @return The attacked fighter if he has switched team ;
+     *         null otherwise
      */
-    private boolean areClose (Coordinates a, Coordinates b) {
-        return Coordinates.getSquareDistance(a,b) <= 2 ;
+    public Fighter attack (Fighter ennemy) {
+        NodeFighter nodeEnnemy = (NodeFighter) ennemy ; // TODO Check for this, but should never happen unless programmer messes around
+        nodeEnnemy.health -= damageAmount ;
+        if(nodeEnnemy.health <= 0) {
+            nodeEnnemy.health = (short)-team ; // Mark the fighter as "dead and switching to another team"
+            nodeEnnemy.newSquad = this.squad ;
+//            nodeEnnemy.health = FULL_HEALTH ;
+//            nodeEnnemy.team = team ;
+
+            // If the ennemy switches team, he also has to switch squad
+//            if(nodeEnnemy.isLeader) {
+//                nodeEnnemy.squad.changeLeader();
+//            }
+//            nodeEnnemy.squad.removeFighter(nodeEnnemy);
+//            squad.addFighter(nodeEnnemy);
+            return ennemy ;
+        }
+        return null ;
     }
 
     /**
@@ -239,6 +256,9 @@ public class NodeFighter extends Fighter {
         this.squad = squad;
     }
 
+    public Squad getNewSquad() {
+        return newSquad;
+    }
 
     public NodeFighter getLeader() {
         return leader;
