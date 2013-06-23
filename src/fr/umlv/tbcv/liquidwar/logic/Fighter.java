@@ -35,8 +35,14 @@ public abstract class Fighter {
         position = new Coordinates() ;
         this.team = team ;
     }
-	
-	public abstract void move (LiquidMap lwmap, Fighter[] fighters) ;
+
+    /**
+     * Make the fighter move on the grid or attack/heal another fighter
+     * @param lwmap     The grid
+     * @param fighters  Array of fighters on the battlefield
+     * @return  0 if the fighter's position hasn't changed ; 1 if the fighter has moved on the map
+     */
+	public abstract int move (LiquidMap lwmap, Fighter[] fighters) ;
 
     public boolean isFriend(Fighter f) {
         return team == f.team ;

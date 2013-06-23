@@ -62,7 +62,7 @@ public class NodeFighter extends Fighter {
         this.leader = (NodeFighter)leader ;
     }
 
-    public void move(LiquidMap lwmap, Fighter[] fighters) {
+    public int move(LiquidMap lwmap, Fighter[] fighters) {
 
         // Get a path JumpPointFinder
         if(isLeader) {
@@ -71,7 +71,7 @@ public class NodeFighter extends Fighter {
 
             // If after computing, no available paths were found, we don't move
             if(path == null || path.isEmpty()) {
-                return ;
+                return 0;
             }
 
             if(nextPosition == null || (Coordinates.getSquareDistance(position,nextPosition) <= 3 )) {
@@ -119,13 +119,14 @@ public class NodeFighter extends Fighter {
                     attack(obstacle) ;
                 }
             }
-            return ;
+            return 0;
         }
         // Fighter can move freely, its position is updated
         else {
             nodeMap.putSoldier(finalPosition, this) ;
             position.copyCoordinates(finalPosition);
         }
+        return 1 ;
     }
 
     /**

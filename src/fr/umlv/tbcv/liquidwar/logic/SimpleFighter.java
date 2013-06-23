@@ -46,7 +46,7 @@ public class SimpleFighter extends Fighter {
 	}
 	
 	@Override
-	public void move (LiquidMap lwmap, Fighter[] fighters) {
+	public int move (LiquidMap lwmap, Fighter[] fighters) {
         if(! (lwmap instanceof LiquidSimpleMap) ) {
             throw new RuntimeException() ;
         }
@@ -86,7 +86,7 @@ public class SimpleFighter extends Fighter {
                     attack(obstacle) ;
                 }
             }
-            return ;
+            return 0 ;
         }
         // Fighter can move freely, its position is updated
         else {
@@ -95,7 +95,7 @@ public class SimpleFighter extends Fighter {
             position.setY( finalPosition.getY() ) ;
         }
 
-	    return ;
+	    return 1 ;
 	}
 
 }

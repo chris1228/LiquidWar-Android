@@ -149,11 +149,15 @@ public class NodeArmies implements Armies{
      */
     @Override
     public void move() {
-        for ( Fighter f : fighters ) {
-            if(f != null) {
-                f.move( lwmap, fighters ) ;
-            }
+        for( Squad s : squads ) {
+            s.move(lwmap , fighters ) ;
         }
+        //TODO Remove this
+//        for ( Fighter f : fighters ) {
+//            if(f != null) {
+//                f.move( lwmap, fighters ) ;
+//            }
+//        }
     }
 
     /**

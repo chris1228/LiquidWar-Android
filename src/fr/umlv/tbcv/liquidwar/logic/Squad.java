@@ -32,7 +32,6 @@ public class Squad {
     private Fighter leader ;                        // Leader of the squad
 
 
-
     public Squad () {
         fighterList = new ArrayList<>() ;
     }
@@ -85,7 +84,9 @@ public class Squad {
         }
     }
 
-    // Change leader of the squad to another fighter ( the next in the list )
+    /**
+     * Change leader of the squad to another fighter ( the next in the list )
+     */
     public void changeLeader() {
         boolean leaderMet = false ;
 
@@ -106,6 +107,17 @@ public class Squad {
         }
         // If we get here, the leader was at the end of the list. The next leader should be the first in the list then.
         changeLeader(fighterList.get(0));
+    }
+
+    public void move (LiquidMap lwmap, Fighter[] fighters) {
+        int movements = 0 ;
+        for(NodeFighter f : fighterList) {
+            movements += f.move(lwmap,fighters);
+        }
+        // If no fighters in this squad moved, we try another leader
+        if( movements == 0 ) {
+            changeLeader();
+        }
     }
 
     @Override
