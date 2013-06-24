@@ -80,8 +80,10 @@ public class LiquidNodeMap implements LiquidMap{
      */
     @Override
     public void loadMap() {
-        loadMapOne();
+        loadMapTwo();
     }
+
+
 
     private void loadMapOne() {
         for (int i = 5 ; i <= 20 ; i++ ) {

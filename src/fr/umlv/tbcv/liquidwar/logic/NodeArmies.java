@@ -113,35 +113,6 @@ public class NodeArmies implements Armies{
             }
             squads.add(tempSquad);
         }
-        Log.e("NodeArmies","Squads are : "+ squads);
-//        for ( int i = 0 ; i < fighterNumber/2 ; i++ ) {
-//            tmp.setCoordinates(i%(fakeWidth+1) , j);
-//            if(lwmap.hasObstacle(tmp)) { continue ; }
-//            fighters[i] = new NodeFighter(lwmap,0);
-//            fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
-//            fighters[i].getPosition().setY(  j ) ;
-//
-////			Log.e("FighterPos", "Fighter init at" + fighters[i].getPosition() ) ;
-//
-//            if ( i >= fakeWidth && i % fakeWidth == 0 ) {
-//                j++ ;
-//            }
-//        }
-//
-//        j = lwmap.getHeight() - 3 ;
-//        for ( int i = fighterNumber/2 ; i < fighterNumber ; i++ ) {
-//            tmp.setCoordinates(i%(fakeWidth+1) , j);
-//            if(lwmap.hasObstacle(tmp)) { continue ; }
-//            fighters[i] = new NodeFighter(lwmap,1);
-//            fighters[i].getPosition().setX( i% (fakeWidth + 1 )) ;
-//            fighters[i].getPosition().setY( j ) ;
-//
-////			Log.e("FighterPos", "Fighter init at" + fighters[i].getPosition() ) ;
-//
-//            if ( i >= fakeWidth && i % fakeWidth == 0 ) {
-//                j-- ;
-//            }
-//        }
     }
 
     /**

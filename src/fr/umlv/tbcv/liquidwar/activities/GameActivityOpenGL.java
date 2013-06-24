@@ -72,9 +72,15 @@ public class GameActivityOpenGL extends Activity {
 //	        Log.e("OriginalCursor", "("+ x + "," + y + ")") ;
 
             // Every touch on the screen can move up to one player cursor
-            for(int touches = 0 ; touches < e.getPointerCount() ; touches++ ) {
-                int x = (int) e.getX( e.getPointerId(touches)) ;
-                int y = (int) e.getY( e.getPointerId(touches)) ;
+            int fingerCount = e.getPointerCount() ;
+            for(int touches = 0 ; touches < fingerCount ; touches++ ) {
+                int pointerId = e.getPointerId(touches);
+                int index = e.findPointerIndex(pointerId) ;
+                if(index == -1) {
+                    continue ;
+                }
+                int x = (int) e.getX(index) ;
+                int y = (int) e.getY(index) ;
                 Coordinates touchCoordinate = new Coordinates( x* LiquidWorld.getGamewidth()  / this.getWidth() , LiquidWorld.getGameheight() - ( (y* LiquidWorld.getGameheight() / this.getHeight()) ) ) ;
 
                 for(int i = 0 ; i < GameInput.getNbPlayers() ; i++) {
