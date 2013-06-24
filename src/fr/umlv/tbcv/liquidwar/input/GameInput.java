@@ -46,6 +46,12 @@ public class GameInput {
         }
 	}
 
+    /**
+     * Retrieve the player's coordinates
+     *
+     * @param player the player whose coordinates we want
+     * @return the Coordinates of the player
+     */
     public static Coordinates getPlayerCoordinate(int player) {
         if(player < 0 ||player >= LiquidWorld.MAXPLAYERS) {
             throw new RuntimeException() ;
@@ -53,6 +59,12 @@ public class GameInput {
         return playersCoordinates[player] ;
     }
 
+    /**
+     * Set the player's coordinates. His previous coordinates are erased.
+     *
+     * @param player the player whose coordinates we modify
+     * @param newCoordinates the player's new coordinates.
+     */
     public static void setPlayersCoordinates(int player, Coordinates newCoordinates) {
         if(player < 0 ||player >= LiquidWorld.MAXPLAYERS) {
             throw new RuntimeException() ;
